@@ -1,3 +1,46 @@
 <resources>
-    <string name="app_name">DrugsOrganiser</string>
+    <string name="app_name">Drugs Organiser</string>
+    <string name="welcome">Welcome!</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="login_prompt">Login:</string>
+    <string name="password_prompt">Password:</string>
+    <string name="mail_prompt">E-mail:</string>
+    <string name="invalid_login_or_password">Invalid login or password, try again!</string>
+    <string name="fields_must_be_filled">All fields must be properly filled!</string>
+    <string name="login_exists_warning">Account with such login already exists, please choose another one!</string>
+    <string name="mail_already_in_use_warning">This mail address is already used by another account!</string>
+    <string name="account_created">Your account has been successfully created!</string>
+    <string name="login_successfull">Login successfull!</string>
+    <string name="title_activity_drugs">DrugsActivity</string>
+    <string name="current_user">CURRENT_USER</string>
+    <string name="my_drugs">My drugs</string>
+    <string name="account">Account</string>
+    <string name="logout">Logout</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+    <string name="delete_confirmation">Drug successfully deleted!</string>
+    <string name="add_confirmation">Drug successfully added!</string>
+    <string name="edit_confirmation">Drug successfully updated!</string>
+    <string name="drug_name">Drug name</string>
+    <string name="drug_dose">Dose</string>
+    <string name="drug_interval">Interval between doses</string>
+    <string name="drug_important">This drug is important</string>
+    <string name="new_item_dialog_title">Add new drug</string>
+    <string name="edit_item_dialog_title">Edit drug</string>
+    <string name="delete_item_dialog_title">Delete drug</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
+
+    <string name="positive_button">Done</string>
+    <string name="negative_button">Cancel</string>
+    <string name="empty_name_error">Item\'s name cannot be empty!</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
