@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\STUDIA\\Android\\TeamProject\\DrugsOrganiser\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_item.xml",
+        "source": "D:\\STUDIA\\Android\\TeamProject\\DrugsOrganiser\\app\\src\\main\\res\\menu\\menu_item.xml"
+    },
+    {
+        "merged": "D:\\STUDIA\\Android\\TeamProject\\DrugsOrganiser\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_drugs_drawer.xml",
+        "source": "D:\\STUDIA\\Android\\TeamProject\\DrugsOrganiser\\app\\src\\main\\res\\menu\\activity_drugs_drawer.xml"
+    },
+    {
+        "merged": "D:\\STUDIA\\Android\\TeamProject\\DrugsOrganiser\\app\\build\\intermediates\\res\\merged\\debug\\menu\\drugs.xml",
+        "source": "D:\\STUDIA\\Android\\TeamProject\\DrugsOrganiser\\app\\src\\main\\res\\menu\\drugs.xml"
+    }
+]
