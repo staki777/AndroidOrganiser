@@ -94,7 +94,10 @@ public class DrugsActivity extends AppCompatActivity
         if (id == R.id.nav_my_drugs) {
             getFragmentManager().beginTransaction().replace(R.id.toReplace, new MyDrugsFragment()).disallowAddToBackStack().commit();
           }
-          else if (id == R.id.nav_logout) {
+        else if (id == R.id.contact_person) {
+            getFragmentManager().beginTransaction().replace(R.id.toReplace, new ContactPersonFragment()).disallowAddToBackStack().commit();
+        }
+        else if (id == R.id.nav_logout) {
             Intent intent=new Intent(this, MainActivity.class);
             this.finish();
             startActivity(intent);

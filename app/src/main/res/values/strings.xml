@@ -15,6 +15,11 @@
     <string name="title_activity_drugs">DrugsActivity</string>
     <string name="current_user">CURRENT_USER</string>
     <string name="my_drugs">My drugs</string>
+    <string name="schedule">Schedule</string>
+    <string name="archive">Archive</string>
+    <string name="contact_person">Contact person</string>
+    <string name="change_contact_person">Change contact person</string>
+    <string name="call_contact_person">Call contact person</string>
     <string name="account">Account</string>
     <string name="logout">Logout</string>
     <string name="edit">Edit</string>
