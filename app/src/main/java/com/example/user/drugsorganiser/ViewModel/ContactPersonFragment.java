@@ -9,12 +9,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +19,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.j256.ormlite.dao.Dao;
+
+import java.sql.SQLException;
 
 import static android.app.Activity.RESULT_OK;
 
 public class ContactPersonFragment extends Fragment {
 
     private static final int PICK_CONTACT = 1;
+    private static final int CALL = 2;
 
     private TextView nameTextView, phoneTextView;
     private String name = "Contact person", number = "Phone number";
@@ -36,6 +38,8 @@ public class ContactPersonFragment extends Fragment {
 
     private Intent callIntent;
     private Intent pickIntent;
+
+    private User user;
 
     public ContactPersonFragment() {
         // Required empty public constructor
@@ -62,30 +66,32 @@ public class ContactPersonFragment extends Fragment {
         }
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CALL_PHONE},PICK_CONTACT);
+            requestPermissions(new String[]{Manifest.permission.CALL_PHONE},CALL);
         }
     }
 
-    // Callback with the request from calling requestPermissions(...)
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
-                                           @NonNull int[] grantResults) {
-        if (requestCode == PICK_CONTACT) {
-            if (grantResults.length == 1 &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getActivity(), "Read Contacts permission granted", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getActivity(), "Read Contacts permission denied", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
+//    // Callback with the request from calling requestPermissions(...)
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode,
+//                                           @NonNull String permissions[],
+//                                           @NonNull int[] grantResults) {
+//        if (requestCode == PICK_CONTACT) {
+//            if (grantResults.length == 1 &&
+//                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                Toast.makeText(getActivity(), "Read Contacts permission granted", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(getActivity(), "Read Contacts permission denied", Toast.LENGTH_SHORT).show();
+//            }
+//        } else {
+//            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        }
+//    }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        user = ((DrugsActivity)getActivity()).getUser();
 
         nameTextView = (TextView) getView().findViewById(R.id.name_contact);
         phoneTextView = (TextView) getView().findViewById(R.id.phone_contact);
@@ -121,14 +127,14 @@ public class ContactPersonFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        nameTextView.setText(name);
-        phoneTextView.setText(number);
+        nameTextView.setText(user.contactName);
+        phoneTextView.setText(user.contactNumber);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //TODO: Not finished
+
         if(requestCode == PICK_CONTACT && resultCode == RESULT_OK){
             Uri uri = data.getData();
             String[] projection = { ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME };
@@ -137,10 +143,18 @@ public class ContactPersonFragment extends Fragment {
             cursor.moveToFirst();
 
             int numberColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-            number = cursor.getString(numberColumnIndex);
+            user.contactNumber = cursor.getString(numberColumnIndex);
 
             int nameColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-            name = cursor.getString(nameColumnIndex);
+            user.contactName = cursor.getString(nameColumnIndex);
+
+            try{
+                final Dao<User, Integer> userDao = ((DrugsActivity)getActivity()).getHelper().getUserDao();
+                userDao.update(user);
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+            onResume();
 
             cursor.close();
             Toast.makeText(getActivity(), "New contact person has been selected.", Toast.LENGTH_SHORT).show();

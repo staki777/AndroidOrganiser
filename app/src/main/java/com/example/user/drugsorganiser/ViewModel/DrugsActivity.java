@@ -1,8 +1,13 @@
 package com.example.user.drugsorganiser.ViewModel;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.User;
@@ -24,6 +31,9 @@ import java.sql.SQLException;
 public class DrugsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int ALARM = 1;
+
+    private AlarmManagerBroadcastReceiver alarm;
     private DatabaseHelper databaseHelper = null;
     private User user;
     private String userLogin;
@@ -32,7 +42,9 @@ public class DrugsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_drugs);
+        alarm = new AlarmManagerBroadcastReceiver();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -53,6 +65,15 @@ public class DrugsActivity extends AppCompatActivity
             e.printStackTrace();
         }
         getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).disallowAddToBackStack().commit();
+        getPermissions();
+    }
+
+    @TargetApi(23)
+    public void getPermissions() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WAKE_LOCK)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.WAKE_LOCK},ALARM);
+        }
     }
 
     @Override
@@ -81,6 +102,7 @@ public class DrugsActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            onetimeTimer(getCurrentFocus()); //for tests
             return true;
         }
 
@@ -143,6 +165,24 @@ public class DrugsActivity extends AppCompatActivity
 
     public User getUser(){
         return  user;
+    }
+
+    public void startRepeatingTimer(View view) {
+        if(alarm != null){
+            alarm.SetAlarm(getApplicationContext());
+        }
+    }
+
+    public void cancelRepeatingTimer(View view){
+        if(alarm != null){
+            alarm.CancelAlarm(getApplicationContext());
+        }
+    }
+
+    public void onetimeTimer(View view){
+        if(alarm != null){
+            alarm.setOnetimeAlarm(getApplicationContext());
+        }
     }
 
     @Override

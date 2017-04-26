@@ -20,6 +20,8 @@ public class User implements Serializable{
     public static final String LOGIN_COLUMN = "user_login";
     public static final String PASSWORD_COLUMN = "user_password";
     public static final String MAIL_COLUMN = "user_mail";
+    public static final String CONTACT_NAME_COLUMN = "contact_name";
+    public static final String CONTACT_NUMBER_COLUMN = "contact_number";
 
 
 
@@ -35,6 +37,12 @@ public class User implements Serializable{
 
     @DatabaseField(columnName = MAIL_COLUMN)
     public String mail;
+
+    @DatabaseField(columnName = CONTACT_NAME_COLUMN)
+    public String contactName;
+
+    @DatabaseField(columnName = CONTACT_NUMBER_COLUMN)
+    public String contactNumber;
 
     @ForeignCollectionField(eager = true)
     public Collection<Drug> drugs = new ArrayList<Drug>();

@@ -79,9 +79,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 return;
             }
 
-
-
-
             try {
                 final Dao<User, Integer> userDao = ((MainActivity)getActivity()).getHelper().getUserDao();
                 PreparedQuery<User> q=userDao.queryBuilder().where().eq(User.LOGIN_COLUMN, etLogin.getText().toString().trim()).prepare();
