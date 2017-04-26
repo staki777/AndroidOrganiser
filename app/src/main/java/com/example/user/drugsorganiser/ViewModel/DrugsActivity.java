@@ -98,6 +98,9 @@ public class DrugsActivity extends AppCompatActivity
         else if (id == R.id.schedule) {
             getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).disallowAddToBackStack().commit();
         }
+        else if (id == R.id.last_doses) {
+            getFragmentManager().beginTransaction().replace(R.id.toReplace, new RegistryFragment()).disallowAddToBackStack().commit();
+        }
         else if (id == R.id.contact_person) {
             getFragmentManager().beginTransaction().replace(R.id.toReplace, new ContactPersonFragment()).disallowAddToBackStack().commit();
         }

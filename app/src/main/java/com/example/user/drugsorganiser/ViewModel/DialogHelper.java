@@ -35,6 +35,13 @@ public class DialogHelper {
         this.user=user;
     }
 
+    public DialogHelper(User user, Context ctx, RegistryAdapter drugAdapter) {
+        this.ctx = ctx;
+        //TODO: One DialogHelper for all adapters.
+        //this.drugAdapter =drugAdapter;
+        this.user=user;
+    }
+
     public void showAddDialog(final View view){
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ctx);
 

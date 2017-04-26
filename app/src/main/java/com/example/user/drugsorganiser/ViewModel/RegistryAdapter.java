@@ -1,7 +1,6 @@
 package com.example.user.drugsorganiser.ViewModel;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -14,50 +13,53 @@ import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by DV7 on 2017-04-26.
  */
 
-public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
+public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
 
     private User user;
-    private List<Drug> drugs;
     private Context ctx;
     private DialogHelper dh;
     private List<Pair<Drug, Date>> doses;
     private SimpleDateFormat dateFormat;
 
-    public DoseAdapter(User user, Context ctx) {
-        this.drugs = new ArrayList<>();
-        drugs.addAll(user.drugs);
-
+    public RegistryAdapter(User user, Context ctx) {
         this.user=user;
         this.ctx = ctx;
-        dh = new DialogHelper(user, ctx, DoseAdapter.this);
+        dh = new DialogHelper(user, ctx, RegistryAdapter.this);
 
         dateFormat = new SimpleDateFormat ("HH:mm (dd.MM)");
-        doses = new LinkedList<Pair<Drug, Date>>();
-        CalculateDoses();
+        doses = new LinkedList<>();
+
+        //mock
+        List<Drug> drugs = new ArrayList<>();
+        drugs.addAll(user.drugs);
+        Calendar cal = Calendar.getInstance();
+        cal.set(2017,4,25,8,0);
+        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
+        cal.set(2017,4,25,20,0);
+        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
+        cal.set(2017,4,26,8,0);
+        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
     }
 
-    private void CalculateDoses() {
-        //TODO: Calculate which drug' doses for next 24 hours.
-       //mock
-        Calendar cal = Calendar.getInstance();
-        cal.set(2017,4,27,8,0);
-        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date()));
-        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
+    public void moveToRegistry(Pair<Drug,Date> dose)
+    {
+        //TODO: Dose's moving from DoseAdapter to RegistryAdapter.
+        doses.add(dose);
+    }
+
+    public void removeOlderThanWeek(){
+        //TODO:
     }
 
     @Override
@@ -69,7 +71,7 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
 
     @Override
     public void onBindViewHolder(final DrugViewHolder holder, final int position) {
-        final Pair<Drug,Date> dose = doses.get(position);
+        final Pair<Drug,Date> dose = doses.get(doses.size() - position - 1);
         holder.itemNameView.setText(dose.first.name);
         holder.itemDoseView.setText(dose.first.dose);
         holder.itemIntervalView.setText(dateFormat.format(dose.second));
