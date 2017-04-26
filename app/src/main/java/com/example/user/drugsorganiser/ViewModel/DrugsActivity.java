@@ -52,6 +52,7 @@ public class DrugsActivity extends AppCompatActivity
         }catch (SQLException e){
             e.printStackTrace();
         }
+        getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).disallowAddToBackStack().commit();
     }
 
     @Override
@@ -94,6 +95,9 @@ public class DrugsActivity extends AppCompatActivity
         if (id == R.id.nav_my_drugs) {
             getFragmentManager().beginTransaction().replace(R.id.toReplace, new MyDrugsFragment()).disallowAddToBackStack().commit();
           }
+        else if (id == R.id.schedule) {
+            getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).disallowAddToBackStack().commit();
+        }
         else if (id == R.id.contact_person) {
             getFragmentManager().beginTransaction().replace(R.id.toReplace, new ContactPersonFragment()).disallowAddToBackStack().commit();
         }
