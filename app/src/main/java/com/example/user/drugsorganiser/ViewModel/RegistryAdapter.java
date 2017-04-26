@@ -45,6 +45,7 @@ public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
         drugs.addAll(user.drugs);
         Calendar cal = Calendar.getInstance();
         cal.set(2017,4,25,8,0);
+        if (drugs.size() == 0) return;
         doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
         cal.set(2017,4,25,20,0);
         doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));

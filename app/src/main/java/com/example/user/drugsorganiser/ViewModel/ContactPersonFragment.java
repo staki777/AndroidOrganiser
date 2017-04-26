@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class ContactPersonFragment extends Fragment {
     private static final int PICK_CONTACT = 1;
 
     private TextView nameTextView, phoneTextView;
+    private String name = "Contact person", number = "Phone number";
     private Button callButton, changeButton;
 
     private Intent callIntent;
@@ -49,14 +51,18 @@ public class ContactPersonFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getPermissionToReadUserContacts();
+        getPermissions();
     }
 
     @TargetApi(23)
-    public void getPermissionToReadUserContacts() {
+    public void getPermissions() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PICK_CONTACT);
+        }
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CALL_PHONE},PICK_CONTACT);
         }
     }
 
@@ -86,24 +92,17 @@ public class ContactPersonFragment extends Fragment {
         callButton = (Button) getView().findViewById(R.id.call_contact);
         changeButton = (Button) getView().findViewById(R.id.change_contact);
 
-        nameTextView.setText("Contact person");
-        phoneTextView.setText("Phone number");
-
         callButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(phoneTextView.getText().toString().trim())) {
+                if (TextUtils.isEmpty(phoneTextView.getText().toString().replace("[(- )]",""))) {
                     Toast.makeText(getActivity(), "Phone number must be specified", Toast.LENGTH_SHORT).show();
                 }
-                //TODO: Not finished
-                callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:"+phoneTextView.getText().toString().trim()));
 
-                if (ActivityCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
+                callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:"+phoneTextView.getText().toString().replace("[(+-)]","")));
+
                 startActivity(callIntent);
             }
         });
@@ -112,52 +111,39 @@ public class ContactPersonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //grantUriPermission();
-                Intent pickIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                Uri uri = Uri.parse("content://contacts");
+                pickIntent = new Intent(Intent.ACTION_PICK, uri);
+                pickIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
                 startActivityForResult(pickIntent, PICK_CONTACT);
             }});
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        nameTextView.setText(name);
+        phoneTextView.setText(number);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //TODO: Not finished
-        if(requestCode == PICK_CONTACT){
-            if(resultCode == RESULT_OK){
-                Uri contactData = data.getData();
-                Cursor cursor =  getActivity().getContentResolver().query(contactData, null, null, null, null);
-                cursor.moveToFirst();
+        if(requestCode == PICK_CONTACT && resultCode == RESULT_OK){
+            Uri uri = data.getData();
+            String[] projection = { ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME };
 
-                String name = "", number = "";
-                String hasPhone = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-                String contactId = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-                if (hasPhone.equals("1")) {
-                    Cursor phones = getActivity().getContentResolver().query
-                            (ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID
-                                            + " = " + contactId, null, null);
-                    while (phones.moveToNext()) {
-                        number = phones.getString(phones.getColumnIndex
-                                (ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[-+() ]", "");
-                        //name =  phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Nickname.NAME));
-                    }
-                    phones.close();
-                } else {
-                    Toast.makeText(getActivity(), "This contact has no phone number", Toast.LENGTH_LONG).show();
-                }
+            Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
+            cursor.moveToFirst();
 
-                number = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                //name =  cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Nickname.NAME));
+            int numberColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            number = cursor.getString(numberColumnIndex);
 
-                nameTextView.setText(name);
-                phoneTextView.setText(number);
+            int nameColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            name = cursor.getString(nameColumnIndex);
 
-                cursor.close();
-
-                Toast.makeText(getActivity(), "New contact person has been selected.", Toast.LENGTH_SHORT).show();
-            }
-            else
-                phoneTextView.setText("niee");
-
+            cursor.close();
+            Toast.makeText(getActivity(), "New contact person has been selected.", Toast.LENGTH_SHORT).show();
         }
     }
 }

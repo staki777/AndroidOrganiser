@@ -56,6 +56,7 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
        //mock
         Calendar cal = Calendar.getInstance();
         cal.set(2017,4,27,8,0);
+        if (drugs.size() == 0) return;
         doses.add(new Pair<Drug, Date>(drugs.get(0), new Date()));
         doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
     }
