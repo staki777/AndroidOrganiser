@@ -3,11 +3,17 @@ package com.example.user.drugsorganiser.ViewModel;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.User;
@@ -21,6 +27,7 @@ public class DialogHelper {
     private Context ctx;
     private DrugAdapter drugAdapter;
     private User user;
+    private Integer interval;
 
     public DialogHelper(User user, Context ctx, DrugAdapter drugAdapter) {
         this.ctx = ctx;
@@ -51,8 +58,106 @@ public class DialogHelper {
         final EditText etName= (EditText) dialogView.findViewById(R.id.edit_name);
         final EditText etDose= (EditText) dialogView.findViewById(R.id.edit_dose);
         final EditText etInterval= (EditText) dialogView.findViewById(R.id.edit_interval);
-
+        final TextView tvSeek1= (TextView) dialogView.findViewById(R.id.tv_seek1);
+        final TextView tvSeek2= (TextView) dialogView.findViewById(R.id.tv_seek2);
         final CheckBox chbxImportant= (CheckBox) dialogView.findViewById(R.id.edit_important);
+        final SeekBar seek1= (SeekBar)dialogView.findViewById(R.id.seekBar);
+        final SeekBar seek2= (SeekBar)dialogView.findViewById(R.id.seekBar2);
+
+        dialogBuilder.setTitle(ctx.getString(R.string.new_item_dialog_title));
+        Integer[] iNumbers = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
+        Integer[] iDays = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30};
+        Integer[] iMinutes = new Integer[60];
+        for(int i=0;i<60;i++)
+            iMinutes[i]=i+1;
+        String[] des = {"hours","days","minutes"};
+
+        final Spinner spNum = (Spinner)dialogView.findViewById (R.id.number_spinner);
+        final Spinner spDes = (Spinner) dialogView.findViewById (R.id.des_spinner);
+
+        final ArrayAdapter<Integer> numAdapter1 =  new ArrayAdapter<Integer>(ctx, android.R.layout.simple_list_item_1,iNumbers);
+        final ArrayAdapter<Integer> numAdapter2 =  new ArrayAdapter<Integer>(ctx, android.R.layout.simple_list_item_1,iDays);
+        final ArrayAdapter<Integer> numAdapter3 =  new ArrayAdapter<Integer>(ctx, android.R.layout.simple_list_item_1,iMinutes);
+        ArrayAdapter<String> desAdapter =  new ArrayAdapter<String>(ctx, android.R.layout.simple_list_item_1,des);
+
+        spNum.setAdapter(numAdapter1);
+        spDes.setAdapter(desAdapter);
+
+        spNum.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,int position, long arg3) {
+                interval= Integer.parseInt(spNum.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+
+        });
+
+        spDes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,int position, long arg3) {
+                if(position==0)
+                    spNum.setAdapter(numAdapter1);
+                if(position==1)
+                    spNum.setAdapter(numAdapter2);
+                if(position==2)
+                    spNum.setAdapter(numAdapter3);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+
+        });
+        Resources res = ctx.getResources();
+        final String[] doses = res.getStringArray(R.array.dose_array);
+
+        seek1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChangedValue = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChangedValue = progress;
+                tvSeek1.setText(doses[progress]);
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //Toast.makeText(MainActivity.this, "Seek bar progress is :" + progressChangedValue,
+                //        Toast.LENGTH_SHORT).show();
+            }
+        });
+        seek2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChangedValue = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChangedValue = progress;
+                if(progress==0)
+                    tvSeek2.setText("1 day");
+                else
+                    tvSeek2.setText(progress+1 +" days");
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //Toast.makeText(MainActivity.this, "Seek bar progress is :" + progressChangedValue,
+                //        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         dialogBuilder.setTitle(ctx.getString(R.string.new_item_dialog_title));
 

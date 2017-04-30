@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="http://schemas.android.com/tools">
+    <string-array name="dose_array">
+        <item>Tablet</item>
+        <item>Ampoule</item>
+        <item>Inhalation</item>
+        <item>Spoon</item>
+        <item>Teaspoon</item>
+        <item>Spigot</item>
+    </string-array>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
     <attr format="boolean" name="isLightTheme"/>
@@ -600,8 +608,12 @@
     <string name="add_confirmation">Drug successfully added!</string>
     <string name="app_name">Drugs Organiser</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="archive">Registry</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
+    <string name="call_contact_person">Call contact person</string>
+    <string name="change_contact_person">Change contact person</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
+    <string name="contact_person">Contact person</string>
     <string name="current_user">CURRENT_USER</string>
     <string name="delete_confirmation">Drug successfully deleted!</string>
     <string name="delete_item_dialog_title">Delete drug</string>
@@ -609,6 +621,8 @@
     <string name="drug_important">This drug is important</string>
     <string name="drug_interval">Interval between doses</string>
     <string name="drug_name">Drug name</string>
+    <string name="drug_peroid">Duration</string>
+    <string name="drug_start">Start</string>
     <string name="edit">Edit</string>
     <string name="edit_confirmation">Drug successfully updated!</string>
     <string name="edit_item_dialog_title">Edit drug</string>
@@ -638,6 +652,7 @@
     <string name="positive_button">Done</string>
     <string name="register">Register</string>
     <string name="remove">Remove</string>
+    <string name="schedule">Schedule</string>
     <string name="search_menu_title">Search</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="title_activity_drugs">DrugsActivity</string>

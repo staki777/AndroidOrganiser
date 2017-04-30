@@ -3,156 +3,138 @@
 
     <item
         is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.2.0\jars\classes.jar"
-        jumboMode="true"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.2.0\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-25.2.0_19ea0995473d4e1462219c432d181900a3433267.jar" />
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-25.2.0_695f792a6ef3cd113e42d4092aaa64374d9461f8.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="702d339bc0a81d21354cd7e2cf2b67225fa4a16c">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-25.2.0_cc429573980c250eb8b5d577528f1cfe08528dfe.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\design\25.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ea6a989b83d19b1b461281e0475a6cd6514897f8">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-design-25.2.0_651502f35bf783ffa7d47f6efccac1243975551f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="cb454b52545859ed2f24a6c01366805b0fa04b22">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-25.2.0_baa55f2273063becca488419371f3ba9d5d4b876.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-25.2.0_e14b24ebc12f0756a21ff428ddc13271371f1d49.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c899fa20dce35eab118a459c841578ca649685b7">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_dd965e6c085d6f1a0f69533c0c4fbe6aede76f4f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-25.2.0_72de7b38fc3724424e72dfbf81bfc21091e216fc.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\user\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.2.0\support-annotations-25.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\support-annotations-25.2.0_fda9f7582bbc7bcf64555d39f4e2c08cb8a5211f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="810f41e5b7fd99f196ebeabe865ba2c54e7e76dc">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-25.2.0_79829f097c6594e080ed6c70bb77a14295f0859d.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\libs\ormlite-android-4.48.jar"
-        jumboMode="true"
+        jar="D:\Git\Android3\AndroidOrganiser\app\libs\ormlite-android-4.48.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="afa06f539a4026c10b247386312aa67404b80a16">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\ormlite-android-4.48_98969ea27197b0761f9042b3a4babf7862ba560c.jar" />
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\ormlite-android-4.48_2518f05fa056dbb166b383de01ae0622fd8cfe06.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\libs\ormlite-core-4.48.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="00b3081e1074bf380cc1d09d6ef4f8e5415311f2">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\ormlite-core-4.48_f61b69635b14c7f3b1dab5139fb7e80042d4d787.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-25.2.0_57bc590eb50524884b14bb195da50466a157e3f8.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.2.0\jars\classes.jar"
-        jumboMode="true"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.2.0\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-25.2.0_9496b1a023518d994599eef497bb3d1b7a339b4a.jar" />
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-25.2.0_b82ad750595812ec39dbd5a2da045817de568c67.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="152de8da301561dcb0946471697a420d8f7a68c5">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-25.2.0_83f8b81076345eb7e9eb1cd995d3ab6f83f47fbf.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\transition\25.2.0\jars\classes.jar"
-        jumboMode="true"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\transition\25.2.0\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="e51c2f662bb72419632af5192553c37e33890a99">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-transition-25.2.0_13279ad1e8cf750fd8e9aadbb8fa677cd71f47b6.jar" />
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-transition-25.2.0_22c52595bb7419f18093ef65dad631919bcc0eeb.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.2.0\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="ce90bfe5c2470a0c2ae59bd6ab1498a7a3ebddd2">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\instant-run_8ad1be82649462407295945c13b605a5e7a10e04.jar" />
+        sha1="cb454b52545859ed2f24a6c01366805b0fa04b22">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-25.2.0_1476b6611f891cc552ca65676fed35f19bed1790.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\jars\classes.jar"
-        jumboMode="true"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-25.2.0_c5138dfff093fab3592bf13b196ac79a52a9177f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="702d339bc0a81d21354cd7e2cf2b67225fa4a16c">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-25.2.0_ceb04be172a73fa05cda8dbd5fa7015222df843f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="810f41e5b7fd99f196ebeabe865ba2c54e7e76dc">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-25.2.0_11dd6279e1927a3012d5ae5ad8959d05f9dd81dc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\design\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ea6a989b83d19b1b461281e0475a6cd6514897f8">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-design-25.2.0_6eb606f2e28b7bc91f95ff4fff305a999be21118.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Git\Android3\AndroidOrganiser\app\libs\ormlite-core-4.48.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="00b3081e1074bf380cc1d09d6ef4f8e5415311f2">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\ormlite-core-4.48_fb830a34e4c8558d2185f91d82d676bfd42a20ce.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-25.2.0_ce5dd26a9f1ef884328ac41c83709b383a3b918e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="152de8da301561dcb0946471697a420d8f7a68c5">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-25.2.0_aa953da0100fbf0c3b36e2585631b7ab2a45959b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Gosia\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\25.2.0\support-annotations-25.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\support-annotations-25.2.0_4ba0bb078302f52fcd57f84d9194b71d564d1cf5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-25.2.0_212c48c3cf2edae9d181e0cf382338e1d50cd776.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
-        <dex dex="D:\STUDIA\Android\TeamProject\DrugsOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.2.0_3da5bcc01133423d26ff6c79de7142318273d52a.jar" />
+        <dex dex="D:\Git\Android3\AndroidOrganiser\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.2.0_8dd3193f3cd01d2667f45bf39856a58a0d84e24a.jar" />
     </item>
 
 </items>

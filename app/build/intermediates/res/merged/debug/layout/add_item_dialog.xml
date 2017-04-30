@@ -19,6 +19,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/drug_dose"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/drug_dose"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="tablet"
+        android:id="@+id/tv_seek1"/>
+    <SeekBar
+        android:id="@+id/seekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:progress="1" />
     <EditText
         android:id="@+id/edit_dose"
         android:layout_width="match_parent"
@@ -28,11 +45,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/drug_interval"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="50dp">
+        <Spinner
+            android:id="@+id/number_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <Spinner
+            android:id="@+id/des_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
     <EditText
         android:id="@+id/edit_interval"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal" />
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/drug_start"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="50dp">
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/drug_peroid"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="1 days"
+        android:id="@+id/tv_seek2"/>
+    <SeekBar
+        android:id="@+id/seekBar2"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="29"
+        android:progress="1" />
 
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/edit_important"

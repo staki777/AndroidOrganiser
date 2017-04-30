@@ -29,6 +29,8 @@
     <string name="edit_confirmation">Drug successfully updated!</string>
     <string name="drug_name">Drug name</string>
     <string name="drug_dose">Dose</string>
+    <string name="drug_start">Start</string>
+    <string name="drug_peroid">Duration</string>
     <string name="drug_interval">Interval between doses</string>
     <string name="drug_important">This drug is important</string>
     <string name="new_item_dialog_title">Add new drug</string>
@@ -45,7 +47,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-
+    <string-array name="dose_array">
+        <item>Tablet</item>
+        <item>Ampoule</item>
+        <item>Inhalation</item>
+        <item>Spoon</item>
+        <item>Teaspoon</item>
+        <item>Spigot</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
