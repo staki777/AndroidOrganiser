@@ -7,6 +7,12 @@
         <item>Spoon</item>
         <item>Teaspoon</item>
         <item>Spigot</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="time_units_array">
+        <item>hours</item>
+        <item>days</item>
+        <item>minutes</item>
     </string-array>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>

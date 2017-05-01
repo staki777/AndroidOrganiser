@@ -29,10 +29,79 @@ public class DialogHelper {
     private User user;
     private Integer interval;
 
+    private AlertDialog.Builder dialogBuilder;
+
+    //controls
+    private EditText etName, etDose, etInterval;
+    private TextView tvSeek;
+    private CheckBox chbxImportant;
+    private SeekBar seek;
+    private Spinner spNum;
+    private Spinner spDes;
+    private Spinner spDoseType;
+
+    //arrays
+    private String[] timeUnitsArr;
+    private String[] dosesArr;
+    private Integer[] iHours = new Integer[23];// 1-23
+    private Integer[] iDays = new Integer[31];//1-31
+    private Integer[] iMinutes = new Integer[59];//1-59
+
+    //adapters
+    private ArrayAdapter<Integer> hoursAdapter;
+    private ArrayAdapter<Integer> daysAdapter;
+    private ArrayAdapter<Integer> minutesAdapter;
+    private ArrayAdapter<String> timeUnitsAdapter;
+    private ArrayAdapter<String> doseTypeAdapter;
+
+
     public DialogHelper(User user, Context ctx, DrugAdapter drugAdapter) {
         this.ctx = ctx;
-        this.drugAdapter =drugAdapter;
-        this.user=user;
+        this.drugAdapter = drugAdapter;
+        this.user = user;
+
+        dialogBuilder = new AlertDialog.Builder(ctx);
+        dialogBuilder.create();
+        View dialogView = LayoutInflater.from(ctx).inflate(R.layout.add_item_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        etName = (EditText) dialogView.findViewById(R.id.edit_name);
+        etDose = (EditText) dialogView.findViewById(R.id.edit_dose);
+        etInterval = (EditText) dialogView.findViewById(R.id.edit_interval);
+        tvSeek = (TextView) dialogView.findViewById(R.id.tv_seek2);
+        chbxImportant = (CheckBox) dialogView.findViewById(R.id.edit_important);
+        seek = (SeekBar) dialogView.findViewById(R.id.seekBar2);
+
+        spNum = (Spinner) dialogView.findViewById(R.id.number_spinner);
+        spDes = (Spinner) dialogView.findViewById(R.id.des_spinner);
+        spDoseType = (Spinner) dialogView.findViewById(R.id.dose_type_spinner);
+
+        Resources res = ctx.getResources();
+        //ARRAYS
+        timeUnitsArr = res.getStringArray(R.array.time_units_array);
+        dosesArr = res.getStringArray(R.array.dose_array);
+
+        iHours = new Integer[23];// 1-23
+        iDays = new Integer[31];//1-31
+        iMinutes = new Integer[59];//1-59
+        for (int i = 0; i < iHours.length; i++)
+            iHours[i] = i + 1;
+        for (int i = 0; i < iDays.length; i++)
+            iDays[i] = i + 1;
+        for (int i = 0; i < iMinutes.length; i++)
+            iMinutes[i] = i + 1;
+
+        //ADAPTERS
+        hoursAdapter = new ArrayAdapter<Integer>(ctx, android.R.layout.simple_list_item_1, iHours);
+        daysAdapter = new ArrayAdapter<Integer>(ctx, android.R.layout.simple_list_item_1, iDays);
+        minutesAdapter = new ArrayAdapter<Integer>(ctx, android.R.layout.simple_list_item_1, iMinutes);
+        timeUnitsAdapter = new ArrayAdapter<String>(ctx, android.R.layout.simple_list_item_1, timeUnitsArr);
+        doseTypeAdapter = new ArrayAdapter<String>(ctx, android.R.layout.simple_dropdown_item_1line, dosesArr);
+
+        spNum.setAdapter(hoursAdapter);
+        spDes.setAdapter(timeUnitsAdapter);
+        spDoseType.setAdapter(doseTypeAdapter);
+
     }
 
     public DialogHelper(User user, Context ctx, DoseAdapter drugAdapter) {
@@ -50,38 +119,7 @@ public class DialogHelper {
     }
 
     public void showAddDialog(final View view){
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ctx);
-
-        final View dialogView = LayoutInflater.from(ctx).inflate(R.layout.add_item_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final EditText etName= (EditText) dialogView.findViewById(R.id.edit_name);
-        final EditText etDose= (EditText) dialogView.findViewById(R.id.edit_dose);
-        final EditText etInterval= (EditText) dialogView.findViewById(R.id.edit_interval);
-        final TextView tvSeek1= (TextView) dialogView.findViewById(R.id.tv_seek1);
-        final TextView tvSeek2= (TextView) dialogView.findViewById(R.id.tv_seek2);
-        final CheckBox chbxImportant= (CheckBox) dialogView.findViewById(R.id.edit_important);
-        final SeekBar seek1= (SeekBar)dialogView.findViewById(R.id.seekBar);
-        final SeekBar seek2= (SeekBar)dialogView.findViewById(R.id.seekBar2);
-
         dialogBuilder.setTitle(ctx.getString(R.string.new_item_dialog_title));
-        Integer[] iNumbers = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
-        Integer[] iDays = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30};
-        Integer[] iMinutes = new Integer[60];
-        for(int i=0;i<60;i++)
-            iMinutes[i]=i+1;
-        String[] des = {"hours","days","minutes"};
-
-        final Spinner spNum = (Spinner)dialogView.findViewById (R.id.number_spinner);
-        final Spinner spDes = (Spinner) dialogView.findViewById (R.id.des_spinner);
-
-        final ArrayAdapter<Integer> numAdapter1 =  new ArrayAdapter<Integer>(ctx, android.R.layout.simple_list_item_1,iNumbers);
-        final ArrayAdapter<Integer> numAdapter2 =  new ArrayAdapter<Integer>(ctx, android.R.layout.simple_list_item_1,iDays);
-        final ArrayAdapter<Integer> numAdapter3 =  new ArrayAdapter<Integer>(ctx, android.R.layout.simple_list_item_1,iMinutes);
-        ArrayAdapter<String> desAdapter =  new ArrayAdapter<String>(ctx, android.R.layout.simple_list_item_1,des);
-
-        spNum.setAdapter(numAdapter1);
-        spDes.setAdapter(desAdapter);
 
         spNum.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -102,11 +140,11 @@ public class DialogHelper {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,int position, long arg3) {
                 if(position==0)
-                    spNum.setAdapter(numAdapter1);
+                    spNum.setAdapter(hoursAdapter);
                 if(position==1)
-                    spNum.setAdapter(numAdapter2);
+                    spNum.setAdapter(daysAdapter);
                 if(position==2)
-                    spNum.setAdapter(numAdapter3);
+                    spNum.setAdapter(minutesAdapter);
 
             }
 
@@ -116,35 +154,19 @@ public class DialogHelper {
             }
 
         });
-        Resources res = ctx.getResources();
-        final String[] doses = res.getStringArray(R.array.dose_array);
 
-        seek1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressChangedValue = 0;
 
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressChangedValue = progress;
-                tvSeek1.setText(doses[progress]);
-            }
 
-            public void onStartTrackingTouch(SeekBar seekBar) {
 
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //Toast.makeText(MainActivity.this, "Seek bar progress is :" + progressChangedValue,
-                //        Toast.LENGTH_SHORT).show();
-            }
-        });
-        seek2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChangedValue = 0;
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChangedValue = progress;
                 if(progress==0)
-                    tvSeek2.setText("1 day");
+                    tvSeek.setText("1 day");
                 else
-                    tvSeek2.setText(progress+1 +" days");
+                    tvSeek.setText(progress+1 +" days");
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -152,15 +174,9 @@ public class DialogHelper {
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
-                //Toast.makeText(MainActivity.this, "Seek bar progress is :" + progressChangedValue,
-                //        Toast.LENGTH_SHORT).show();
+
             }
         });
-
-
-
-        dialogBuilder.setTitle(ctx.getString(R.string.new_item_dialog_title));
-
         dialogBuilder.setPositiveButton(ctx.getString(R.string.positive_button), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 if(etName.getText().toString().isEmpty() || etDose.getText().toString().isEmpty() ||
@@ -179,21 +195,10 @@ public class DialogHelper {
                 //pass
             }
         });
-        dialogBuilder.create().show();
+        dialogBuilder.show();
     }
 
     public void showEditDialog(final View view, final Drug drug){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ctx);
-
-        final View dialogView = LayoutInflater.from(ctx).inflate(R.layout.add_item_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final EditText etName= (EditText) dialogView.findViewById(R.id.edit_name);
-        final EditText etDose= (EditText) dialogView.findViewById(R.id.edit_dose);
-        final EditText etInterval= (EditText) dialogView.findViewById(R.id.edit_interval);
-
-        final CheckBox chbxImportant= (CheckBox) dialogView.findViewById(R.id.edit_important);
-
         etName.setText(drug.name);
         etDose.setText(drug.dose);
         etInterval.setText(Long.toString(drug.interval));
@@ -223,7 +228,7 @@ public class DialogHelper {
                 //pass
             }
         });
-        dialogBuilder.create().show();
+        dialogBuilder.show();
 
     }
 
@@ -248,7 +253,7 @@ public class DialogHelper {
                 //pass
             }
         });
-        dialogBuilder.create().show();
+        dialogBuilder.show();
     }
 
 

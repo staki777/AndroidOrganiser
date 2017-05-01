@@ -26,20 +26,15 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder> {
     private User user;
     private List<Drug> drugs;
     private Context ctx;
-    private DialogHelper dh;
 
     public DrugAdapter(User user, Context ctx) {
 
         this.drugs = new ArrayList<>();
         drugs.addAll(user.drugs);
-
-
         this.user=user;
         this.ctx = ctx;
-        dh = new DialogHelper(user, ctx, DrugAdapter.this);
+
     }
-
-
 
     @Override
     public DrugViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -65,10 +60,10 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder> {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit_menu_item:
-                                dh.showEditDialog(view, drug);
+                                (new DialogHelper(user, ctx, DrugAdapter.this)).showEditDialog(view, drug);
                                 break;
                             case R.id.delete_menu_item:
-                                dh.showDeleteDialog(drug);
+                                (new DialogHelper(user, ctx, DrugAdapter.this)).showDeleteDialog(drug);
                                 break;
                         }
                         return false;

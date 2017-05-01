@@ -1,14 +1,14 @@
 [
     {
-        "merged": "D:\\Git\\Android3\\AndroidOrganiser\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_drugs_drawer.xml",
-        "source": "D:\\Git\\Android3\\AndroidOrganiser\\app\\src\\main\\res\\menu\\activity_drugs_drawer.xml"
+        "merged": "D:\\STUDIA\\Android\\TeamProject\\clone\\AndroidOrganiser\\app\\build\\intermediates\\res\\merged\\debug\\menu\\drugs.xml",
+        "source": "D:\\STUDIA\\Android\\TeamProject\\clone\\AndroidOrganiser\\app\\src\\main\\res\\menu\\drugs.xml"
     },
     {
-        "merged": "D:\\Git\\Android3\\AndroidOrganiser\\app\\build\\intermediates\\res\\merged\\debug\\menu\\drugs.xml",
-        "source": "D:\\Git\\Android3\\AndroidOrganiser\\app\\src\\main\\res\\menu\\drugs.xml"
+        "merged": "D:\\STUDIA\\Android\\TeamProject\\clone\\AndroidOrganiser\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_drugs_drawer.xml",
+        "source": "D:\\STUDIA\\Android\\TeamProject\\clone\\AndroidOrganiser\\app\\src\\main\\res\\menu\\activity_drugs_drawer.xml"
     },
     {
-        "merged": "D:\\Git\\Android3\\AndroidOrganiser\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_item.xml",
-        "source": "D:\\Git\\Android3\\AndroidOrganiser\\app\\src\\main\\res\\menu\\menu_item.xml"
+        "merged": "D:\\STUDIA\\Android\\TeamProject\\clone\\AndroidOrganiser\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_item.xml",
+        "source": "D:\\STUDIA\\Android\\TeamProject\\clone\\AndroidOrganiser\\app\\src\\main\\res\\menu\\menu_item.xml"
     }
 ]

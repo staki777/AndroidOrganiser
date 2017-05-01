@@ -1,4 +1,4 @@
-#Sun Apr 30 21:34:56 CEST 2017
-base.0=D\:\\Git\\Android3\\AndroidOrganiser\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+#Mon May 01 16:46:52 CEST 2017
+base.0=D\:\\STUDIA\\Android\\TeamProject\\clone\\AndroidOrganiser\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
-file.0=D\:\\Git\\Android3\\AndroidOrganiser\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+file.0=D\:\\STUDIA\\Android\\TeamProject\\clone\\AndroidOrganiser\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
