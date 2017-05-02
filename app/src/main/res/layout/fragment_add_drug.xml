@@ -1,0 +1,117 @@
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context="com.example.user.drugsorganiser.ViewModel.AddEditDrug.AddEditDrugFragment"
+android:id="@+id/add_drug_fragment"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <!--DRUG NAME-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/drug_name"/>
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <!--DRUG DOSE-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/drug_dose"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp">
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:id="@+id/dosePicker"
+            android:scaleY="1"/>
+
+        <Spinner
+            android:id="@+id/dose_type_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/otherDoseTypePrompt"
+        android:id="@+id/tw_other_dose_type"
+        android:visibility="invisible"/>
+    <EditText
+        android:id="@+id/edit_other_dose_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:visibility="invisible"/>
+
+    <!--INTERVAL-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/drug_interval"/>
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingLeft="50dp">-->
+        <!--<Spinner-->
+            <!--android:id="@+id/number_spinner"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+        <!--<Spinner-->
+            <!--android:id="@+id/des_spinner"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+    <!--</LinearLayout>-->
+    <EditText
+        android:id="@+id/edit_interval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <!--IMPORTANT-->
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/edit_important"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/drug_important"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0, 1"
+        android:orientation="horizontal" >
+        <TableRow >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/negative_button"
+                android:text="@string/negative_button"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/positive_button"
+                android:text="@string/positive_button"/>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
+</ScrollView>

@@ -74,7 +74,7 @@ public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
     public void onBindViewHolder(final DrugViewHolder holder, final int position) {
         final Pair<Drug,Date> dose = doses.get(doses.size() - position - 1);
         holder.itemNameView.setText(dose.first.name);
-        holder.itemDoseView.setText(dose.first.dose);
+        holder.itemDoseView.setText(dose.first.doseQuantity+" "+dose.first.doseDescription);
         holder.itemIntervalView.setText(dateFormat.format(dose.second));
         holder.itemImportantView.setText((dose.first.important)?"Important": "Not important");
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {

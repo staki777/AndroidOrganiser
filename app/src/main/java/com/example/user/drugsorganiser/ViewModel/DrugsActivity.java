@@ -62,6 +62,7 @@ public class DrugsActivity extends AppCompatActivity
         }catch (SQLException e){
             e.printStackTrace();
         }
+
         getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).disallowAddToBackStack().commit();
         getPermissions();
     }
@@ -155,6 +156,7 @@ public class DrugsActivity extends AppCompatActivity
     public User getUser(){
         return  user;
     }
+
 
     public void startRepeatingTimer(View view) {
         if(alarm != null){

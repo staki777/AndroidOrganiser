@@ -1,6 +1,10 @@
 package com.example.user.drugsorganiser.ViewModel;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +16,10 @@ import android.widget.Toast;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.AddEditDrug.AddEditDrugFragment;
 import com.j256.ormlite.dao.Dao;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +28,7 @@ import java.util.List;
  * Created by user on 2017-04-14.
  */
 
-public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder> {
+public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implements Serializable{
     private User user;
     private List<Drug> drugs;
     private Context ctx;
@@ -47,7 +53,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder> {
     public void onBindViewHolder(final DrugViewHolder holder, final int position) {
         final Drug drug = drugs.get(position);
         holder.itemNameView.setText(drug.name);
-        holder.itemDoseView.setText(drug.dose);
+        holder.itemDoseView.setText(drug.doseQuantity+" "+drug.doseDescription);
         holder.itemIntervalView.setText((Integer.toString((int)drug.interval)));
         holder.itemImportantView.setText((drug.important)?"Important": "Not important");
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
@@ -60,10 +66,30 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder> {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit_menu_item:
-                                (new DialogHelper(user, ctx, DrugAdapter.this)).showEditDialog(view, drug);
+                               // (new DialogHelper(user, ctx, DrugAdapter.this)).showEditDialog(view, drug);
+                                AddEditDrugFragment adf=new AddEditDrugFragment();
+                                Bundle b = new Bundle();
+                                b.putSerializable("editDrug", drug);
+                                adf.setArguments(b);
+                                ((Activity)ctx).getFragmentManager().beginTransaction().replace(R.id.toReplace, adf).disallowAddToBackStack().commit();
+
                                 break;
                             case R.id.delete_menu_item:
-                                (new DialogHelper(user, ctx, DrugAdapter.this)).showDeleteDialog(drug);
+                                //(new DialogHelper(user, ctx, DrugAdapter.this)).showDeleteDialog(drug);
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ctx);
+
+                                dialogBuilder.setTitle(ctx.getString(R.string.delete_item_dialog_title));
+                                dialogBuilder.setPositiveButton(ctx.getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        deleteItem(drug);
+                                    }
+                                });
+                                dialogBuilder.setNegativeButton(ctx.getString(R.string.no_button), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        //pass
+                                    }
+                                });
+                                dialogBuilder.show();
                                 break;
                         }
                         return false;

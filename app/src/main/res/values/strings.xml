@@ -5,6 +5,7 @@
     <string name="login">Login</string>
     <string name="login_prompt">Login:</string>
     <string name="password_prompt">Password:</string>
+    <string name="otherDoseTypePrompt">Please provide your unit of dosing:</string>
     <string name="mail_prompt">E-mail:</string>
     <string name="invalid_login_or_password">Invalid login or password, try again!</string>
     <string name="fields_must_be_filled">All fields must be properly filled!</string>
@@ -47,15 +48,17 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string-array name="dose_array">
-        <item>Tablet</item>
-        <item>Ampoule</item>
-        <item>Inhalation</item>
-        <item>Spoon</item>
-        <item>Teaspoon</item>
-        <item>Spigot</item>
-        <item>Other</item>
+
+    <string-array name="dose_types_array">
+        <item>tablet(s)</item>
+        <item>ampoule(s)</item>
+        <item>inhalation(s)</item>
+        <item>spoon(s)</item>
+        <item>teaspoon(s)</item>
+        <item>spigot(s)</item>
+        <item>other</item>
     </string-array>
+
     <string-array name="time_units_array">
         <item>hours</item>
         <item>days</item>

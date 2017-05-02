@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.AddEditDrug.AddEditDrugFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +23,7 @@ public class MyDrugsFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
 
+
     public MyDrugsFragment() {
         // Required empty public constructor
     }
@@ -27,42 +31,36 @@ public class MyDrugsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        Log.i("MyDrugsFragment", "onstart!");
         recyclerView = (RecyclerView) getView().findViewById(R.id.drug_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-
-        final DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+        DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
         recyclerView.setAdapter(drugAdapter);
 
         fab = (FloatingActionButton) getView().findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        setOnClickListenerToFloatingButton();
 
-                DialogHelper dh=new DialogHelper(((DrugsActivity)getActivity()).getUser(), getActivity(), drugAdapter);
-                dh.showAddDialog(view);
-            }
-        });
-
-
+        Bundle bundle=getArguments();
+        if(bundle != null){
+            Drug drug=(Drug)bundle.getSerializable("newDrug");
+            Drug editDrug = (Drug)bundle.getSerializable("editDrug");
+            if(drug != null)
+                drugAdapter.addItem(drug);
+            else if(editDrug!= null)
+                drugAdapter.editItem(editDrug);
+        }
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
+//        Log.i("MyDrugsFragment", "onresume!");
+//        DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+//        recyclerView.setAdapter(drugAdapter);
+//
+//       setOnClickListenerToFloatingButton();
 
-        final DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
-        recyclerView.setAdapter(drugAdapter);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                DialogHelper dh=new DialogHelper(((DrugsActivity)getActivity()).getUser(), getActivity(), drugAdapter);
-                dh.showAddDialog(view);
-            }
-        });
     }
 
     @Override
@@ -72,5 +70,15 @@ public class MyDrugsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_my_drugs, container, false);
     }
 
+    private void setOnClickListenerToFloatingButton(){
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddEditDrugFragment adf=new AddEditDrugFragment();
+                getFragmentManager().beginTransaction().replace(R.id.toReplace, adf).commit();
+
+            }
+        });
+    }
 }
