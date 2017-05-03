@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel;
+package com.example.user.drugsorganiser.ViewModel.MainActivity;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
 

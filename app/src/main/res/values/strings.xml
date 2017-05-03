@@ -6,6 +6,7 @@
     <string name="login_prompt">Login:</string>
     <string name="password_prompt">Password:</string>
     <string name="otherDoseTypePrompt">Please provide your unit of dosing:</string>
+    <string name="drugCommentPrompt">Additional information:</string>
     <string name="mail_prompt">E-mail:</string>
     <string name="invalid_login_or_password">Invalid login or password, try again!</string>
     <string name="fields_must_be_filled">All fields must be properly filled!</string>
@@ -60,10 +61,11 @@
     </string-array>
 
     <string-array name="time_units_array">
-        <item>hours</item>
-        <item>days</item>
-        <item>minutes</item>
+        <item>minute(s)</item>
+        <item>hour(s)</item>
+        <item>day(s)</item>
+        <item>month(s)</item>
+        <item>year(s)</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

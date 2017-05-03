@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.ContactPerson;
 
 
 import android.Manifest;
@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
@@ -90,7 +91,7 @@ public class ContactPersonFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        getActivity().setTitle(getView().getResources().getString(R.string.contact_person));
         user = ((DrugsActivity)getActivity()).getUser();
 
         nameTextView = (TextView) getView().findViewById(R.id.name_contact);

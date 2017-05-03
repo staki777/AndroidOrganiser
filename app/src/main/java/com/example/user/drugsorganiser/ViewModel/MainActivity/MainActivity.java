@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel;
+package com.example.user.drugsorganiser.ViewModel.MainActivity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

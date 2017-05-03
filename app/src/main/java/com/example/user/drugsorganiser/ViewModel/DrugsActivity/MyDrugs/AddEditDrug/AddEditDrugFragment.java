@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel.AddEditDrug;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug;
 
 
 import android.app.Fragment;
@@ -20,8 +20,8 @@ import android.widget.TextView;
 import com.example.user.drugsorganiser.Model.DoseTypes;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity;
-import com.example.user.drugsorganiser.ViewModel.MyDrugsFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.MyDrugsFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +32,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
 
     private TextView twOtherDoseType;
     private Button btnPositive, btnNegative;
-    private EditText etName, etOtherDoseType, etInterval;
+    private EditText etName, etOtherDoseType, etComment;
     private CheckBox chbxImportant;
     private NumberPicker dosePicker;
     private Spinner spDoseType;
@@ -73,7 +73,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
         twOtherDoseType = (TextView) getView().findViewById(R.id.tw_other_dose_type);
         etName = (EditText) getView().findViewById(R.id.edit_name);
         etOtherDoseType = (EditText) getView().findViewById(R.id.edit_other_dose_type);
-        etInterval = (EditText) getView().findViewById(R.id.edit_interval);
+        etComment = (EditText) getView().findViewById(R.id.editComment);
         chbxImportant = (CheckBox) getView().findViewById(R.id.edit_important);
 
         dosePicker = (NumberPicker) getView().findViewById(R.id.dosePicker);
@@ -101,7 +101,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+                //nothing
             }
 
         });
@@ -113,7 +113,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
             spDoseType.setSelection(doseTypes.getPosition(drugToEdit.doseDescription));
             if(spDoseType.getSelectedItemPosition() == doseTypes.getPositionOfOther())
                 etOtherDoseType.setText(drugToEdit.doseDescription);
-            etInterval.setText(Long.toString(drugToEdit.interval));
+            etComment.setText(drugToEdit.comment);
             if(drugToEdit.important){
                 chbxImportant.toggle();
             }
@@ -124,8 +124,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
     public void onClick(View v) {
         if(v == btnPositive)
         {
-            if(etName.getText().toString().isEmpty() || (etOtherDoseType.getVisibility()==View.VISIBLE && etOtherDoseType.getText().toString().isEmpty()) ||
-                    etInterval.getText().toString().isEmpty())
+            if(etName.getText().toString().isEmpty() || (etOtherDoseType.getVisibility()==View.VISIBLE && etOtherDoseType.getText().toString().isEmpty()))
             {
                 Snackbar.make(getView(), getString(R.string.fields_must_be_filled), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -134,7 +133,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
             MyDrugsFragment mdf= new MyDrugsFragment();
             Bundle b = new Bundle();
             if(!editMode){ //dodajemy nowy lek
-                Drug drug=new Drug( ((DrugsActivity)getActivity()).getUser(), etName.getText().toString(), dosePicker.getValue(), (etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString(),  Long.parseLong(etInterval.getText().toString()), chbxImportant.isChecked());
+                Drug drug=new Drug( ((DrugsActivity)getActivity()).getUser(), etName.getText().toString(), dosePicker.getValue(), (etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString(), chbxImportant.isChecked(), etComment.getText().toString());
                 b.putSerializable("newDrug", drug);
 
             }
@@ -142,8 +141,8 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
                 drugToEdit.name=etName.getText().toString();
                 drugToEdit.doseQuantity = dosePicker.getValue();
                 drugToEdit.doseDescription=(etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString();
-                drugToEdit.interval=Long.parseLong(etInterval.getText().toString());
                 drugToEdit.important=chbxImportant.isChecked();
+                drugToEdit.comment=etComment.getText().toString();
                 b.putSerializable("editDrug", drugToEdit);
             }
             mdf.setArguments(b);

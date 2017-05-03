@@ -11,7 +11,7 @@
     android:orientation="vertical"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    tools:context="com.example.user.drugsorganiser.ViewModel.MainActivity">
+    tools:context="com.example.user.drugsorganiser.ViewModel.MainActivity.MainActivity">
 
     <TextView
         android:layout_width="match_parent"

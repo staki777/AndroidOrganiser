@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.user.drugsorganiser.ViewModel.ContactPersonFragment"
+    tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.ContactPerson.ContactPersonFragment"
     >
 
     <LinearLayout

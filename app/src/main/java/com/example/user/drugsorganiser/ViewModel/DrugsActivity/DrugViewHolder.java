@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -17,12 +17,13 @@ public class DrugViewHolder extends RecyclerView.ViewHolder {
     TextView itemIntervalView;
     TextView itemImportantView;
     TextView itemOptionsView;
+    TextView itemCommentView;
 
     public DrugViewHolder(View itemView, final Context appContext) {
         super(itemView);
         this.itemNameView = (TextView) itemView.findViewById(R.id.item_name);
         this.itemDoseView = (TextView) itemView.findViewById(R.id.item_dose);
-        this.itemIntervalView = (TextView) itemView.findViewById(R.id.item_interval);
+        this.itemCommentView = (TextView) itemView.findViewById(R.id.item_comment);
         this.itemImportantView = (TextView) itemView.findViewById(R.id.item_important);
         this.itemOptionsView = (TextView) itemView.findViewById(R.id.item_options);
     }

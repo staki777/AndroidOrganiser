@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -20,6 +20,11 @@ import android.view.View;
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.ContactPerson.ContactPersonFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.MyDrugsFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Registry.RegistryFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Schedule.ScheduleFragment;
+import com.example.user.drugsorganiser.ViewModel.MainActivity.MainActivity;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 

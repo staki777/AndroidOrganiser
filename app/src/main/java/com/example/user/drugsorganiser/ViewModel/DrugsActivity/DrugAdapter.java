@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.AddEditDrug.AddEditDrugFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug.AddEditDrugFragment;
 import com.j256.ormlite.dao.Dao;
 
 import java.io.Serializable;
@@ -54,7 +54,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
         final Drug drug = drugs.get(position);
         holder.itemNameView.setText(drug.name);
         holder.itemDoseView.setText(drug.doseQuantity+" "+drug.doseDescription);
-        holder.itemIntervalView.setText((Integer.toString((int)drug.interval)));
+        holder.itemCommentView.setText(drug.comment);
         holder.itemImportantView.setText((drug.important)?"Important": "Not important");
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs;
 
 
 import android.app.Fragment;
@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.AddEditDrug.AddEditDrugFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug.AddEditDrugFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugAdapter;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +34,7 @@ public class MyDrugsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Log.i("MyDrugsFragment", "onstart!");
+        getActivity().setTitle(getView().getResources().getString(R.string.my_drugs));
         recyclerView = (RecyclerView) getView().findViewById(R.id.drug_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());

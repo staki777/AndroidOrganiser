@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

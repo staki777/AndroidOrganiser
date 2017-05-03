@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
 import android.content.Context;
 import android.support.v4.util.Pair;
@@ -75,7 +75,7 @@ public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
         final Pair<Drug,Date> dose = doses.get(doses.size() - position - 1);
         holder.itemNameView.setText(dose.first.name);
         holder.itemDoseView.setText(dose.first.doseQuantity+" "+dose.first.doseDescription);
-        holder.itemIntervalView.setText(dateFormat.format(dose.second));
+        holder.itemCommentView.setText(dose.first.comment);
         holder.itemImportantView.setText((dose.first.important)?"Important": "Not important");
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
             @Override
