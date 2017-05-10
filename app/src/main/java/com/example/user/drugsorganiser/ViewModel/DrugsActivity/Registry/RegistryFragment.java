@@ -1,8 +1,8 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Registry;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,7 +47,9 @@ public class RegistryFragment extends Fragment {
 
         final RegistryAdapter registryAdapter = new RegistryAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
         recyclerView.setAdapter(registryAdapter);
+
     }
+
 
 
 }
