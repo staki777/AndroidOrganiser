@@ -30,7 +30,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
 
     private DoseTypes doseTypes;
 
-    private TextView twOtherDoseType;
+    private TextView tvOtherDoseType;
     private Button btnPositive, btnNegative;
     private EditText etName, etOtherDoseType, etComment;
     private CheckBox chbxImportant;
@@ -70,7 +70,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
         btnPositive.setOnClickListener(this);
         btnNegative.setOnClickListener(this);
 
-        twOtherDoseType = (TextView) getView().findViewById(R.id.tw_other_dose_type);
+        tvOtherDoseType = (TextView) getView().findViewById(R.id.tw_other_dose_type);
         etName = (EditText) getView().findViewById(R.id.edit_name);
         etOtherDoseType = (EditText) getView().findViewById(R.id.edit_other_dose_type);
         etComment = (EditText) getView().findViewById(R.id.editComment);
@@ -78,7 +78,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
 
         dosePicker = (NumberPicker) getView().findViewById(R.id.dosePicker);
         dosePicker.setMinValue(1);
-        dosePicker.setMaxValue(10);
+        dosePicker.setMaxValue(250);
         dosePicker.setValue(1);
 
         spDoseType = (Spinner) getView().findViewById(R.id.dose_type_spinner);
@@ -90,12 +90,12 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
                 String selected=spDoseType.getSelectedItem().toString();
                 Log.i("AddEditDrugFragment", "|"+selected+"|");
                 if(selected.equals(doseTypes.getOtherString())){
-                    twOtherDoseType.setVisibility(View.VISIBLE);
+                    tvOtherDoseType.setVisibility(View.VISIBLE);
                     etOtherDoseType.setVisibility(View.VISIBLE);
                 }
                 else {
                     etOtherDoseType.setVisibility(View.INVISIBLE);
-                    twOtherDoseType.setVisibility(View.INVISIBLE);
+                    tvOtherDoseType.setVisibility(View.INVISIBLE);
                 }
             }
 

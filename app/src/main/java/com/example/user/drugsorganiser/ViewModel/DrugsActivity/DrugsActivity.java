@@ -2,6 +2,8 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -29,6 +31,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.Stack;
 
 
 public class DrugsActivity extends AppCompatActivity
@@ -41,6 +45,9 @@ public class DrugsActivity extends AppCompatActivity
     private User user;
     private String userLogin;
 
+    private Stack<String> fragmentsTags;
+    private Fragment lastFragment;
+    private int backStackCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,31 @@ public class DrugsActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
+        fragmentsTags = new Stack();
+        getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener()
+        {
+            public void onBackStackChanged()
+            {
+                FragmentManager manager = getFragmentManager();
+                if(backStackCount < manager.getBackStackEntryCount()){
+                    backStackCount++;
+                    Log.i("AAA", "podbijamy");
+                    lastFragment = manager.findFragmentByTag(fragmentsTags.peek());
+                    return;
+                }
+
+                String fragmentTag = fragmentsTags.pop();
+                if (fragmentTag == null) return;
+                backStackCount--;
+                //Fragment currFragment = manager.findFragmentByTag(fragmentTag);// findFragmentById(R.id.fragmentItem);
+                Log.i("AAA", "zdejmuje " + fragmentTag);
+                //currFragment.onResume();
+                lastFragment.onResume();
+                lastFragment = manager.findFragmentByTag(fragmentsTags.peek());
+            }
+        });
+        fragmentsTags.push("schedule");
+        Log.i("AAA", "stawiam SCH");
         getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).disallowAddToBackStack().commit();
         getPermissions();
     }
@@ -119,16 +151,24 @@ public class DrugsActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_my_drugs) {
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, new MyDrugsFragment()).disallowAddToBackStack().commit();
+            fragmentsTags.push("my_drugs");
+            Log.i("AAA", "stawiam MD");
+            getFragmentManager().beginTransaction().replace(R.id.toReplace, new MyDrugsFragment()).addToBackStack("my_drugs").commit();
           }
         else if (id == R.id.schedule) {
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).disallowAddToBackStack().commit();
+            fragmentsTags.push("schedule");
+            Log.i("AAA", "stawiam SCH");
+            getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).addToBackStack("schedule").commit();
         }
         else if (id == R.id.last_doses) {
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, new RegistryFragment()).disallowAddToBackStack().commit();
+            fragmentsTags.push("last_doses");
+            Log.i("AAA", "stawiam LD");
+            getFragmentManager().beginTransaction().replace(R.id.toReplace, new RegistryFragment()).addToBackStack("last_doses").commit();
         }
         else if (id == R.id.contact_person) {
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, new ContactPersonFragment()).disallowAddToBackStack().commit();
+            fragmentsTags.push("contact_person");
+            Log.i("AAA", "stawiam CP");
+            getFragmentManager().beginTransaction().replace(R.id.toReplace, new ContactPersonFragment()).addToBackStack("contact_person").commit();
         }
         else if (id == R.id.nav_logout) {
             Intent intent=new Intent(this, MainActivity.class);
