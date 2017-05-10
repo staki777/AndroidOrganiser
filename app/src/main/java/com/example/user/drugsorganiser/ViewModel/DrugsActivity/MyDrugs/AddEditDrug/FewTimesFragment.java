@@ -118,8 +118,9 @@ public class FewTimesFragment extends Fragment {
                         break;
                     case 2:
                         li = LayoutInflater.from(getActivity());
-                        DatePicker pd= (DatePicker) getView().findViewById(R.id.datePicker2);
-                        /*int year    = pd.getYear();
+                        promptsView = li.inflate(R.layout.add_new_date_dialog2, null);
+                        DatePicker pd= (DatePicker) promptsView.findViewById(R.id.datePicker2);
+                        int year    = pd.getYear();
                         int month   = pd.getMonth();
                         int day     = pd.getDayOfMonth();
 
@@ -130,12 +131,12 @@ public class FewTimesFragment extends Fragment {
                                 Log.e("selected month:", Integer.toString(month_i));
                                 //Add whatever you need to handle Date changes
                             }
-                        });*/
+                        });
 
-                        /*try {
+                        try {
                             Field f[] = pd.getClass().getDeclaredFields();
                             for (Field field : f) {
-                                if (field.getName().equals("mYearPicker")) {
+                                if (field.getName().equals("mYearPicker")|| field.getName().equals("mYearSpinner")) {
                                     field.setAccessible(true);
                                     Object yearPicker = new Object();
                                     yearPicker = field.get(pd);
@@ -144,9 +145,9 @@ public class FewTimesFragment extends Fragment {
                             }
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
-                        }*/
+                        }
 
-                        promptsView = li.inflate(R.layout.add_new_date_dialog2, null);                       ;
+                                              ;
                         alertDialogBuilder.setView(promptsView);
                         alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
