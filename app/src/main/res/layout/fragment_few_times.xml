@@ -4,10 +4,54 @@
     android:layout_height="match_parent"
     tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug.FewTimesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
+    <!--<TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:text="@string/drug_dose"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:id="@+id/layout"
+        android:weightSum="1">
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:id="@+id/FewTimesPicker"
+            android:scaleY="1"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="@string/FewTimesPer"
+            android:textColor="@color/textColor" />
+
+        <Spinner
+            android:id="@+id/FewTimes_type_spinner"
+            android:textColor="@color/textColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:layout_weight="6.40" />
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="few times" />
-
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:text="@string/AddDate"
+        android:paddingLeft="5dp"
+        android:id="@+id/add" />
+</LinearLayout>
 </FrameLayout>

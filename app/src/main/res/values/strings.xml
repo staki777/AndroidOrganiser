@@ -41,6 +41,8 @@
     <string name="delete_item_dialog_title">Delete drug</string>
     <string name="yes_button">Yes</string>
     <string name="no_button">No</string>
+    <string name="FewTimesPer">times per</string>
+    <string name="AddDate">Add date</string>
 
     <string name="positive_button">Done</string>
     <string name="negative_button">Cancel</string>
@@ -75,6 +77,43 @@
         <item>year(s)</item>
     </string-array>
 
+    <string-array name="time_array">
+        <item>day</item>
+        <item>week</item>
+        <item>month</item>
+        <item>year</item>
+    </string-array>
+
+    <string-array name="time_array2">
+        <item>hour(s)</item>
+        <item>day(s)</item>
+        <item>week(s)</item>
+    </string-array>
+
+    <string-array name="days_of_week">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

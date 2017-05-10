@@ -5,25 +5,18 @@
     tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug.ConstantIntervalFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="constant" />
+        android:orientation="vertical"
+        >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="constant" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="constant" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="constant" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="constant" />
+
+
+</LinearLayout>
+
 </FrameLayout>
