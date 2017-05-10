@@ -1,7 +1,10 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug;
 
 
+
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.user.drugsorganiser.Model.DoseTypes;
 import com.example.user.drugsorganiser.Model.Drug;
+import com.example.user.drugsorganiser.Model.TimetableTypes;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.MyDrugsFragment;
@@ -26,9 +30,10 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.MyDrugsFr
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddEditDrugFragment extends Fragment  implements View.OnClickListener {
+public class AddEditDrugFragment extends Fragment implements View.OnClickListener {
 
     private DoseTypes doseTypes;
+    private TimetableTypes timetableTypes;
 
     private TextView twOtherDoseType;
     private Button btnPositive, btnNegative;
@@ -36,6 +41,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
     private CheckBox chbxImportant;
     private NumberPicker dosePicker;
     private Spinner spDoseType;
+    private Spinner spTimetable;
 
     private boolean editMode;
     private  Drug drugToEdit;
@@ -65,6 +71,7 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
         super.onStart();
 
         doseTypes = new DoseTypes(getView());
+        timetableTypes = new TimetableTypes(getView());
         btnPositive = (Button) getView().findViewById(R.id.positive_button);
         btnNegative = (Button) getView().findViewById(R.id.negative_button);
         btnPositive.setOnClickListener(this);
@@ -106,6 +113,51 @@ public class AddEditDrugFragment extends Fragment  implements View.OnClickListen
 
         });
 
+        spTimetable = (Spinner) getView().findViewById(R.id.timetable_spinner);
+        ArrayAdapter<String> timetableAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, timetableTypes.getArr());
+        spTimetable.setAdapter(timetableAdapter);
+        spTimetable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                FragmentTransaction ft= getActivity().getFragmentManager().beginTransaction();
+                String selected=spTimetable.getSelectedItem().toString();
+                Log.i("AddEditDrugFragment", "|"+selected+"|");
+                if(position == 0){
+                    /*twOtherDoseType.setVisibility(View.VISIBLE);
+                    etOtherDoseType.setVisibility(View.VISIBLE);*/
+                    Fragment fragment = new FewTimesFragment();
+                    FragmentManager fm = getActivity().getFragmentManager();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.fragment1, fragment);
+                    transaction.commit();
+                }
+                else if(position == 1){
+                   /* etOtherDoseType.setVisibility(View.INVISIBLE);
+                    twOtherDoseType.setVisibility(View.INVISIBLE);*/
+                    Fragment fragment = new ConstantIntervalFragment();
+                    FragmentManager fm = getActivity().getFragmentManager();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.fragment1, fragment);
+                    transaction.commit();
+                }
+                else {
+
+                    Fragment fragment = new OtherFragment();
+                    FragmentManager fm = getActivity().getFragmentManager();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.fragment1, fragment);
+                    transaction.commit();
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                //nothing
+            }
+
+        });
         //fill
         if(editMode){
             etName.setText(drugToEdit.name);

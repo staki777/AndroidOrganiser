@@ -118,6 +118,13 @@ public class DrugsActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        try{
+            PreparedQuery<User> q= getHelper().getUserDao().queryBuilder().where().eq(User.LOGIN_COLUMN, userLogin).prepare();
+            user=getHelper().getUserDao().queryForFirst(q);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         if (id == R.id.nav_my_drugs) {
             getFragmentManager().beginTransaction().replace(R.id.toReplace, new MyDrugsFragment()).disallowAddToBackStack().commit();
           }
