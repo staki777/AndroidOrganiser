@@ -31,6 +31,7 @@
     <string name="edit_confirmation">Drug successfully updated!</string>
     <string name="drug_name">Drug name</string>
     <string name="drug_dose">Dose</string>
+    <string name="drug_timetable">Timetable</string>
     <string name="drug_start">Start</string>
     <string name="drug_peroid">Duration</string>
     <string name="drug_interval">Interval between doses</string>
@@ -60,6 +61,12 @@
         <item>other</item>
     </string-array>
 
+    <string-array name="timetable_array">
+        <item>few times a day</item>
+        <item>constant interval</item>
+        <item>other</item>
+    </string-array>
+
     <string-array name="time_units_array">
         <item>minute(s)</item>
         <item>hour(s)</item>
@@ -67,5 +74,8 @@
         <item>month(s)</item>
         <item>year(s)</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
