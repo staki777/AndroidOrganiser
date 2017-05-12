@@ -30,8 +30,6 @@ public class DrugsActivity extends AppCompatActivity
     private AlarmManagerBroadcastReceiver alarm;
     private DatabaseHelper databaseHelper = null;
     private User user;
-    private String userLogin;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,10 +110,12 @@ public class DrugsActivity extends AppCompatActivity
 
     public  void refreshUser(){
         try{
-            PreparedQuery<User> q= getHelper().getUserDao().queryBuilder().where().eq(User.LOGIN_COLUMN, userLogin).prepare();
+            PreparedQuery<User> q= getHelper().getUserDao().queryBuilder().where().eq(User.ID_FIELD, user.userId).prepare();
             user=getHelper().getUserDao().queryForFirst(q);
-        }catch (SQLException e){
+        }
+        catch (SQLException e){
             e.printStackTrace();
+            e.toString();
         }
     }
     public void setUser(User u){

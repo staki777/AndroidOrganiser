@@ -25,6 +25,8 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Registry.RegistryFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule.ScheduleFragment;
 
+import java.sql.SQLException;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -63,7 +65,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)  {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
