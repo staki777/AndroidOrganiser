@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,7 +16,8 @@ import android.widget.Toast;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug.AddEditDrugFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
 import com.j256.ormlite.dao.Dao;
 
 import java.io.Serializable;
@@ -66,7 +67,6 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit_menu_item:
-                               // (new DialogHelper(user, ctx, DrugAdapter.this)).showEditDialog(view, drug);
                                 AddEditDrugFragment adf=new AddEditDrugFragment();
                                 Bundle b = new Bundle();
                                 b.putSerializable("editDrug", drug);
@@ -75,7 +75,6 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
 
                                 break;
                             case R.id.delete_menu_item:
-                                //(new DialogHelper(user, ctx, DrugAdapter.this)).showDeleteDialog(drug);
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ctx);
 
                                 dialogBuilder.setTitle(ctx.getString(R.string.delete_item_dialog_title));

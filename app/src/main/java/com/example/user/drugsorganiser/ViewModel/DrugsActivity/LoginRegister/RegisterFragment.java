@@ -1,8 +1,7 @@
-package com.example.user.drugsorganiser.ViewModel.MainActivity;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
 
@@ -91,7 +91,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     user.drugs = new ArrayList<>();
 
                     try {
-                        final Dao<User, Integer> userDao = ((MainActivity)getActivity()).getHelper().getUserDao();
+                        final Dao<User, Integer> userDao = ((DrugsActivity)getActivity()).getHelper().getUserDao();
                         PreparedQuery<User> q=userDao.queryBuilder().where().eq(User.LOGIN_COLUMN, user.login).prepare();
                         if(!userDao.query(q).isEmpty()){
                             Toast.makeText(getActivity(), getActivity().getString(R.string.login_exists_warning), Toast.LENGTH_SHORT).show();
@@ -106,10 +106,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         //insert data into a database table
                         userDao.create(user);
                         Toast.makeText(getActivity(), getActivity().getString(R.string.account_created), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getActivity(), DrugsActivity.class);
-                        intent.putExtra(getActivity().getString(R.string.current_user), user.login);
-                        getActivity().finish();
-                        startActivity(intent);
+
+                        ((DrugsActivity)getActivity()).setUser(user);
+                        getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new OrganiserFragment()).disallowAddToBackStack().commit();
 
 
                     } catch (SQLException e) {

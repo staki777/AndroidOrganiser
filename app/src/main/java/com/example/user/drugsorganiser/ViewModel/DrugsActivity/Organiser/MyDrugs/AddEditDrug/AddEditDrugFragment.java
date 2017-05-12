@@ -1,5 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug;
-
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug;
 
 
 import android.app.Fragment;
@@ -25,7 +24,7 @@ import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.TimetableTypes;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.MyDrugsFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
 
 /**
  * A simple {@link Fragment} subclass.

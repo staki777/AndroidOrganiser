@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel.DrugsActivity.ContactPerson;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson;
 
 
 import android.Manifest;

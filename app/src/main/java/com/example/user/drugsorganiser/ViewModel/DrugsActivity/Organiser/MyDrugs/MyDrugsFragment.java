@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs;
 
 
 import android.app.Fragment;
@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug.AddEditDrugFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugAdapter;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DrugAdapter;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +33,7 @@ public class MyDrugsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.i("MyDrugsFragment", "onstart!");
+        Log.i("MyDrugsFragment", "onStart!");
         getActivity().setTitle(getView().getResources().getString(R.string.my_drugs));
         recyclerView = (RecyclerView) getView().findViewById(R.id.drug_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
@@ -58,6 +58,7 @@ public class MyDrugsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.i("MyDrugsFragment", "onResume");
 //        Log.i("MyDrugsFragment", "onresume!");
 //        DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
 //        recyclerView.setAdapter(drugAdapter);

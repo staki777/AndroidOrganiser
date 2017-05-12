@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Registry;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule;
 
 
 import android.app.Fragment;
@@ -11,16 +11,16 @@ import android.view.ViewGroup;
 
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.RegistryAdapter;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DoseAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegistryFragment extends Fragment {
+public class ScheduleFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    public RegistryFragment() {
+    public ScheduleFragment() {
         // Required empty public constructor
     }
 
@@ -33,23 +33,20 @@ public class RegistryFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        getActivity().setTitle(getView().getResources().getString(R.string.archive));
+        getActivity().setTitle(getView().getResources().getString(R.string.schedule));
         recyclerView = (RecyclerView) getView().findViewById(R.id.doses_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
-        final RegistryAdapter registryAdapter = new RegistryAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
-        recyclerView.setAdapter(registryAdapter);
+        final DoseAdapter doseAdapter = new DoseAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+        recyclerView.setAdapter(doseAdapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        final RegistryAdapter registryAdapter = new RegistryAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
-        recyclerView.setAdapter(registryAdapter);
-
+        final DoseAdapter doseAdapter = new DoseAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+        recyclerView.setAdapter(doseAdapter);
     }
-
-
 
 }
