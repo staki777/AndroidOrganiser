@@ -5,6 +5,8 @@ import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -50,15 +52,17 @@ public class DrugsActivity extends AppCompatActivity
         }
     }
 
-    //!!!
+
     @Override
     public void onBackPressed() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if(drawer!=null){
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
+        }
     }
 
 
@@ -104,7 +108,6 @@ public class DrugsActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         Log.i("DrugsActivity", "OnResume");
-        refreshUser();
     }
 
     public  void refreshUser(){
@@ -119,7 +122,6 @@ public class DrugsActivity extends AppCompatActivity
         this.user = u;
     }
     public User getUser(){
-        refreshUser();
         return  user;
     }
 

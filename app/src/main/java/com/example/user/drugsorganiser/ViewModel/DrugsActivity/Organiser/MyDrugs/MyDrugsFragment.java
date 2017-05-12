@@ -59,11 +59,6 @@ public class MyDrugsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.i("MyDrugsFragment", "onResume");
-//        Log.i("MyDrugsFragment", "onresume!");
-//        DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
-//        recyclerView.setAdapter(drugAdapter);
-//
-//       setOnClickListenerToFloatingButton();
 
     }
 
