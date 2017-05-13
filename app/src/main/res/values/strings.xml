@@ -114,7 +114,10 @@
         <item>November</item>
         <item>December</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--FRAGMENTS' TAGS-->
+    <string name="MAIN_TAG">MAIN</string>
+    <string name="NAV_TAG">NAV</string>
+    <string name="LOGREG_TAG">LOGREG</string>
 
 </resources>

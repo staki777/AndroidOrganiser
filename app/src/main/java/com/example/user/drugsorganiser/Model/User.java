@@ -55,38 +55,5 @@ public class User implements Serializable//, Parcelable
         this.password = password;
         this.mail = mail;
     }
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeSerializable(this);
-//    }
-//    public static final Parcelable.Creator<User> CREATOR
-//            = new Parcelable.Creator<User>() {
-//        public User createFromParcel(Parcel in) {
-//            return new User(in);
-//        }
-//
-//        public User[] newArray(int size) {
-//            return new User[size];
-//        }
-//    };
-//
-//    /** recreate object from parcel */
-//    private User(Parcel in) {
-//        User u = (User) in.readSerializable();
-//        this.userId = u.userId;
-//        this.drugs = u.drugs;
-//        this.login = u.login;
-//        this.password = u.password;
-//        this.contactName = u.contactName;
-//        this.contactNumber = u.contactName;
-//        this.mail = u.mail;
-//    }
-
-
 
 }

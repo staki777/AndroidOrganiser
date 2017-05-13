@@ -109,8 +109,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
                         Log.i("RegisterFragment", "Setting user..");
                         ((DrugsActivity)getActivity()).setUser(user);
-                        getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new OrganiserFragment()).disallowAddToBackStack().commit();
-
+                        ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.MAIN_TAG), new OrganiserFragment(), R.id.main_to_replace);
+                        ((DrugsActivity)getActivity()).removeFragment(getString(R.string.LOGREG_TAG));
 
                     } catch (SQLException e) {
                         e.printStackTrace();

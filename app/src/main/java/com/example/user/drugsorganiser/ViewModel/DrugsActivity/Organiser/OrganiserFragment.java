@@ -60,7 +60,8 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
         NavigationView navigationView = (NavigationView) getView().findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         setHasOptionsMenu(true);
-        getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).disallowAddToBackStack().commit();
+        ((DrugsActivity)getActivity()).restoreExistingFragment(getString(R.string.NAV_TAG), new ScheduleFragment(), R.id.toReplace);
+       // ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new ScheduleFragment(), R.id.toReplace);
     }
 
     @Override
@@ -71,26 +72,30 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
         ((DrugsActivity)getActivity()).refreshUserDrugs();
 
         if (id == R.id.nav_my_drugs) {
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, new MyDrugsFragment()).disallowAddToBackStack().commit();
+            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new MyDrugsFragment(), R.id.toReplace);
+
         }
         else if (id == R.id.schedule) {
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, new ScheduleFragment()).disallowAddToBackStack().commit();
+            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new ScheduleFragment(), R.id.toReplace);
+
         }
         else if (id == R.id.last_doses) {
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, new RegistryFragment()).disallowAddToBackStack().commit();
+            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new RegistryFragment(), R.id.toReplace);
         }
         else if (id == R.id.contact_person) {
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, new ContactPersonFragment()).disallowAddToBackStack().commit();
+            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new ContactPersonFragment(), R.id.toReplace);
+
         }
         else if (id == R.id.nav_logout) {
             ((DrugsActivity)getActivity()).setUser(null);
             Log.i("OrganiserFragment", "user set to null");
-            getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
-
+            ((DrugsActivity)getActivity()).removeFragment(getString(R.string.NAV_TAG));
+            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.MAIN_TAG), new LoginRegisterFragment(), R.id.main_to_replace);
         }
 
         DrawerLayout drawer = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if(drawer != null)
+          drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

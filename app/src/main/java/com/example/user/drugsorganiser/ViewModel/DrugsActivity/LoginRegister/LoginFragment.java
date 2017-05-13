@@ -93,8 +93,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), getActivity().getString(R.string.login_successfull), Toast.LENGTH_SHORT).show();
                 Log.i("LoginFragment", "setting user..");
                 ((DrugsActivity)getActivity()).setUser(user);
-                getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new OrganiserFragment()).disallowAddToBackStack().commit();
-
+                ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.MAIN_TAG), new OrganiserFragment(), R.id.main_to_replace);
+                ((DrugsActivity)getActivity()).removeFragment(getString(R.string.LOGREG_TAG));
             } catch (SQLException e) {
                 e.printStackTrace();
             }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,18 +46,24 @@ public class LoginRegisterFragment extends Fragment implements View.OnClickListe
         btnRegister.setOnClickListener(this);
         Toolbar toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
+
+        Fragment existing =getFragmentManager().findFragmentByTag(getString(R.string.LOGREG_TAG));
+        if(existing != null){
+            btnLogin.setEnabled((existing instanceof LoginFragment)? false: true);
+            btnRegister.setEnabled((existing instanceof LoginFragment)? true: false);
+            ((DrugsActivity)getActivity()).restoreExistingFragment(getString(R.string.LOGREG_TAG), new LoginFragment(), R.id.login_register_fragment);
+        }
     }
     @Override
     public void onClick(View v) {
         Log.i("LoginRegisterFragment", "onClick");
-
         if(v == btnLogin){
-            getFragmentManager().beginTransaction().replace(R.id.login_register_fragment, new LoginFragment()).disallowAddToBackStack().commit();
+            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.LOGREG_TAG), new LoginFragment(), R.id.login_register_fragment);
             btnLogin.setEnabled(false);
             btnRegister.setEnabled(true);
         }
         else if(v == btnRegister){
-            getFragmentManager().beginTransaction().replace(R.id.login_register_fragment, new RegisterFragment()).disallowAddToBackStack().commit();
+            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.LOGREG_TAG), new RegisterFragment(), R.id.login_register_fragment);
             btnLogin.setEnabled(true);
             btnRegister.setEnabled(false);
         }

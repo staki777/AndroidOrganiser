@@ -2,6 +2,7 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -45,16 +46,19 @@ public class DrugsActivity extends AppCompatActivity
 
             if(user != null && userID!= -1){
                 Log.i("DrugsActivity", "OrganiserFragment will be called");
-                getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new OrganiserFragment()).disallowAddToBackStack().commit();
+                removeAndReplaceOldFragment("MAIN", new OrganiserFragment(), R.id.main_to_replace);
+                //getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new OrganiserFragment()).disallowAddToBackStack().commit();
             }
             else {
                 Log.i("DrugsActivity", "LoginRegisterFragment will be called");
-                getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
+                removeAndReplaceOldFragment("MAIN", new LoginRegisterFragment(), R.id.main_to_replace);
+                //getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
             }
         }
         else {
             Log.i("DrugsActivity", "LoginRegisterFragment will be called");
-            getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
+            removeAndReplaceOldFragment("MAIN", new LoginRegisterFragment(), R.id.main_to_replace);
+            //getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
         }
 
         alarm = new AlarmManagerBroadcastReceiver();
@@ -65,9 +69,7 @@ public class DrugsActivity extends AppCompatActivity
     public void onSaveInstanceState(Bundle outState) {
         Log.i("DrugsActivity", "onSaveInstanceState");
         super.onSaveInstanceState(outState);
-
-            outState.putInt("userID",  user != null ? user.userId : -1);
-
+        outState.putInt("userID",  user != null ? user.userId : -1);
     }
 
     @TargetApi(23)
@@ -159,4 +161,32 @@ public class DrugsActivity extends AppCompatActivity
         return  user;
     }
 
+    public void  removeAndReplaceOldFragment(String tag, Fragment newFragment, int containerID){
+        removeFragment(tag);
+        getFragmentManager().beginTransaction().replace(containerID, newFragment, tag).disallowAddToBackStack().commit();
+    }
+    public void removeFragment(String tag){
+        Fragment old =getFragmentManager().findFragmentByTag(tag);
+        if(old != null){
+            Log.i("Fragment removing", "old fragment: "+tag+" found!");
+            getFragmentManager().beginTransaction().remove(old).commitAllowingStateLoss();
+        }
+    }
+
+    public void restoreExistingFragment(String tag, Fragment emergencyFragment, int containerID){
+        Fragment old =getFragmentManager().findFragmentByTag(tag);
+        if(old == null){
+            getFragmentManager().beginTransaction().replace(containerID, emergencyFragment, tag).disallowAddToBackStack().commit();
+            Log.i("FragmentRestoring", "existing fragment with tag: "+tag+" not found, emergencyFragment will be used");
+        }
+        else {
+            Log.i("FragmentRestoring", "existing fragment with tag: "+tag+" found: "+old.getClass().getName());
+            try {
+                getFragmentManager().beginTransaction().replace(containerID, old.getClass().newInstance(), tag).disallowAddToBackStack().commit();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+    }
 }

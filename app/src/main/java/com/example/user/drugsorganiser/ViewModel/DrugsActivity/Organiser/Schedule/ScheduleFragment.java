@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class ScheduleFragment extends Fragment {
 
     @Override
     public void onStart() {
+        Log.i("ScheduleFragment", "onStart");
         super.onStart();
         getActivity().setTitle(getView().getResources().getString(R.string.schedule));
         recyclerView = (RecyclerView) getView().findViewById(R.id.doses_list);
@@ -43,10 +45,14 @@ public class ScheduleFragment extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
+        Log.i("ScheduleFragment", "onResume");
 
+        super.onResume();
         final DoseAdapter doseAdapter = new DoseAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
         recyclerView.setAdapter(doseAdapter);
     }
+
+
+
 
 }
