@@ -107,6 +107,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         userDao.create(user);
                         Toast.makeText(getActivity(), getActivity().getString(R.string.account_created), Toast.LENGTH_SHORT).show();
 
+                        Log.i("RegisterFragment", "Setting user..");
                         ((DrugsActivity)getActivity()).setUser(user);
                         getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new OrganiserFragment()).disallowAddToBackStack().commit();
 

@@ -12,7 +12,8 @@ import java.util.Collection;
  * Created by user on 2017-04-14.
  */
 @DatabaseTable
-public class User implements Serializable{
+public class User implements Serializable//, Parcelable
+{
 
     private static final long serialVersionUID = -222864131214757024L;
     public static final String ID_FIELD = "user_id";
@@ -54,6 +55,38 @@ public class User implements Serializable{
         this.password = password;
         this.mail = mail;
     }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeSerializable(this);
+//    }
+//    public static final Parcelable.Creator<User> CREATOR
+//            = new Parcelable.Creator<User>() {
+//        public User createFromParcel(Parcel in) {
+//            return new User(in);
+//        }
+//
+//        public User[] newArray(int size) {
+//            return new User[size];
+//        }
+//    };
+//
+//    /** recreate object from parcel */
+//    private User(Parcel in) {
+//        User u = (User) in.readSerializable();
+//        this.userId = u.userId;
+//        this.drugs = u.drugs;
+//        this.login = u.login;
+//        this.password = u.password;
+//        this.contactName = u.contactName;
+//        this.contactNumber = u.contactName;
+//        this.mail = u.mail;
+//    }
+
 
 
 }

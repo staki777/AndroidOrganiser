@@ -4,6 +4,7 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +29,15 @@ public class LoginRegisterFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.i("LoginRegisterFragment", "onCreateView");
         return inflater.inflate(R.layout.fragment_login_register, container, false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Log.i("LoginRegisterFragment", "onStart");
+
         btnLogin= (Button) getView().findViewById(R.id.btnLoginTab);
         btnRegister= (Button) getView().findViewById(R.id.btnRegisterTab);
 
@@ -44,6 +48,7 @@ public class LoginRegisterFragment extends Fragment implements View.OnClickListe
     }
     @Override
     public void onClick(View v) {
+        Log.i("LoginRegisterFragment", "onClick");
 
         if(v == btnLogin){
             getFragmentManager().beginTransaction().replace(R.id.login_register_fragment, new LoginFragment()).disallowAddToBackStack().commit();

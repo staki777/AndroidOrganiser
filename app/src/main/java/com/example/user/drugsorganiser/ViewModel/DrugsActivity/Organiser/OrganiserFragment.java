@@ -25,8 +25,6 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Registry.RegistryFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule.ScheduleFragment;
 
-import java.sql.SQLException;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -42,6 +40,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.i("OrganiserFragment", "onCreateVIew");
         return inflater.inflate(R.layout.fragment_organiser, container, false);
     }
 
@@ -69,7 +68,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        ((DrugsActivity)getActivity()).refreshUser();
+        ((DrugsActivity)getActivity()).refreshUserDrugs();
 
         if (id == R.id.nav_my_drugs) {
             getFragmentManager().beginTransaction().replace(R.id.toReplace, new MyDrugsFragment()).disallowAddToBackStack().commit();
@@ -84,7 +83,10 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
             getFragmentManager().beginTransaction().replace(R.id.toReplace, new ContactPersonFragment()).disallowAddToBackStack().commit();
         }
         else if (id == R.id.nav_logout) {
+            ((DrugsActivity)getActivity()).setUser(null);
+            Log.i("OrganiserFragment", "user set to null");
             getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
@@ -118,7 +120,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     public void onResume() {
         super.onResume();
         Log.i("OrganiserFragment", "OnResume");
-        ((DrugsActivity)getActivity()).refreshUser();
+        ((DrugsActivity)getActivity()).refreshUserDrugs();
     }
 
 }

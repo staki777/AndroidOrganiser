@@ -15,6 +15,7 @@ import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 
@@ -36,10 +37,37 @@ public class DrugsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Log.i("DrugsActivity", "onCreate");
         setContentView(R.layout.activity_drugs);
-        alarm = new AlarmManagerBroadcastReceiver();
 
-        getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
+        if(savedInstanceState!=null){
+            int userID=savedInstanceState.getInt("userID");
+            Log.i("drugsActivity", "userID from bundle is: "+userID);
+            user = findUserByID(userID);
+
+            if(user != null && userID!= -1){
+                Log.i("DrugsActivity", "OrganiserFragment will be called");
+                getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new OrganiserFragment()).disallowAddToBackStack().commit();
+            }
+            else {
+                Log.i("DrugsActivity", "LoginRegisterFragment will be called");
+                getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
+            }
+        }
+        else {
+            Log.i("DrugsActivity", "LoginRegisterFragment will be called");
+            getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
+        }
+
+        alarm = new AlarmManagerBroadcastReceiver();
         getPermissions();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Log.i("DrugsActivity", "onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+
+            outState.putInt("userID",  user != null ? user.userId : -1);
+
     }
 
     @TargetApi(23)
@@ -102,21 +130,27 @@ public class DrugsActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i("DrugsActivity", "OnResume");
-    }
-
-    public  void refreshUser(){
+    public  void refreshUserDrugs(){
+        Log.i("DrugsActivity", "refreshUserDrugs");
         try{
             PreparedQuery<User> q= getHelper().getUserDao().queryBuilder().where().eq(User.ID_FIELD, user.userId).prepare();
-            user=getHelper().getUserDao().queryForFirst(q);
+            user.drugs=getHelper().getUserDao().queryForFirst(q).drugs;
         }
         catch (SQLException e){
             e.printStackTrace();
             e.toString();
         }
+    }
+    private  User findUserByID(int userID){
+        try{
+            PreparedQuery<User> q= getHelper().getUserDao().queryBuilder().where().eq(User.ID_FIELD, userID).prepare();
+            return getHelper().getUserDao().queryForFirst(q);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            e.toString();
+        }
+        return null;
     }
     public void setUser(User u){
         this.user = u;

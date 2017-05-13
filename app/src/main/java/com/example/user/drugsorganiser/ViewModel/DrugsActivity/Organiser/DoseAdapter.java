@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,8 +34,11 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
     private SimpleDateFormat dateFormat;
 
     public DoseAdapter(User user, Context ctx) {
+        Log.i("DoseAdapter", "Constructor");
         this.drugs = new ArrayList<>();
-        drugs.addAll(user.drugs);
+        if(user != null){
+            drugs.addAll(user.drugs);
+        }
 
         this.user=user;
         this.ctx = ctx;

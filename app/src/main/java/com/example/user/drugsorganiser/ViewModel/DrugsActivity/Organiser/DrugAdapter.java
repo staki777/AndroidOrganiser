@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,9 +36,12 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
     private Context ctx;
 
     public DrugAdapter(User user, Context ctx) {
+        Log.i("DrugAdapter", "Constructor");
 
         this.drugs = new ArrayList<>();
-        drugs.addAll(user.drugs);
+        if(user != null){ //shouldn't be null, but sometimes is @.@
+            drugs.addAll(user.drugs);
+        }
         this.user=user;
         this.ctx = ctx;
 

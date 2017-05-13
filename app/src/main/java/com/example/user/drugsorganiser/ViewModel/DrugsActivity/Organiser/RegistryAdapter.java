@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,8 @@ public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
     private SimpleDateFormat dateFormat;
 
     public RegistryAdapter(User user, Context ctx) {
+        Log.i("RegistryAdapter", "Constructor");
+
         this.user=user;
         this.ctx = ctx;
 
@@ -40,7 +43,9 @@ public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
 
         //mock
         List<Drug> drugs = new ArrayList<>();
-        drugs.addAll(user.drugs);
+        if(user != null){
+            drugs.addAll(user.drugs);
+        }
         Calendar cal = Calendar.getInstance();
         cal.set(2017,4,25,8,0);
         if (drugs.size() == 0) return;
