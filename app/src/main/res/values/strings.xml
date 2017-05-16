@@ -43,6 +43,8 @@
     <string name="no_button">No</string>
     <string name="FewTimesPer">times per</string>
     <string name="AddDate">Add date</string>
+    <string name="add_new_drug">Add new drug</string>
+    <string name="edit_drug">Edit drug</string>
 
     <string name="positive_button">Done</string>
     <string name="negative_button">Cancel</string>
@@ -116,9 +118,6 @@
     </string-array>
 
     <!--FRAGMENTS' TAGS-->
-    <string name="MAIN_TAG">MAIN</string>
-    <string name="NAV_TAG">NAV</string>
-    <string name="LOGREG_TAG">LOGREG</string>
-    <string name="ADDEDIT_TAG">ADDEDIT</string>
+
 
 </resources>

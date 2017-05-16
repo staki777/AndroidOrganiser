@@ -159,6 +159,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         });
         //fill
         if(editMode){
+            getActivity().setTitle(getView().getResources().getString(R.string.edit_drug));
             etName.setText(drugToEdit.name);
             dosePicker.setValue(drugToEdit.doseQuantity);
             spDoseType.setSelection(doseTypes.getPosition(drugToEdit.doseDescription));
@@ -168,6 +169,9 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
             if(drugToEdit.important){
                 chbxImportant.toggle();
             }
+        }
+        else {
+            getActivity().setTitle(getView().getResources().getString(R.string.add_new_drug));
         }
     }
 
