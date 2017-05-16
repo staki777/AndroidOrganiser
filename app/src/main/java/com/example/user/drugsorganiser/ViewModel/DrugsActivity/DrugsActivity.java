@@ -102,9 +102,9 @@ public class DrugsActivity extends AppCompatActivity
 
 
 
-    public void startRepeatingTimer(View view) {
+    public void startRepeatingTimer(View view, String drugName, String description) {
         if(alarm != null){
-            alarm.SetAlarm(getApplicationContext());
+            alarm.SetAlarm(getApplicationContext(), drugName, description);
         }
     }
 
@@ -114,9 +114,9 @@ public class DrugsActivity extends AppCompatActivity
         }
     }
 
-    public void onetimeTimer(View view){
+    public void onetimeTimer(View view, String drugName, String description){
         if(alarm != null){
-            alarm.setOnetimeAlarm(getApplicationContext());
+            alarm.setOnetimeAlarm(getApplicationContext(), drugName, description);
         }
     }
 
