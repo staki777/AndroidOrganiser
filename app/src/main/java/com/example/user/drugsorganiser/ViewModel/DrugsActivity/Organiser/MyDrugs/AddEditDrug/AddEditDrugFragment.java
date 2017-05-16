@@ -2,8 +2,6 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrug
 
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -119,35 +117,20 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         spTimetable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                FragmentTransaction ft= getActivity().getFragmentManager().beginTransaction();
                 String selected=spTimetable.getSelectedItem().toString();
                 Log.i("AddEditDrugFragment", "|"+selected+"|");
                 if(position == 0){
                     /*twOtherDoseType.setVisibility(View.VISIBLE);
                     etOtherDoseType.setVisibility(View.VISIBLE);*/
-                    Fragment fragment = new FewTimesFragment();
-                    FragmentManager fm = getActivity().getFragmentManager();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.fragment1, fragment);
-                    transaction.commit();
+                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.fragment1, new FewTimesFragment());
                 }
                 else if(position == 1){
                    /* etOtherDoseType.setVisibility(View.INVISIBLE);
                     twOtherDoseType.setVisibility(View.INVISIBLE);*/
-                    Fragment fragment = new ConstantIntervalFragment();
-                    FragmentManager fm = getActivity().getFragmentManager();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.fragment1, fragment);
-                    transaction.commit();
+                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.fragment1, new ConstantIntervalFragment());
                 }
                 else {
-
-                    Fragment fragment = new OtherFragment();
-                    FragmentManager fm = getActivity().getFragmentManager();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.fragment1, fragment);
-                    transaction.commit();
-
+                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.fragment1, new OtherFragment());
                 }
 
             }
@@ -202,8 +185,6 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
                 drugAdapter.editItem(drugToEdit);
             }
 
-//            ((DrugsActivity)getActivity()).removeIfExists(MyDrugsFragment.class.getSimpleName());
-//            ((DrugsActivity)getActivity()).replaceWithNew(R.id.toReplace, mdf, false);
             ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
 
         }

@@ -74,6 +74,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
                                 Bundle b = new Bundle();
                                 b.putSerializable("editDrug", drug);
                                 adf.setArguments(b);
+                                ((DrugsActivity)ctx).removeIfExists(AddEditDrugFragment.class.getSimpleName());
                                 ((DrugsActivity)ctx).replaceWithNew(R.id.toReplace, adf, true);
 
                                 break;

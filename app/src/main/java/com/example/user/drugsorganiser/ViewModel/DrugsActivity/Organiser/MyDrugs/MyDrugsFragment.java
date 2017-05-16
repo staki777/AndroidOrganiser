@@ -71,9 +71,5 @@ public class MyDrugsFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("recover", true);
-    }
+
 }
