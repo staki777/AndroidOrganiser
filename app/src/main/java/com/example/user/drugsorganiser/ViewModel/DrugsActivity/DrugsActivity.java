@@ -164,9 +164,14 @@ public class DrugsActivity extends AppCompatActivity
 
     }
 
-    public void replaceWithNewAndAddToBackStack(int containerID, Fragment newInstance){
+    public void replaceWithNew(int containerID, Fragment newInstance, Boolean addToBackStack){
         String tag = newInstance.getClass().getSimpleName();
-        getFragmentManager().beginTransaction().replace(containerID, newInstance, tag).addToBackStack(null).commit();
+        if(addToBackStack){
+            getFragmentManager().beginTransaction().replace(containerID, newInstance, tag).addToBackStack(null).commit();
+        }
+        else {
+            getFragmentManager().beginTransaction().replace(containerID, newInstance, tag).disallowAddToBackStack().commit();
+        }
     }
 
     public void removeIfExists(String tag){

@@ -24,6 +24,7 @@ import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.TimetableTypes;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DrugAdapter;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
 
 /**
@@ -179,18 +180,18 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         if(v == btnPositive)
         {
+            DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+
             if(etName.getText().toString().isEmpty() || (etOtherDoseType.getVisibility()==View.VISIBLE && etOtherDoseType.getText().toString().isEmpty()))
             {
                 Snackbar.make(getView(), getString(R.string.fields_must_be_filled), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 return;
             }
-            MyDrugsFragment mdf= new MyDrugsFragment();
-            Bundle b = new Bundle();
+
             if(!editMode){ //dodajemy nowy lek
                 Drug drug=new Drug( ((DrugsActivity)getActivity()).getUser(), etName.getText().toString(), dosePicker.getValue(), (etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString(), chbxImportant.isChecked(), etComment.getText().toString());
-                b.putSerializable("newDrug", drug);
-
+                drugAdapter.addItem(drug);
             }
             else{ //edytujemy lek
                 drugToEdit.name=etName.getText().toString();
@@ -198,15 +199,16 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
                 drugToEdit.doseDescription=(etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString();
                 drugToEdit.important=chbxImportant.isChecked();
                 drugToEdit.comment=etComment.getText().toString();
-                b.putSerializable("editDrug", drugToEdit);
+                drugAdapter.editItem(drugToEdit);
             }
-            mdf.setArguments(b);
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, mdf).disallowAddToBackStack().commit();
 
+//            ((DrugsActivity)getActivity()).removeIfExists(MyDrugsFragment.class.getSimpleName());
+//            ((DrugsActivity)getActivity()).replaceWithNew(R.id.toReplace, mdf, false);
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
 
         }
         else if(v == btnNegative){
-            getFragmentManager().beginTransaction().replace(R.id.toReplace, new MyDrugsFragment()).disallowAddToBackStack().commit();
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
         }
     }
 }

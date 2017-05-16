@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DrugAdapter;
@@ -35,6 +34,8 @@ public class MyDrugsFragment extends Fragment {
         super.onStart();
         Log.i("MyDrugsFragment", "onStart!");
         getActivity().setTitle(getView().getResources().getString(R.string.my_drugs));
+        ((DrugsActivity)getActivity()).refreshUserDrugs();
+
         recyclerView = (RecyclerView) getView().findViewById(R.id.drug_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
@@ -43,23 +44,13 @@ public class MyDrugsFragment extends Fragment {
         fab = (FloatingActionButton) getView().findViewById(R.id.fab);
         setOnClickListenerToFloatingButton();
 
-        Bundle bundle=getArguments();
-        if(bundle != null){
-            Drug drug=(Drug)bundle.getSerializable("newDrug");
-            Drug editDrug = (Drug)bundle.getSerializable("editDrug");
-            if(drug != null)
-                drugAdapter.addItem(drug);
-            else if(editDrug!= null)
-                drugAdapter.editItem(editDrug);
-        }
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.i("MyDrugsFragment", "onResume");
-
+        ((DrugsActivity)getActivity()).refreshUserDrugs();
     }
 
     @Override
@@ -74,9 +65,15 @@ public class MyDrugsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddEditDrugFragment adf=new AddEditDrugFragment();
-                ((DrugsActivity)getActivity()).replaceWithNewAndAddToBackStack(R.id.toReplace, adf);
+                ((DrugsActivity)getActivity()).removeIfExists(AddEditDrugFragment.class.getSimpleName());
+                ((DrugsActivity)getActivity()).replaceWithNew(R.id.toReplace, new AddEditDrugFragment(), true);
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("recover", true);
     }
 }

@@ -74,7 +74,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
                                 Bundle b = new Bundle();
                                 b.putSerializable("editDrug", drug);
                                 adf.setArguments(b);
-                                ((DrugsActivity)ctx).replaceWithNewAndAddToBackStack(R.id.toReplace, adf);
+                                ((DrugsActivity)ctx).replaceWithNew(R.id.toReplace, adf, true);
 
                                 break;
                             case R.id.delete_menu_item:
