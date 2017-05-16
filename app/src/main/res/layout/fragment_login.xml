@@ -5,18 +5,17 @@
     android:orientation="vertical"
     tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginFragment">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_prompt" />
 
     <EditText
+        android:id="@+id/etLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:id="@+id/etLogin"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:inputType="textPersonName" />
 
 
     <TextView
@@ -25,15 +24,16 @@
         android:text="@string/password_prompt" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:id="@+id/etPassword"
-        android:layout_weight="1" />
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:inputType="textPassword" />
+
+    <Button
         android:id="@+id/btnLogin"
-        android:text="@string/login"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login" />
 
 </LinearLayout>

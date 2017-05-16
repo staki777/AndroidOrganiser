@@ -119,5 +119,6 @@
     <string name="MAIN_TAG">MAIN</string>
     <string name="NAV_TAG">NAV</string>
     <string name="LOGREG_TAG">LOGREG</string>
+    <string name="ADDEDIT_TAG">ADDEDIT</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -24,7 +23,7 @@ import java.sql.SQLException;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
-
+    private  String savedLogin ="";
 
     private Button btnLogin;
     private EditText etLogin, etPassword;
@@ -38,35 +37,51 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.i("LoginFragment", "onACreateVIew");
+
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("LoginFragment", "onCreate");
+
 
     }
 
     @Override
     public void onStart(){
         super.onStart();
-
+        Log.i("LoginFragment", "onStart");
         btnLogin = (Button) getView().findViewById(R.id.btnLogin);
         etLogin = (EditText) getView().findViewById(R.id.etLogin);
         etPassword = (EditText) getView().findViewById(R.id.etPassword);
 
         btnLogin.setOnClickListener(this);
-    }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+
+       etLogin.setText(savedLogin);
 
     }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i("LoginFragment", "onSaveInstanceState");
+
+        outState.putString("login", etLogin.getText().toString());
+    }
+
+
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
+        Log.i("LoginFragment", "onActivityCreated");
+        if(savedInstanceState != null){
+            savedLogin = savedInstanceState.getString("login");
+        }
+        Log.i("savedLogin", "login: "+savedLogin);
     }
 
 
