@@ -20,7 +20,9 @@ import android.view.ViewGroup;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.RegisterFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson.ContactPersonFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Registry.RegistryFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule.ScheduleFragment;
@@ -41,56 +43,69 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i("OrganiserFragment", "onCreateVIew");
-        return inflater.inflate(R.layout.fragment_organiser, container, false);
+        View v = inflater.inflate(R.layout.fragment_organiser, container, false);
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) v.findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) v.findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        setHasOptionsMenu(true);
+        return v;
     }
 
     @Override
     public void onStart() {
         super.onStart();
         Log.i("OrganiserFragment", "onStart");
-        Toolbar toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+    }
 
-        NavigationView navigationView = (NavigationView) getView().findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        setHasOptionsMenu(true);
-        ((DrugsActivity)getActivity()).restoreExistingFragment(getString(R.string.NAV_TAG), new ScheduleFragment(), R.id.toReplace);
-       // ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new ScheduleFragment(), R.id.toReplace);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(!(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true)){
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
+        }
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item)  {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         ((DrugsActivity)getActivity()).refreshUserDrugs();
 
         if (id == R.id.nav_my_drugs) {
-            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new MyDrugsFragment(), R.id.toReplace);
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
 
         }
         else if (id == R.id.schedule) {
-            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new ScheduleFragment(), R.id.toReplace);
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
 
         }
         else if (id == R.id.last_doses) {
-            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new RegistryFragment(), R.id.toReplace);
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new RegistryFragment());
         }
         else if (id == R.id.contact_person) {
-            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.NAV_TAG), new ContactPersonFragment(), R.id.toReplace);
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ContactPersonFragment());
 
         }
         else if (id == R.id.nav_logout) {
             ((DrugsActivity)getActivity()).setUser(null);
             Log.i("OrganiserFragment", "user set to null");
-            ((DrugsActivity)getActivity()).removeFragment(getString(R.string.NAV_TAG));
-            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.MAIN_TAG), new LoginRegisterFragment(), R.id.main_to_replace);
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, new LoginRegisterFragment());
+            ((DrugsActivity)getActivity()).removeIfExists(MyDrugsFragment.class.getSimpleName());
+            ((DrugsActivity)getActivity()).removeIfExists(ScheduleFragment.class.getSimpleName());
+            ((DrugsActivity)getActivity()).removeIfExists(RegisterFragment.class.getSimpleName());
+            ((DrugsActivity)getActivity()).removeIfExists(ContactPersonFragment.class.getSimpleName());
+            ((DrugsActivity)getActivity()).removeIfExists(AddEditDrugFragment.class.getSimpleName());
+
         }
 
         DrawerLayout drawer = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
@@ -126,6 +141,13 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
         super.onResume();
         Log.i("OrganiserFragment", "OnResume");
         ((DrugsActivity)getActivity()).refreshUserDrugs();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("recover", true);
+
     }
 
 }

@@ -16,7 +16,6 @@ import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 
@@ -39,26 +38,15 @@ public class DrugsActivity extends AppCompatActivity
         Log.i("DrugsActivity", "onCreate");
         setContentView(R.layout.activity_drugs);
 
+        //user retrieval
         if(savedInstanceState!=null){
             int userID=savedInstanceState.getInt("userID");
             Log.i("drugsActivity", "userID from bundle is: "+userID);
             user = findUserByID(userID);
-
-            if(user != null && userID!= -1){
-                Log.i("DrugsActivity", "OrganiserFragment will be called");
-                removeAndReplaceOldFragment("MAIN", new OrganiserFragment(), R.id.main_to_replace);
-                //getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new OrganiserFragment()).disallowAddToBackStack().commit();
-            }
-            else {
-                Log.i("DrugsActivity", "LoginRegisterFragment will be called");
-                removeAndReplaceOldFragment("MAIN", new LoginRegisterFragment(), R.id.main_to_replace);
-                //getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
-            }
         }
         else {
             Log.i("DrugsActivity", "LoginRegisterFragment will be called");
-            removeAndReplaceOldFragment("MAIN", new LoginRegisterFragment(), R.id.main_to_replace);
-            //getFragmentManager().beginTransaction().replace(R.id.main_to_replace, new LoginRegisterFragment()).disallowAddToBackStack().commit();
+            replaceWithNewOrExisting(R.id.main_to_replace, new LoginRegisterFragment());
         }
 
         alarm = new AlarmManagerBroadcastReceiver();
@@ -161,32 +149,32 @@ public class DrugsActivity extends AppCompatActivity
         return  user;
     }
 
-    public void  removeAndReplaceOldFragment(String tag, Fragment newFragment, int containerID){
-        removeFragment(tag);
-        getFragmentManager().beginTransaction().replace(containerID, newFragment, tag).disallowAddToBackStack().commit();
+
+    public void replaceWithNewOrExisting(int containerID, Fragment newInstance){
+        String tag = newInstance.getClass().getSimpleName();
+        Fragment existing = getFragmentManager().findFragmentByTag(tag);
+
+        if( existing == null) {
+            Log.i("Main", "Fragment with tag: "+tag+" was a null, new instance will be created.");
+            existing = newInstance;
+        }
+        else
+            Log.i("Main", "Fragment with tag: "+tag+" was found, new instance wont be created.");
+        getFragmentManager().beginTransaction().replace(containerID, existing, tag).disallowAddToBackStack().commit();
+
     }
-    public void removeFragment(String tag){
-        Fragment old =getFragmentManager().findFragmentByTag(tag);
-        if(old != null){
-            Log.i("Fragment removing", "old fragment: "+tag+" found!");
-            getFragmentManager().beginTransaction().remove(old).commitAllowingStateLoss();
+
+    public void replaceWithNewAndAddToBackStack(int containerID, Fragment newInstance){
+        String tag = newInstance.getClass().getSimpleName();
+        getFragmentManager().beginTransaction().replace(containerID, newInstance, tag).addToBackStack(null).commit();
+    }
+
+    public void removeIfExists(String tag){
+        Fragment existing = getFragmentManager().findFragmentByTag(tag);
+        if(existing != null){
+            getFragmentManager().beginTransaction().remove(existing).commit();
         }
     }
 
-    public void restoreExistingFragment(String tag, Fragment emergencyFragment, int containerID){
-        Fragment old =getFragmentManager().findFragmentByTag(tag);
-        if(old == null){
-            getFragmentManager().beginTransaction().replace(containerID, emergencyFragment, tag).disallowAddToBackStack().commit();
-            Log.i("FragmentRestoring", "existing fragment with tag: "+tag+" not found, emergencyFragment will be used");
-        }
-        else {
-            Log.i("FragmentRestoring", "existing fragment with tag: "+tag+" found: "+old.getClass().getName());
-            try {
-                getFragmentManager().beginTransaction().replace(containerID, old.getClass().newInstance(), tag).disallowAddToBackStack().commit();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
 
-    }
 }

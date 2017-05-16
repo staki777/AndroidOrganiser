@@ -109,9 +109,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
                         Log.i("RegisterFragment", "Setting user..");
                         ((DrugsActivity)getActivity()).setUser(user);
-                        ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.MAIN_TAG), new OrganiserFragment(), R.id.main_to_replace);
-                        ((DrugsActivity)getActivity()).removeFragment(getString(R.string.LOGREG_TAG));
 
+                        ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, new OrganiserFragment());
+                        ((DrugsActivity)getActivity()).removeIfExists(LoginFragment.class.getSimpleName());
+                        ((DrugsActivity)getActivity()).removeIfExists(RegisterFragment.class.getSimpleName());
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

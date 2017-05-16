@@ -52,7 +52,10 @@ public class ScheduleFragment extends Fragment {
         recyclerView.setAdapter(doseAdapter);
     }
 
-
-
-
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.i("!", "Schedule fragment on detach");
+        getFragmentManager().saveFragmentInstanceState(this);
+    }
 }

@@ -18,52 +18,72 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
  */
 public class LoginRegisterFragment extends Fragment implements View.OnClickListener  {
 
-    private Button btnLogin;
-    private Button btnRegister;
+    private Button btnLogin, btnRegister;
+    private boolean btnLoginEnabled, btnRegisterEnabled;
 
     public LoginRegisterFragment() {
         // Required empty public constructor
     }
 
+    private String TAG = getClass().getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i("LoginRegisterFragment", "onCreateView");
-        return inflater.inflate(R.layout.fragment_login_register, container, false);
+        View v = inflater.inflate(R.layout.fragment_login_register, container, false);
+
+        btnLogin= (Button) v.findViewById(R.id.btnLoginTab);
+        btnRegister= (Button) v.findViewById(R.id.btnRegisterTab);
+
+        btnLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
+
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.app_name));
+        return v;
     }
 
     @Override
     public void onStart() {
         super.onStart();
         Log.i("LoginRegisterFragment", "onStart");
-
-        btnLogin= (Button) getView().findViewById(R.id.btnLoginTab);
-        btnRegister= (Button) getView().findViewById(R.id.btnRegisterTab);
-
-        btnLogin.setOnClickListener(this);
-        btnRegister.setOnClickListener(this);
-        Toolbar toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.app_name));
-
-        Fragment existing =getFragmentManager().findFragmentByTag(getString(R.string.LOGREG_TAG));
-        if(existing != null){
-            btnLogin.setEnabled((existing instanceof LoginFragment)? false: true);
-            btnRegister.setEnabled((existing instanceof LoginFragment)? true: false);
-            ((DrugsActivity)getActivity()).restoreExistingFragment(getString(R.string.LOGREG_TAG), new LoginFragment(), R.id.login_register_fragment);
-        }
+        btnLogin.setEnabled(btnLoginEnabled);
+        btnRegister.setEnabled(btnRegisterEnabled);
     }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState != null){
+            btnLoginEnabled = savedInstanceState.getBoolean(TAG+"btnLogin");
+            btnRegisterEnabled = savedInstanceState.getBoolean(TAG+"btnRegister");
+        }
+        else {
+            btnLoginEnabled = true;
+            btnRegisterEnabled = true;
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(TAG+"btnLogin", btnLogin.isEnabled());
+        outState.putBoolean(TAG+"btnRegister", btnRegister.isEnabled());
+    }
+
     @Override
     public void onClick(View v) {
-        Log.i("LoginRegisterFragment", "onClick");
         if(v == btnLogin){
-            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.LOGREG_TAG), new LoginFragment(), R.id.login_register_fragment);
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.login_register_fragment, new LoginFragment());
             btnLogin.setEnabled(false);
             btnRegister.setEnabled(true);
         }
         else if(v == btnRegister){
-            ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.LOGREG_TAG), new RegisterFragment(), R.id.login_register_fragment);
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.login_register_fragment, new RegisterFragment());
             btnLogin.setEnabled(true);
             btnRegister.setEnabled(false);
         }

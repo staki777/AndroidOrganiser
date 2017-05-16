@@ -123,13 +123,14 @@ public class ContactPersonFragment extends Fragment {
                 pickIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
                 startActivityForResult(pickIntent, PICK_CONTACT);
             }});
+        nameTextView.setText(user.contactName);
+        phoneTextView.setText(user.contactNumber);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        nameTextView.setText(user.contactName);
-        phoneTextView.setText(user.contactNumber);
+
     }
 
     @Override

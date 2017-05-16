@@ -75,7 +75,7 @@ public class MyDrugsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AddEditDrugFragment adf=new AddEditDrugFragment();
-                getFragmentManager().beginTransaction().replace(R.id.toReplace, adf, getString(R.string.ADDEDIT_TAG)).addToBackStack(null).commit();
+                ((DrugsActivity)getActivity()).replaceWithNewAndAddToBackStack(R.id.toReplace, adf);
             }
         });
     }

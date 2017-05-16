@@ -23,8 +23,6 @@ import java.sql.SQLException;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
-    private  String savedLogin ="";
-
     private Button btnLogin;
     private EditText etLogin, etPassword;
 
@@ -46,8 +44,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("LoginFragment", "onCreate");
-
-
     }
 
     @Override
@@ -60,28 +56,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         btnLogin.setOnClickListener(this);
 
-       etLogin.setText(savedLogin);
-
-    }
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.i("LoginFragment", "onSaveInstanceState");
-
-        outState.putString("login", etLogin.getText().toString());
-    }
-
-
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        Log.i("LoginFragment", "onActivityCreated");
-        if(savedInstanceState != null){
-            savedLogin = savedInstanceState.getString("login");
-        }
-        Log.i("savedLogin", "login: "+savedLogin);
     }
 
 
@@ -108,8 +82,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), getActivity().getString(R.string.login_successfull), Toast.LENGTH_SHORT).show();
                 Log.i("LoginFragment", "setting user..");
                 ((DrugsActivity)getActivity()).setUser(user);
-                ((DrugsActivity)getActivity()).removeAndReplaceOldFragment(getString(R.string.MAIN_TAG), new OrganiserFragment(), R.id.main_to_replace);
-                ((DrugsActivity)getActivity()).removeFragment(getString(R.string.LOGREG_TAG));
+
+                ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, new OrganiserFragment());
+                ((DrugsActivity)getActivity()).removeIfExists(LoginFragment.class.getSimpleName());
+                ((DrugsActivity)getActivity()).removeIfExists(RegisterFragment.class.getSimpleName());
             } catch (SQLException e) {
                 e.printStackTrace();
             }

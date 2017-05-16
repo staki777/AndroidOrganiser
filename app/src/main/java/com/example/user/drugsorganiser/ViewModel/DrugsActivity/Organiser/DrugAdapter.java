@@ -1,6 +1,5 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -75,7 +74,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
                                 Bundle b = new Bundle();
                                 b.putSerializable("editDrug", drug);
                                 adf.setArguments(b);
-                                ((Activity)ctx).getFragmentManager().beginTransaction().replace(R.id.toReplace, adf).disallowAddToBackStack().commit();
+                                ((DrugsActivity)ctx).replaceWithNewAndAddToBackStack(R.id.toReplace, adf);
 
                                 break;
                             case R.id.delete_menu_item:
