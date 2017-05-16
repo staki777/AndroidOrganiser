@@ -24,8 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <receiver android:name=".ViewModel.DrugsActivity.AlarmManagerBroadcastReceiver"></receiver>
+        <!--android:process=":remote"-->
+        <receiver android:name=".ViewModel.DrugsActivity.AlarmManagerBroadcastReceiver" ></receiver>
     </application>
 
 </manifest>
