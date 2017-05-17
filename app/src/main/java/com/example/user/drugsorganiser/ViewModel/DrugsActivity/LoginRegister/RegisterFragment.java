@@ -16,6 +16,7 @@ import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.SaveSharedPreference;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
 
@@ -109,6 +110,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
                         Log.i("RegisterFragment", "Setting user..");
                         ((DrugsActivity)getActivity()).setUser(user);
+                        SaveSharedPreference.setUserID(getActivity(), user.userId);
 
                         ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, new OrganiserFragment());
                         ((DrugsActivity)getActivity()).removeIfExists(LoginFragment.class.getSimpleName());

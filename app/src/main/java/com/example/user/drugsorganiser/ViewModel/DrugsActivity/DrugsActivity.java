@@ -16,6 +16,8 @@ import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule.ScheduleFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 
@@ -40,9 +42,15 @@ public class DrugsActivity extends AppCompatActivity
 
         //user retrieval
         if(savedInstanceState!=null){
-            int userID=savedInstanceState.getInt("userID");
+            int userID = savedInstanceState.getInt("userID");
             Log.i("drugsActivity", "userID from bundle is: "+userID);
             user = findUserByID(userID);
+        }
+        else if (SaveSharedPreference.getUserID(DrugsActivity.this) != -1) {
+            Log.i("SAVE_SHARED_PREFERENCE","Odczyt ID z sharedPreferences " + (SaveSharedPreference.getUserID(DrugsActivity.this)!=-1));
+            int userID = SaveSharedPreference.getUserID(DrugsActivity.this);
+            user = findUserByID(userID);
+            replaceWithNewOrExisting(R.id.main_to_replace, new OrganiserFragment());
         }
         else {
             Log.i("DrugsActivity", "LoginRegisterFragment will be called");
@@ -81,8 +89,6 @@ public class DrugsActivity extends AppCompatActivity
         }
     }
 
-
-
     public DatabaseHelper getHelper() {
         if (databaseHelper == null) {
             databaseHelper = OpenHelperManager.getHelper(this,DatabaseHelper.class);
@@ -99,8 +105,6 @@ public class DrugsActivity extends AppCompatActivity
             databaseHelper = null;
         }
     }
-
-
 
     public void startRepeatingTimer(View view, String drugName, String description) {
         if(alarm != null){

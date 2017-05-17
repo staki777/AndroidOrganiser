@@ -26,6 +26,7 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Registry.RegistryFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule.ScheduleFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.SaveSharedPreference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +70,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(!(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true)){
+        if(!(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true) || SaveSharedPreference.getUserID(getActivity()) != -1) {
             ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
         }
     }
@@ -97,6 +98,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
 
         }
         else if (id == R.id.nav_logout) {
+            SaveSharedPreference.clearUserID(getActivity());
             ((DrugsActivity)getActivity()).setUser(null);
             Log.i("OrganiserFragment", "user set to null");
             ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, new LoginRegisterFragment());
