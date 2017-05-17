@@ -70,7 +70,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(!(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true) || SaveSharedPreference.getUserID(getActivity()) != -1) {
+        if(!(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true) && SaveSharedPreference.getUserID(getActivity()) != -1) {
             ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
         }
     }
