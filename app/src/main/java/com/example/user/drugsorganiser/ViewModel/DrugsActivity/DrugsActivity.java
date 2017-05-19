@@ -40,6 +40,9 @@ public class DrugsActivity extends AppCompatActivity
         Log.i("DrugsActivity", "onCreate");
         setContentView(R.layout.activity_drugs);
 
+        // odkomentować na pierwsze uruchomienie aplikacji po podbiciu wersji bazy danych
+        // SaveSharedPreference.clearUserID(getApplicationContext());
+
         //user retrieval
         if(savedInstanceState!=null){
             int userID = savedInstanceState.getInt("userID");
