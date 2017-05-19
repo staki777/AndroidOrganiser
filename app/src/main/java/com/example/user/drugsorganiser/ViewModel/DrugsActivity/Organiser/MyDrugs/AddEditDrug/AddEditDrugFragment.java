@@ -173,7 +173,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
             }
 
             if(!editMode){ //dodajemy nowy lek
-                Drug drug=new Drug( ((DrugsActivity)getActivity()).getUser(), etName.getText().toString(), dosePicker.getValue(), (etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString(), chbxImportant.isChecked(), etComment.getText().toString());
+                Drug drug=new Drug( ((DrugsActivity)getActivity()).getUser(), etName.getText().toString(), dosePicker.getValue(), (etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString(), 1, chbxImportant.isChecked(), etComment.getText().toString());
                 drugAdapter.addItem(drug);
             }
             else{ //edytujemy lek

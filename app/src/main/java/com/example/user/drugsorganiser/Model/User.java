@@ -12,8 +12,7 @@ import java.util.Collection;
  * Created by user on 2017-04-14.
  */
 @DatabaseTable
-public class User implements Serializable//, Parcelable
-{
+public class User implements Serializable {//, Parcelable
 
     private static final long serialVersionUID = -222864131214757024L;
     public static final String ID_FIELD = "user_id";
@@ -23,8 +22,6 @@ public class User implements Serializable//, Parcelable
     public static final String MAIL_COLUMN = "user_mail";
     public static final String CONTACT_NAME_COLUMN = "contact_name";
     public static final String CONTACT_NUMBER_COLUMN = "contact_number";
-
-
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD)
     public int userId;
