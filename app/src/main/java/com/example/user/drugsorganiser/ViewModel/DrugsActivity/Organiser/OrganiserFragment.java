@@ -132,7 +132,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            ((DrugsActivity)getActivity()).onetimeTimer(getActivity().getCurrentFocus(), "Lek1", "2 łyżeczki, po posiłku"); //for tests
+            ((DrugsActivity)getActivity()).onetimeTimer(getActivity().getCurrentFocus(), "Lek1", "2 łyżeczki, po posiłku", System.currentTimeMillis()+2000); //for tests
             return true;
         }
 

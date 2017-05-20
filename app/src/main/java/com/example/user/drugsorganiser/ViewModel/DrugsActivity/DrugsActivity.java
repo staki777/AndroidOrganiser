@@ -3,6 +3,7 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.User;
@@ -24,11 +26,14 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import java.sql.SQLException;
 
 
-public class DrugsActivity extends AppCompatActivity
+public class DrugsActivity extends AppCompatActivity {
 //        implements NavigationView.OnNavigationItemSelectedListener
-{
 
-    private static final int ALARM = 1;
+    private static final int ALARM_PERM = 1;
+    final public static String ALARM = "alarm";
+    final public static String DRUG = "drugName";
+    final public static String USER = "userName";
+    final public static String DESCRIPTION = "description";
 
     private AlarmManagerBroadcastReceiver alarm;
     private DatabaseHelper databaseHelper = null;
@@ -75,10 +80,9 @@ public class DrugsActivity extends AppCompatActivity
     public void getPermissions() {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WAKE_LOCK)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.WAKE_LOCK},ALARM);
+            requestPermissions(new String[]{Manifest.permission.WAKE_LOCK},ALARM_PERM);
         }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -100,6 +104,17 @@ public class DrugsActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        // getIntent() should always return the most recent
+        setIntent(intent);
+        Log.i("DrugsActivity", "onNewIntent");
+        if (getIntent().getBooleanExtra(ALARM, Boolean.FALSE))
+            ;
+        //TODO: Load layout for alarm.
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
 
@@ -109,9 +124,9 @@ public class DrugsActivity extends AppCompatActivity
         }
     }
 
-    public void startRepeatingTimer(View view, String drugName, String description) {
+    public void startRepeatingTimer(View view, String drugName, String description, long trigger, long interval) {
         if(alarm != null){
-            alarm.SetAlarm(getApplicationContext(), drugName, description);
+            alarm.SetAlarm(getApplicationContext(), drugName, description, user.login, trigger, interval);
         }
     }
 
@@ -121,9 +136,9 @@ public class DrugsActivity extends AppCompatActivity
         }
     }
 
-    public void onetimeTimer(View view, String drugName, String description){
+    public void onetimeTimer(View view, String drugName, String description, long trigger){
         if(alarm != null){
-            alarm.setOnetimeAlarm(getApplicationContext(), drugName, description);
+            alarm.setOnetimeAlarm(getApplicationContext(), drugName, description, user.login, trigger);
         }
     }
 
@@ -138,6 +153,7 @@ public class DrugsActivity extends AppCompatActivity
             e.toString();
         }
     }
+
     private  User findUserByID(int userID){
         try{
             PreparedQuery<User> q= getHelper().getUserDao().queryBuilder().where().eq(User.ID_FIELD, userID).prepare();
@@ -149,13 +165,14 @@ public class DrugsActivity extends AppCompatActivity
         }
         return null;
     }
+
     public void setUser(User u){
         this.user = u;
     }
+
     public User getUser(){
         return  user;
     }
-
 
     public void replaceWithNewOrExisting(int containerID, Fragment newInstance){
         String tag = newInstance.getClass().getSimpleName();

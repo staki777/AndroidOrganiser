@@ -6,7 +6,12 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -19,6 +24,7 @@ import com.example.user.drugsorganiser.R;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by DV7 on 2017-04-26.
@@ -28,6 +34,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
     final public static String ONE_TIME = "onetime";
     final public static String DRUG = "drugName";
+    final public static String ALARM = "alarm";
+    final public static String USER = "userName";
     final public static String DESCRIPTION = "description";
 
     @Override
@@ -41,74 +49,83 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         Bundle extras = intent.getExtras();
         StringBuilder msgStr = new StringBuilder();
         boolean oneTime = false;
-        String drugName = "Drug", description = "";
+        String drugName = "Drug", description = "", user = "";
         if(extras != null) {
             oneTime = extras.getBoolean(ONE_TIME);
             msgStr.append("One time alarm : ");
             drugName = extras.getString(DRUG, "Drug");
             description = extras.getString(DESCRIPTION);
+            user = extras.getString(USER);
         }
         Format formatter = new SimpleDateFormat("HH:mm:ss a");
         msgStr.append(formatter.format(new Date()));
         Toast.makeText(context, msgStr, Toast.LENGTH_LONG).show();
 
-        CreateNotification(context, intent, drugName, description, "AlertMsg", DrugsActivity.class, 1);
+        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        if (alarmUri == null) {
+            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        }
+        Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
+        ringtone.play();
+
+        Intent newIntent = new Intent(context, DrugsActivity.class);
+        newIntent.putExtra(ALARM, Boolean.TRUE);
+        newIntent.putExtra(DRUG, drugName);
+        newIntent.putExtra(DESCRIPTION, description);
+        newIntent.putExtra(USER, user);
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);// | FLAG_ACTIVITY_CLEAR_TOP /Intent.FLAG_ACTIVITY_NEW_TASK/FLAG_ACTIVITY_BROUGHT_TO_FRONT
+        context.startActivity(newIntent);
+
+        CreateNotification(context, drugName, description, user, DrugsActivity.class, 1);
 
         wl.release();
     }
 
-    public  void CreateNotification (Context context, Intent intent, String drugName, String drugDescription, String msgAlert, Class <?> cls, int id) {
-        // TODO: Przywrócić aplikację na foreground, jeśli budzik dzwoni, a aplikacja nie jest akurat otwarta
-        // TODO: Layout dla alarmu
-        //Intent intent = new Intent(context, cls);
-//        Intent intent2 = context.getPackageManager().
-//                getLaunchIntentForPackage(ContextConstants.PACKAGE_NAME);
-        PendingIntent notifIntent = PendingIntent.getActivity(context,0, intent,0);
-//        if (intent.resolveActivity(context.getPackageManager()) != null) {
-//            Log.i("aaa", "aktywna");
-//            //startActivity(intent);
-//        }
+    private void CreateNotification (Context context, String drugName, String drugDescription, String user, Class <?> cls, int id) {
+        Intent intent = new Intent(context, cls);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);//Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent notifIntent = PendingIntent.getActivity(context,1001, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setSmallIcon(R.drawable.ic_alarm_on_black_24dp);
         mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_alarm_on_black_24dp));
-        mBuilder.setContentTitle(drugName);
-        mBuilder.setTicker(msgAlert);
-        mBuilder.setContentText(drugDescription);
+        mBuilder.setContentTitle(user + ", czas na " + drugName);
+        mBuilder.setContentText("Pamiętaj: " + drugDescription);
         mBuilder.setContentIntent(notifIntent);
-        mBuilder.setDefaults(NotificationCompat.DEFAULT_SOUND);
         mBuilder.setAutoCancel(true);
-        mBuilder.setVibrate(new long[]{1000, 1000});
+        mBuilder.setVibrate(new long[]{1000, 1000, 1000});
         mBuilder.setWhen(System.currentTimeMillis());
+
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(id, mBuilder.build());
-//        context..startstartForeground(ContextConstants.LAUNCHER_SERVICE_NOTE_ID,
-//                mBuilder.build());
     }
 
-    public void SetAlarm(Context context, String drugName, String description) {
+    public void SetAlarm(Context context, String drugName, String description, String userName, long trigger, long interval) {
         AlarmManager alarmManager=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         intent.putExtra(ONE_TIME, Boolean.FALSE);
         intent.putExtra(DRUG, drugName);
         intent.putExtra(DESCRIPTION, description);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 5 , pi); //AlarmManager.INTERVAL_DAY
+        intent.putExtra(USER, userName);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 1001, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, trigger, interval , pi); //AlarmManager.INTERVAL_DAY
     }
 
     public void CancelAlarm(Context context) {
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 1001, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
     }
 
-    public void setOnetimeAlarm(Context context, String drugName, String description){
+    public void setOnetimeAlarm(Context context, String drugName, String description, String userName, long trigger){
         AlarmManager alarmManager =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         intent.putExtra(ONE_TIME, Boolean.TRUE);
         intent.putExtra(DRUG, drugName);
         intent.putExtra(DESCRIPTION, description);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+2000, pi);
+        intent.putExtra(USER, userName);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 1001, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pi);
     }
 }
