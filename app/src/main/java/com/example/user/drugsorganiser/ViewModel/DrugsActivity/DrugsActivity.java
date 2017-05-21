@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -36,11 +37,7 @@ import java.sql.SQLException;
 public class DrugsActivity extends AppCompatActivity {
 //        implements NavigationView.OnNavigationItemSelectedListener
 
-    private static final int ALARM_PERM = 1;
     final public static String ALARM = "alarm";
-    final public static String DRUG = "drugName";
-    final public static String USER = "userName";
-    final public static String DESCRIPTION = "description";
     final public static String LOGGEDIN = "isLoggedIn";
 
     private AlarmManagerBroadcastReceiver alarm;
@@ -81,7 +78,6 @@ public class DrugsActivity extends AppCompatActivity {
         }
 
         alarm = new AlarmManagerBroadcastReceiver();
-        getPermissions();
     }
 
     @Override
@@ -89,14 +85,6 @@ public class DrugsActivity extends AppCompatActivity {
         Log.i("DrugsActivity", "onSaveInstanceState");
         super.onSaveInstanceState(outState);
         outState.putInt("userID",  user != null ? user.userId : -1);
-    }
-
-    @TargetApi(23)
-    public void getPermissions() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WAKE_LOCK)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.WAKE_LOCK},ALARM_PERM);
-        }
     }
 
     @Override

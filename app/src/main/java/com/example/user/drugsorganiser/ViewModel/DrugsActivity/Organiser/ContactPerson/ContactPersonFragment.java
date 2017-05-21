@@ -10,8 +10,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +33,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class ContactPersonFragment extends Fragment {
 
-    private static final int PICK_CONTACT = 1;
-    private static final int CALL = 2;
+    private static final int CONTACT_PERSON_PERMISSIONS = 1;
+    private static final int PICK_CONTACT = 2;
 
     private TextView nameTextView, phoneTextView;
     private String name = "Contact person", number = "Phone number";
@@ -59,34 +62,37 @@ public class ContactPersonFragment extends Fragment {
         getPermissions();
     }
 
-    @TargetApi(23)
     public void getPermissions() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS)
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) + ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PICK_CONTACT);
-        }
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CALL_PHONE},CALL);
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE},CONTACT_PERSON_PERMISSIONS);
+        }else {
+            Log.i("Permissions","Read Contacts and Call permissions granted");
         }
     }
 
-//    // Callback with the request from calling requestPermissions(...)
+    // Callback with the request from calling requestPermissions(...)
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode,
 //                                           @NonNull String permissions[],
 //                                           @NonNull int[] grantResults) {
-//        if (requestCode == PICK_CONTACT) {
-//            if (grantResults.length == 1 &&
-//                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                Toast.makeText(getActivity(), "Read Contacts permission granted", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(getActivity(), "Read Contacts permission denied", Toast.LENGTH_SHORT).show();
+//        switch(requestCode) {
+//            case CONTACT_PERSON_PERMISSION:
+//                if (grantResults.length > 0) {
+//                    boolean contacts = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+//                    boolean calls = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+//                    if (contacts && calls)
+//                        Log.i("PERM","Read Contacts and Call permissions granted");
+//                    else
+//                        Log.i("PERM","Read Contacts or Call permissions denied");
+//                }
+//                break;
+//            default:
+//                Log.i("PERM","Unexpected permission");
+//                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//                break;
 //            }
-//        } else {
-//            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 //        }
-//    }
 
     @Override
     public void onStart() {

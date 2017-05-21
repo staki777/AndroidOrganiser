@@ -1,9 +1,14 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser;
 
 
+import android.Manifest;
 import android.app.Fragment;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
@@ -33,6 +39,7 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.SaveSharedPrefere
 public class OrganiserFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
     final public static String ACCEPTED = "isDoseAccepted";
+    private static final int ALARM_PERM = 1;
 
     public OrganiserFragment() {
         // Required empty public constructor
@@ -63,7 +70,6 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     public void onStart() {
         super.onStart();
         Log.i("OrganiserFragment", "onStart");
-
     }
 
     @Override
@@ -71,6 +77,16 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         if(!(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true) && SaveSharedPreference.getUserID(getActivity()) != -1) {
             ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
+        }
+        getPermissionToAlarm();
+    }
+
+    public void getPermissionToAlarm() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WAKE_LOCK)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WAKE_LOCK},ALARM_PERM);
+        }else {
+            Log.i("Permissions","Alarm permission granted");
         }
     }
 
