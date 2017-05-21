@@ -12,13 +12,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmManagerBroadcastReceiver;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.RegisterFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson.ContactPersonFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Registry.RegistryFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule.ScheduleFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.stmt.PreparedQuery;
@@ -34,6 +41,7 @@ public class DrugsActivity extends AppCompatActivity {
     final public static String DRUG = "drugName";
     final public static String USER = "userName";
     final public static String DESCRIPTION = "description";
+    final public static String LOGGEDIN = "isLoggedIn";
 
     private AlarmManagerBroadcastReceiver alarm;
     private DatabaseHelper databaseHelper = null;
@@ -46,16 +54,23 @@ public class DrugsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drugs);
 
         // odkomentować na pierwsze uruchomienie aplikacji po podbiciu wersji bazy danych
-        // SaveSharedPreference.clearUserID(getApplicationContext());
+        // SaveSharedPreference.clearPreferences(getApplicationContext());
 
-        //user retrieval
+        Bundle bundle = getIntent().getExtras();
         if(savedInstanceState!=null){
             int userID = savedInstanceState.getInt("userID");
-            Log.i("drugsActivity", "userID from bundle is: "+userID);
+            Log.i("DrugsActivity", "userID from bundle is: "+userID);
             user = findUserByID(userID);
         }
+        else if (bundle != null && bundle.getBoolean(ALARM)) {
+            Log.i("DrugsActivity","Starting alarm fragment.");
+            int userID = SaveSharedPreference.getUserID(DrugsActivity.this);
+            if (userID != -1)
+                user = findUserByID(userID);
+            StartAlarmFragment(getIntent().getExtras(), true, userID != -1);
+        }
         else if (SaveSharedPreference.getUserID(DrugsActivity.this) != -1) {
-            Log.i("SAVE_SHARED_PREFERENCE","Odczyt ID z sharedPreferences " + (SaveSharedPreference.getUserID(DrugsActivity.this)!=-1));
+            Log.i("SAVE_SHARED_PREFERENCE","Getting user ID from sharedPreferences " + (SaveSharedPreference.getUserID(DrugsActivity.this)!=-1));
             int userID = SaveSharedPreference.getUserID(DrugsActivity.this);
             user = findUserByID(userID);
             replaceWithNewOrExisting(R.id.main_to_replace, new OrganiserFragment());
@@ -106,12 +121,12 @@ public class DrugsActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        // getIntent() should always return the most recent
         setIntent(intent);
         Log.i("DrugsActivity", "onNewIntent");
-        if (getIntent().getBooleanExtra(ALARM, Boolean.FALSE))
-            ;
-        //TODO: Load layout for alarm.
+        if (getIntent().getBooleanExtra(ALARM, Boolean.FALSE)) {
+            int userID = SaveSharedPreference.getUserID(DrugsActivity.this);
+            StartAlarmFragment(getIntent().getExtras(), false, userID != -1);
+        }
     }
 
     @Override
@@ -139,6 +154,27 @@ public class DrugsActivity extends AppCompatActivity {
     public void onetimeTimer(View view, String drugName, String description, long trigger){
         if(alarm != null){
             alarm.setOnetimeAlarm(getApplicationContext(), drugName, description, user.login, trigger);
+        }
+    }
+
+    private void StartAlarmFragment(Bundle receivedBundle, boolean onCreate, boolean loggedIn){
+        Bundle bundle = new Bundle();
+        receivedBundle.remove(ALARM);
+        bundle.putString(USER, receivedBundle.getString(USER));
+        bundle.putString(DRUG, receivedBundle.getString(DRUG));
+        bundle.putString(DESCRIPTION, receivedBundle.getString(DESCRIPTION));
+        bundle.putBoolean(LOGGEDIN,loggedIn);
+        AlarmFragment alarmFragment = new AlarmFragment();
+        alarmFragment.setArguments(bundle);
+        replaceWithNewOrExisting(R.id.main_to_replace, alarmFragment);
+        if (!onCreate) {
+            removeIfExists(MyDrugsFragment.class.getSimpleName());
+            removeIfExists(ScheduleFragment.class.getSimpleName());
+            removeIfExists(RegistryFragment.class.getSimpleName());
+            removeIfExists(ContactPersonFragment.class.getSimpleName());
+            removeIfExists(AddEditDrugFragment.class.getSimpleName());
+            removeIfExists(LoginFragment.class.getSimpleName());
+            removeIfExists(RegisterFragment.class.getSimpleName());
         }
     }
 

@@ -28,7 +28,7 @@ public class SaveSharedPreference
         return getSharedPreferences(ctx).getInt(PREF_USER_ID, -1);
     }
 
-    public static void clearUserID(Context ctx)
+    public static void clearPreferences(Context ctx)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.clear(); //clear all stored data

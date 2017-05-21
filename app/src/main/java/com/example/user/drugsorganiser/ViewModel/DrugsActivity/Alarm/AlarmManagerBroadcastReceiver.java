@@ -1,4 +1,4 @@
-package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
+package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -6,25 +6,21 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by DV7 on 2017-04-26.
@@ -65,8 +61,9 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         if (alarmUri == null) {
             alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
-        Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
-        ringtone.play();
+        Intent ringtoneIntent = new Intent(context, RingtonePlayingService.class);
+        ringtoneIntent.putExtra("ringtone-uri", alarmUri.toString());
+        context.startService(ringtoneIntent);
 
         Intent newIntent = new Intent(context, DrugsActivity.class);
         newIntent.putExtra(ALARM, Boolean.TRUE);

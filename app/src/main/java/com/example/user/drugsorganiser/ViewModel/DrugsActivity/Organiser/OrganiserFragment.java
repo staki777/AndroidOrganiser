@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.RegisterFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson.ContactPersonFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
@@ -33,11 +32,11 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.SaveSharedPrefere
  */
 public class OrganiserFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
+    final public static String ACCEPTED = "isDoseAccepted";
 
     public OrganiserFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,16 +97,15 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
 
         }
         else if (id == R.id.nav_logout) {
-            SaveSharedPreference.clearUserID(getActivity());
+            SaveSharedPreference.clearPreferences(getActivity());
             ((DrugsActivity)getActivity()).setUser(null);
             Log.i("OrganiserFragment", "user set to null");
             ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, new LoginRegisterFragment());
             ((DrugsActivity)getActivity()).removeIfExists(MyDrugsFragment.class.getSimpleName());
             ((DrugsActivity)getActivity()).removeIfExists(ScheduleFragment.class.getSimpleName());
-            ((DrugsActivity)getActivity()).removeIfExists(RegisterFragment.class.getSimpleName());
+            ((DrugsActivity)getActivity()).removeIfExists(RegistryFragment.class.getSimpleName());
             ((DrugsActivity)getActivity()).removeIfExists(ContactPersonFragment.class.getSimpleName());
             ((DrugsActivity)getActivity()).removeIfExists(AddEditDrugFragment.class.getSimpleName());
-
         }
 
         DrawerLayout drawer = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
