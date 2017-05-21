@@ -158,14 +158,10 @@ public class DrugsActivity extends AppCompatActivity {
     }
 
     private void StartAlarmFragment(Bundle receivedBundle, boolean onCreate, boolean loggedIn){
-        Bundle bundle = new Bundle();
         receivedBundle.remove(ALARM);
-        bundle.putString(USER, receivedBundle.getString(USER));
-        bundle.putString(DRUG, receivedBundle.getString(DRUG));
-        bundle.putString(DESCRIPTION, receivedBundle.getString(DESCRIPTION));
-        bundle.putBoolean(LOGGEDIN,loggedIn);
+        receivedBundle.putBoolean(LOGGEDIN,loggedIn);
         AlarmFragment alarmFragment = new AlarmFragment();
-        alarmFragment.setArguments(bundle);
+        alarmFragment.setArguments(receivedBundle);
         replaceWithNewOrExisting(R.id.main_to_replace, alarmFragment);
         if (!onCreate) {
             removeIfExists(MyDrugsFragment.class.getSimpleName());
