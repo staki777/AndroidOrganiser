@@ -7,13 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.user.drugsorganiser.R;
@@ -23,6 +21,11 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM;
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DESCRIPTION;
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DRUG;
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.USER;
+
 /**
  * Created by DV7 on 2017-04-26.
  */
@@ -30,10 +33,6 @@ import java.util.Date;
 public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
     final public static String ONE_TIME = "onetime";
-    final public static String DRUG = "drugName";
-    final public static String ALARM = "alarm";
-    final public static String USER = "userName";
-    final public static String DESCRIPTION = "description";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -64,12 +63,12 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         Intent ringtoneIntent = new Intent(context, RingtonePlayingService.class);
         ringtoneIntent.putExtra("ringtone-uri", alarmUri.toString());
         context.startService(ringtoneIntent);
-        Intent newIntent = new Intent(context, DrugsActivity.class);
+        Intent newIntent = new Intent(context, AlarmActivity.class);
         newIntent.putExtra(ALARM, Boolean.TRUE);
         newIntent.putExtra(DRUG, drugName);
         newIntent.putExtra(DESCRIPTION, description);
         newIntent.putExtra(USER, user);
-        newIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);// | FLAG_ACTIVITY_CLEAR_TOP /Intent.FLAG_ACTIVITY_NEW_TASK/FLAG_ACTIVITY_BROUGHT_TO_FRONT
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//  | FLAG_ACTIVITY_CLEAR_TOP /Intent.FLAG_ACTIVITY_NEW_TASK/FLAG_ACTIVITY_BROUGHT_TO_FRONT
         context.startActivity(newIntent);
 
         CreateNotification(context, drugName, description, user, DrugsActivity.class, 1);
@@ -79,17 +78,17 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
     private void CreateNotification (Context context, String drugName, String drugDescription, String user, Class <?> cls, int id) {
         Intent intent = new Intent(context, cls);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);//Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent notifIntent = PendingIntent.getActivity(context,1001, intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.drawable.ic_alarm_on_black_24dp);
-        mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_alarm_on_black_24dp));
+        mBuilder.setSmallIcon(R.mipmap.ic_pillow);
+        mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_pillow));
         mBuilder.setContentTitle(user + ", czas na " + drugName);
         mBuilder.setContentText("Pamiętaj: " + drugDescription);
         mBuilder.setContentIntent(notifIntent);
         mBuilder.setAutoCancel(true);
-        mBuilder.setVibrate(new long[]{1000, 1000, 1000});
+        mBuilder.setVibrate(new long[]{1000, 1000});
         mBuilder.setWhen(System.currentTimeMillis());
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

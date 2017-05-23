@@ -1,13 +1,8 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
-import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,17 +12,9 @@ import android.view.View;
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmManagerBroadcastReceiver;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.RegisterFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson.ContactPersonFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Registry.RegistryFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule.ScheduleFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 
@@ -37,12 +24,17 @@ import java.sql.SQLException;
 public class DrugsActivity extends AppCompatActivity {
 //        implements NavigationView.OnNavigationItemSelectedListener
 
+    final public static String DRUG = "drugName";
+    final public static String USER = "userName";
     final public static String ALARM = "alarm";
-    final public static String LOGGEDIN = "isLoggedIn";
+    final public static String DESCRIPTION = "description";
+    final public static String ACCEPTED = "isDoseAccepted";
 
     private AlarmManagerBroadcastReceiver alarm;
     private DatabaseHelper databaseHelper = null;
     private User user;
+
+    // ACTIVITY MANAGEMENT
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +51,6 @@ public class DrugsActivity extends AppCompatActivity {
             Log.i("DrugsActivity", "userID from bundle is: "+userID);
             user = findUserByID(userID);
         }
-        else if (bundle != null && bundle.getBoolean(ALARM)) {
-            Log.i("DrugsActivity","Starting alarm fragment.");
-            int userID = SaveSharedPreference.getUserID(DrugsActivity.this);
-            if (userID != -1)
-                user = findUserByID(userID);
-            StartAlarmFragment(getIntent().getExtras(), true, userID != -1);
-        }
         else if (SaveSharedPreference.getUserID(DrugsActivity.this) != -1) {
             Log.i("SAVE_SHARED_PREFERENCE","Getting user ID from sharedPreferences " + (SaveSharedPreference.getUserID(DrugsActivity.this)!=-1));
             int userID = SaveSharedPreference.getUserID(DrugsActivity.this);
@@ -75,6 +60,10 @@ public class DrugsActivity extends AppCompatActivity {
         else {
             Log.i("DrugsActivity", "LoginRegisterFragment will be called");
             replaceWithNewOrExisting(R.id.main_to_replace, new LoginRegisterFragment());
+        }
+
+        if (bundle != null && bundle.getBoolean(ALARM, Boolean.FALSE)) {
+            ReactOnLastAlarm(bundle);
         }
 
         alarm = new AlarmManagerBroadcastReceiver();
@@ -112,8 +101,7 @@ public class DrugsActivity extends AppCompatActivity {
         setIntent(intent);
         Log.i("DrugsActivity", "onNewIntent");
         if (getIntent().getBooleanExtra(ALARM, Boolean.FALSE)) {
-            int userID = SaveSharedPreference.getUserID(DrugsActivity.this);
-            StartAlarmFragment(getIntent().getExtras(), false, userID != -1);
+            ReactOnLastAlarm(getIntent().getExtras());
         }
     }
 
@@ -126,6 +114,8 @@ public class DrugsActivity extends AppCompatActivity {
             databaseHelper = null;
         }
     }
+
+    // ALARMS MANAGEMENT
 
     public void startRepeatingTimer(View view, String drugName, String description, long trigger, long interval) {
         if(alarm != null){
@@ -145,22 +135,7 @@ public class DrugsActivity extends AppCompatActivity {
         }
     }
 
-    private void StartAlarmFragment(Bundle receivedBundle, boolean onCreate, boolean loggedIn){
-        receivedBundle.remove(ALARM);
-        receivedBundle.putBoolean(LOGGEDIN,loggedIn);
-        AlarmFragment alarmFragment = new AlarmFragment();
-        alarmFragment.setArguments(receivedBundle);
-        replaceWithNewOrExisting(R.id.main_to_replace, alarmFragment);
-        if (!onCreate) {
-            removeIfExists(MyDrugsFragment.class.getSimpleName());
-            removeIfExists(ScheduleFragment.class.getSimpleName());
-            removeIfExists(RegistryFragment.class.getSimpleName());
-            removeIfExists(ContactPersonFragment.class.getSimpleName());
-            removeIfExists(AddEditDrugFragment.class.getSimpleName());
-            removeIfExists(LoginFragment.class.getSimpleName());
-            removeIfExists(RegisterFragment.class.getSimpleName());
-        }
-    }
+    // USER MANAGEMENT
 
     public  void refreshUserDrugs(){
         Log.i("DrugsActivity", "refreshUserDrugs");
@@ -193,6 +168,17 @@ public class DrugsActivity extends AppCompatActivity {
     public User getUser(){
         return  user;
     }
+
+    private void ReactOnLastAlarm(Bundle bundle){
+        bundle.remove(ALARM);
+        String userName = bundle.getString(USER,"");
+        String drug = bundle.getString(DRUG,"");
+        boolean isDoseAccepted = bundle.getBoolean(ACCEPTED,false);
+        Log.i("AlarmActivity","Reacting on last alarm.");
+        //TODO: React on information about dose (accepted/rejected).
+    }
+
+    // FRAGMENTS MANAGEMENT
 
     public void replaceWithNewOrExisting(int containerID, Fragment newInstance){
         String tag = newInstance.getClass().getSimpleName();

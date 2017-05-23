@@ -3,10 +3,7 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,32 +13,24 @@ import android.widget.TextView;
 
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ACCEPTED;
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM;
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DESCRIPTION;
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DRUG;
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.USER;
+
 public class AlarmFragment extends Fragment implements View.OnClickListener {
-
-    final public static String DRUG = "drugName";
-    final public static String USER = "userName";
-    final public static String DESCRIPTION = "description";
-    final public static String ACCEPTED = "isDoseAccepted";
-    final public static String LOGGEDIN = "isLoggedIn";
 
     private Button btnAccept, btnReject;
     private TextView tvStatement;
-    private boolean loggedIn;
 
-    public AlarmFragment() {
-        // Required empty public constructor
-    }
+    public AlarmFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view =  inflater.inflate(R.layout.fragment_alarm, container, false);
 
         btnAccept = (Button) view.findViewById(R.id.accept);
@@ -51,8 +40,6 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         btnAccept.setOnClickListener(this);
         btnReject.setOnClickListener(this);
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.app_name));
         Log.i("AlarmFragment","onCreateView");
         return view;
     }
@@ -72,7 +59,6 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
             Log.i("AlarmFragment","onStart, savedInstance");
             tvStatement.setText(arguments.getString(USER)+", czas na " + arguments.getString(DRUG) +
                     "\nPamiętaj: " + arguments.getString(DESCRIPTION));
-            loggedIn = arguments.getBoolean(LOGGEDIN);
         }
     }
 
@@ -89,21 +75,15 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
     private void onBtnClick(boolean accepted) {
         Intent stopIntent = new Intent(getActivity(), RingtonePlayingService.class);
         getActivity().stopService(stopIntent);
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(ACCEPTED,accepted);
-        if (loggedIn) {
-            OrganiserFragment organiserFragment = new OrganiserFragment();
-            organiserFragment.setArguments(bundle);
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, organiserFragment);
-            //TODO: React on information about dose (accepted/rejected).
-        }
-        else {
-            LoginRegisterFragment loginRegisterFragment = new LoginRegisterFragment();
-            loginRegisterFragment.setArguments(bundle);
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, loginRegisterFragment);
-            //TODO: React on information about dose (accepted/rejected) after logging in.
-        }
-
+        Bundle bundle = this.getArguments();
+        Intent newIntent = new Intent(getActivity(), DrugsActivity.class);
+        newIntent.putExtra(ACCEPTED,accepted);
+        newIntent.putExtra(USER, bundle.getString(USER));
+        newIntent.putExtra(DRUG, bundle.getString(DRUG));
+        newIntent.putExtra(ALARM, bundle.getBoolean(ALARM));
+        newIntent.putExtra(DESCRIPTION, bundle.getString(DESCRIPTION));
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getActivity().startActivity(newIntent);
     }
 
 }
