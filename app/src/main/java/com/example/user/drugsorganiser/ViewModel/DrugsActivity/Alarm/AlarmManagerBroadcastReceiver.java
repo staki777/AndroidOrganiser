@@ -69,10 +69,10 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         newIntent.putExtra(DRUG, drugName);
         newIntent.putExtra(DESCRIPTION, description);
         newIntent.putExtra(USER, user);
-        newIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );// | FLAG_ACTIVITY_CLEAR_TOP /Intent.FLAG_ACTIVITY_NEW_TASK/FLAG_ACTIVITY_BROUGHT_TO_FRONT
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);// | FLAG_ACTIVITY_CLEAR_TOP /Intent.FLAG_ACTIVITY_NEW_TASK/FLAG_ACTIVITY_BROUGHT_TO_FRONT
         context.startActivity(newIntent);
 
-        //CreateNotification(context, drugName, description, user, DrugsActivity.class, 1);
+        CreateNotification(context, drugName, description, user, DrugsActivity.class, 1);
 
         wl.release();
     }
