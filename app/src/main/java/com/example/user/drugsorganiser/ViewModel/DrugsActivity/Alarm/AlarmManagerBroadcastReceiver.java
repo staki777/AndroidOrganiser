@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.user.drugsorganiser.R;
@@ -40,7 +41,6 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ALARM");
 
         wl.acquire();
-
         //You can do the processing here update the widget/remote views.
         Bundle extras = intent.getExtras();
         StringBuilder msgStr = new StringBuilder();
@@ -64,16 +64,15 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         Intent ringtoneIntent = new Intent(context, RingtonePlayingService.class);
         ringtoneIntent.putExtra("ringtone-uri", alarmUri.toString());
         context.startService(ringtoneIntent);
-
         Intent newIntent = new Intent(context, DrugsActivity.class);
         newIntent.putExtra(ALARM, Boolean.TRUE);
         newIntent.putExtra(DRUG, drugName);
         newIntent.putExtra(DESCRIPTION, description);
         newIntent.putExtra(USER, user);
-        newIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);// | FLAG_ACTIVITY_CLEAR_TOP /Intent.FLAG_ACTIVITY_NEW_TASK/FLAG_ACTIVITY_BROUGHT_TO_FRONT
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );// | FLAG_ACTIVITY_CLEAR_TOP /Intent.FLAG_ACTIVITY_NEW_TASK/FLAG_ACTIVITY_BROUGHT_TO_FRONT
         context.startActivity(newIntent);
 
-        CreateNotification(context, drugName, description, user, DrugsActivity.class, 1);
+        //CreateNotification(context, drugName, description, user, DrugsActivity.class, 1);
 
         wl.release();
     }

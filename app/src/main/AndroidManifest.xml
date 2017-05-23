@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <!--android:process=":remote"-->
-        <receiver android:name=".ViewModel.DrugsActivity.Alarm.AlarmManagerBroadcastReceiver" ></receiver>
+        <receiver android:name=".ViewModel.DrugsActivity.Alarm.AlarmManagerBroadcastReceiver" android:process=":remote"></receiver>
         <service android:name=".ViewModel.DrugsActivity.Alarm.RingtonePlayingService"/>
     </application>
 
