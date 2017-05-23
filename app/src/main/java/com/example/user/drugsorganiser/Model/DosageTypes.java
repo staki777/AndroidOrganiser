@@ -12,11 +12,11 @@ import java.util.List;
  * Created by Gosia on 10.05.2017.
  */
 
-public class TimetableTypes {
+public class DosageTypes {
     private List<String> list=new ArrayList<String>();
     private String[] arr;
-    public  TimetableTypes(View ctx){
-        arr = ctx.getResources().getStringArray(R.array.timetable_array);
+    public DosageTypes(View ctx){
+        arr = ctx.getResources().getStringArray(R.array.dosage_array);
         for(String el : arr){
             list.add(el);
         }
@@ -26,11 +26,11 @@ public class TimetableTypes {
         return arr;
     }
 
-    public int getPosition(String timetableType){
-        if(list.contains(timetableType))
-            return list.indexOf(timetableType);
+    public int getPosition(String dosageType){
+        if(list.contains(dosageType))
+            return list.indexOf(dosageType);
         else{
-            Log.i("TimetableType", "returned index:"+(list.size()-1));
+            Log.i("DosageType", "returned index:"+(list.size()-1));
             return  getPositionOfOther();
         }
 

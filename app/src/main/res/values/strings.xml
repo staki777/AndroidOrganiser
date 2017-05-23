@@ -31,7 +31,7 @@
     <string name="edit_confirmation">Drug successfully updated!</string>
     <string name="drug_name">Drug name</string>
     <string name="drug_dose">Dose</string>
-    <string name="drug_timetable">Timetable</string>
+    <string name="drug_dosage">Type of dosage</string>
     <string name="drug_start">Start</string>
     <string name="drug_peroid">Duration</string>
     <string name="drug_interval">Interval between doses</string>
@@ -59,16 +59,17 @@
         <item>tablet(s)</item>
         <item>ampoule(s)</item>
         <item>inhalation(s)</item>
+        <item>ml(s)</item>
         <item>spoon(s)</item>
         <item>teaspoon(s)</item>
         <item>spigot(s)</item>
         <item>other</item>
     </string-array>
 
-    <string-array name="timetable_array">
-        <item>few times a day</item>
-        <item>constant interval</item>
-        <item>other</item>
+    <string-array name="dosage_array">
+        <item>Regular dosage</item>
+        <item>Constant interval</item>
+        <item>Custom dosage</item>
     </string-array>
 
     <string-array name="time_units_array">

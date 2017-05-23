@@ -25,13 +25,13 @@ import java.lang.reflect.Field;
 import java.text.DateFormat;
 
 
-public class FewTimesFragment extends Fragment {
+public class RegularDosageFragment extends Fragment {
 
     private NumberPicker FewTimesPicker;
     private Spinner spFewTimesType;
     private int typeofAddDate=0;
 
-    public FewTimesFragment() {
+    public RegularDosageFragment() {
         // Required empty public constructor
     }
 

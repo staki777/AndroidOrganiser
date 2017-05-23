@@ -67,14 +67,14 @@ android:layout_height="wrap_content">
         android:textColor="@color/textColor"
         android:visibility="invisible"/>
 
-    <!--TIMETABLE-->
+    <!--DRUG DOSAGE TYPE-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/textColor"
-        android:text="@string/drug_timetable"/>
+        android:text="@string/drug_dosage"/>
     <Spinner
-        android:id="@+id/timetable_spinner"
+        android:id="@+id/dosage_type_spinner"
         android:textColor="@color/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -82,7 +82,7 @@ android:layout_height="wrap_content">
 
     <!--EMPTY LAYOUT TO REPLACE-->
     <FrameLayout
-        android:id="@+id/fragment1"
+        android:id="@+id/dosage_type_to_replace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/timetable_spinner"
