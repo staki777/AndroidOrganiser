@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import com.example.user.drugsorganiser.R;
 
 
-public class OtherFragment extends Fragment {
+public class CustomDosageFragment extends Fragment {
 
 
-    public OtherFragment() {
+    public CustomDosageFragment() {
         // Required empty public constructor
     }
 

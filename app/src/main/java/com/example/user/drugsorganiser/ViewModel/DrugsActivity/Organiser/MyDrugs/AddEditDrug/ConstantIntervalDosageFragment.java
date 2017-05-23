@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import com.example.user.drugsorganiser.R;
 
 
-public class ConstantIntervalFragment extends Fragment {
+public class ConstantIntervalDosageFragment extends Fragment {
 
-    public ConstantIntervalFragment() {
+    public ConstantIntervalDosageFragment() {
         // Required empty public constructor
     }
 

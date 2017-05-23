@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.user.drugsorganiser.Model.DoseTypes;
 import com.example.user.drugsorganiser.Model.Drug;
-import com.example.user.drugsorganiser.Model.TimetableTypes;
+import com.example.user.drugsorganiser.Model.DosageTypes;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DrugAdapter;
@@ -31,7 +31,7 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs
 public class AddEditDrugFragment extends Fragment implements View.OnClickListener {
 
     private DoseTypes doseTypes;
-    private TimetableTypes timetableTypes;
+    private DosageTypes dosageTypes;
 
     private TextView tvOtherDoseType;
     private Button btnPositive, btnNegative;
@@ -39,7 +39,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
     private CheckBox chbxImportant;
     private NumberPicker dosePicker;
     private Spinner spDoseType;
-    private Spinner spTimetable;
+    private Spinner spDosageType;
 
     private boolean editMode;
     private  Drug drugToEdit;
@@ -69,7 +69,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         super.onStart();
 
         doseTypes = new DoseTypes(getView());
-        timetableTypes = new TimetableTypes(getView());
+        dosageTypes = new DosageTypes(getView());
         btnPositive = (Button) getView().findViewById(R.id.positive_button);
         btnNegative = (Button) getView().findViewById(R.id.negative_button);
         btnPositive.setOnClickListener(this);
@@ -111,26 +111,24 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
 
         });
 
-        spTimetable = (Spinner) getView().findViewById(R.id.timetable_spinner);
-        ArrayAdapter<String> timetableAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, timetableTypes.getArr());
-        spTimetable.setAdapter(timetableAdapter);
-        spTimetable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spDosageType = (Spinner) getView().findViewById(R.id.dosage_type_spinner);
+        ArrayAdapter<String> dosageTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, dosageTypes.getArr());
+        spDosageType.setAdapter(dosageTypeAdapter);
+        spDosageType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String selected=spTimetable.getSelectedItem().toString();
+                String selected=spDosageType.getSelectedItem().toString();
                 Log.i("AddEditDrugFragment", "|"+selected+"|");
                 if(position == 0){
-                    /*twOtherDoseType.setVisibility(View.VISIBLE);
-                    etOtherDoseType.setVisibility(View.VISIBLE);*/
-                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.fragment1, new FewTimesFragment());
+
+                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new RegularDosageFragment());
                 }
                 else if(position == 1){
-                   /* etOtherDoseType.setVisibility(View.INVISIBLE);
-                    twOtherDoseType.setVisibility(View.INVISIBLE);*/
-                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.fragment1, new ConstantIntervalFragment());
+
+                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new ConstantIntervalDosageFragment());
                 }
                 else {
-                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.fragment1, new OtherFragment());
+                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new CustomDosageFragment());
                 }
 
             }
