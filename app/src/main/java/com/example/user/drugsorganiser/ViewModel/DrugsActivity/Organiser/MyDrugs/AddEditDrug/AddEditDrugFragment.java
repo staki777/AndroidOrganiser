@@ -43,6 +43,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
 
     private boolean editMode;
     private  Drug drugToEdit;
+    private Fragment[] dosageFragments = {new RegularDosageFragment(), new ConstantIntervalDosageFragment(), new CustomDosageFragment()};
 
     public AddEditDrugFragment() {
         // Required empty public constructor
@@ -60,6 +61,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
             if(drugToEdit != null){
                 editMode = true;
             }
+
         }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_drug, container, false);
@@ -71,7 +73,8 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
             ((DrugsActivity) getActivity()).setEditedDrug(drugToEdit);
         }
         else{
-            ((DrugsActivity) getActivity()).setEditedDrug(new Drug());
+            drugToEdit = new Drug();
+            ((DrugsActivity) getActivity()).setEditedDrug(drugToEdit);
         }
 
         doseTypes = new DoseTypes(getView());
@@ -90,7 +93,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         dosePicker = (NumberPicker) getView().findViewById(R.id.dosePicker);
         dosePicker.setMinValue(1);
         dosePicker.setMaxValue(250);
-        dosePicker.setValue(1);
+       // dosePicker.setValue(1); ??
 
         spDoseType = (Spinner) getView().findViewById(R.id.dose_type_spinner);
         ArrayAdapter<String> doseTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, doseTypes.getArr());
@@ -125,22 +128,9 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selected=spDosageType.getSelectedItem().toString();
                 Log.i("AddEditDrugFragment", "|"+selected+"|");
-                if(position == 0){
-                    ((DrugsActivity)getActivity()).getEditedDrug().dosesSeriesType = 0;
-                    ((DrugsActivity)getActivity()).removeIfExists(RegularDosageFragment.class.getSimpleName());
-                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new RegularDosageFragment());
-                }
-                else if(position == 1){
-                    ((DrugsActivity)getActivity()).getEditedDrug().dosesSeriesType = 1;
-                    ((DrugsActivity)getActivity()).removeIfExists(ConstantIntervalDosageFragment.class.getSimpleName());
-                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new ConstantIntervalDosageFragment());
-                }
-                else {
-                    ((DrugsActivity)getActivity()).getEditedDrug().dosesSeriesType = 2;
-                    ((DrugsActivity)getActivity()).removeIfExists(CustomDosageFragment.class.getSimpleName());
-                    ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new CustomDosageFragment());
-                }
-
+                ((DrugsActivity)getActivity()).removeIfExists(dosageFragments[position].getClass().getSimpleName());
+                ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, dosageFragments[position]);
+                drugToEdit.dosesSeriesType = position;
             }
 
             @Override
@@ -150,9 +140,13 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
 
         });
 
+        //zaznaczenie trybu dawkowania odpowiadającego edytowanemu lekowi/trybu defaultowego
+        int drugDosage = drugToEdit.dosesSeriesType;
+        spDosageType.setSelection(drugDosage);
+
+      
         //fill
         if(editMode){
-            spDosageType.setSelection(((DrugsActivity)getActivity()).getEditedDrug().dosesSeriesType);
             getActivity().setTitle(getView().getResources().getString(R.string.edit_drug));
             etName.setText(drugToEdit.name);
             dosePicker.setValue(drugToEdit.doseQuantity);
