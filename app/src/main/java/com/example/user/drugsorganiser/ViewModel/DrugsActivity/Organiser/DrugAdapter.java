@@ -38,7 +38,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
         Log.i("DrugAdapter", "Constructor");
 
         this.drugs = new ArrayList<>();
-        if(user != null){ //shouldn't be null, but sometimes is @.@
+        if(user != null){
             drugs.addAll(user.drugs);
         }
         this.user=user;

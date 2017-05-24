@@ -14,7 +14,6 @@ import com.example.user.drugsorganiser.R;
 public class DrugViewHolder extends RecyclerView.ViewHolder {
     TextView itemNameView;
     TextView itemDoseView;
-    TextView itemIntervalView;
     TextView itemImportantView;
     TextView itemOptionsView;
     TextView itemCommentView;

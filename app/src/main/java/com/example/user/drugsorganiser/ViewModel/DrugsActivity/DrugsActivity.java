@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
+import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmActivity;
@@ -40,6 +41,7 @@ public class DrugsActivity extends AppCompatActivity {
     private AlarmManagerBroadcastReceiver alarm;
     private DatabaseHelper databaseHelper = null;
     private User user;
+    private Drug editedDrug;
 
     // ACTIVITY MANAGEMENT
 
@@ -231,5 +233,11 @@ public class DrugsActivity extends AppCompatActivity {
         }
     }
 
+    public Drug getEditedDrug() {
+        return editedDrug;
+    }
 
+    public void setEditedDrug(Drug editedDrug) {
+        this.editedDrug = editedDrug;
+    }
 }
