@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -39,12 +40,10 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
         this.drug = drug;
         this.ctx = ctx;
 
-        if(drug == null){
-            Log.i("s", "Drug is null!!");
-        }
-        else Log.i("s", "Drug is not null!");
+
         this.terms = new ArrayList<>();
         terms.addAll(findCustomDosesByDrug(drug));
+        Log.i("TermAdapter", terms.size()+" DosesFound");
     }
 
     @Override
@@ -102,7 +101,6 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
     public void deleteItem(NonStandardDose term){
         int position = terms.indexOf(term);
 
-        //IT MUST BE DONE!
         try{
             final Dao<NonStandardDose, Integer> dao = ((DrugsActivity)ctx).getHelper().getNonStandardDoseDao();
             dao.delete(terms.get(position));
@@ -115,10 +113,13 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
     }
 
     public void addItem(NonStandardDose term){
-        //TODO: DO it!
+        Log.i("TermAdapter", "AddItem begin");
         try{
-            final Dao<NonStandardDose, Integer> drugDao = ((DrugsActivity)ctx).getHelper().getNonStandardDoseDao();
-            drugDao.createIfNotExists(term);
+            Drug editedDrug = ((DrugsActivity)ctx).getEditedDrug();
+            editedDrug.nonStandardDoses.add(term);
+            final Dao<Drug, Integer> dao = ((DrugsActivity)ctx).getHelper().getDrugDao();
+            dao.update(editedDrug);
+
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -129,17 +130,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
         Toast.makeText(ctx, "New term\n"+ctx.getString(R.string.add_confirmation), Toast.LENGTH_SHORT).show();
     }
 
-    private List<NonStandardDose> findCustomDosesByDrug(Drug drug) {
-        try {
-
-            if(((DrugsActivity)ctx).getHelper() == null)
-                Log.i("TermAdapter", "dao is null");
-           // PreparedQuery<NonStandardDose> q = ((DrugsActivity)ctx).getHelper().getNonStandardDoseDao().queryBuilder().where().eq(NonStandardDose.DRUG_COLUMN, drug).prepare();
-            return ((DrugsActivity)ctx).getHelper().getNonStandardDoseDao().queryForEq(NonStandardDose.DRUG_COLUMN, drug);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            e.toString();
-        }
-        return  new ArrayList<>();
+    private Collection<NonStandardDose> findCustomDosesByDrug(Drug drug) {
+            return ((DrugsActivity)ctx).getEditedDrug().nonStandardDoses;
     }
 }
