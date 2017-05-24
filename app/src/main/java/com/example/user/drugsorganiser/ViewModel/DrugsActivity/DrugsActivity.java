@@ -1,17 +1,24 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
 import android.app.Fragment;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmManagerBroadcastReceiver;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
@@ -135,6 +142,39 @@ public class DrugsActivity extends AppCompatActivity {
         }
     }
 
+    private void ReactOnLastAlarm(Bundle bundle){
+        bundle.remove(ALARM);
+        String userName = bundle.getString(USER,"");
+        String drugName = bundle.getString(DRUG,"");
+        boolean isDoseAccepted = bundle.getBoolean(ACCEPTED,false);
+        Log.i("AlarmActivity","Reacting on last alarm.");
+        //TODO: React on information about dose (accepted/rejected).
+        //sendMessage(userName, drugName);
+    }
+
+    private void sendMessage(String userName, String drugsNames) {
+        SmsManager smsManager = SmsManager.getDefault();
+        String message = String.format(getString(R.string.alert_message), userName, drugsNames);
+        Log.i("AlarmActivity", message);
+        smsManager.sendTextMessage(user.contactNumber, null, message, null, null);
+
+        Intent intent = new Intent(DrugsActivity.this, AlarmActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent notifIntent = PendingIntent.getActivity(DrugsActivity.this,1001, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(DrugsActivity.this);
+        mBuilder.setSmallIcon(R.mipmap.ic_pillow);
+        mBuilder.setLargeIcon(BitmapFactory.decodeResource(DrugsActivity.this.getResources(), R.mipmap.ic_pillow));
+        mBuilder.setContentTitle(getString(R.string.app_name));
+        mBuilder.setContentText(String.format(getString(R.string.alert_notification),userName));
+        mBuilder.setContentIntent(notifIntent);
+        mBuilder.setAutoCancel(true);
+        mBuilder.setWhen(System.currentTimeMillis());
+
+        NotificationManager mNotificationManager = (NotificationManager) DrugsActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(3, mBuilder.build());
+    }
+
     // USER MANAGEMENT
 
     public  void refreshUserDrugs(){
@@ -167,15 +207,6 @@ public class DrugsActivity extends AppCompatActivity {
 
     public User getUser(){
         return  user;
-    }
-
-    private void ReactOnLastAlarm(Bundle bundle){
-        bundle.remove(ALARM);
-        String userName = bundle.getString(USER,"");
-        String drug = bundle.getString(DRUG,"");
-        boolean isDoseAccepted = bundle.getBoolean(ACCEPTED,false);
-        Log.i("AlarmActivity","Reacting on last alarm.");
-        //TODO: React on information about dose (accepted/rejected).
     }
 
     // FRAGMENTS MANAGEMENT
