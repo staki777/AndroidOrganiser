@@ -113,8 +113,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
         terms.add(term);
         notifyItemInserted(terms.indexOf(term));
         Log.i("TermAdapter", Arrays.toString(terms.toArray()));
-        Log.i("TermAdapter", terms.get(0).drug.drugId+" "+terms.get(0).doseDate.toDateTime().toString());
-        Toast.makeText(ctx, "New term\n"+ctx.getString(R.string.add_confirmation), Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, "New term successfully added!", Toast.LENGTH_SHORT).show();
     }
 
     private Collection<NonStandardDose> findCustomDosesByDrug(Drug drug) {

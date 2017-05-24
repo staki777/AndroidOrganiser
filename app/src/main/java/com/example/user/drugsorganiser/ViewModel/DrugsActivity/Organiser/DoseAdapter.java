@@ -2,11 +2,9 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser;
 
 import android.content.Context;
 import android.support.v4.util.Pair;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -61,7 +59,7 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
     @Override
     public DrugViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.drug_item, null);
+                .inflate(R.layout.drug_view_item, null);
         return new DrugViewHolder(view, parent.getContext());
     }
 
@@ -72,26 +70,7 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
         holder.itemDoseView.setText(dose.first.doseQuantity+" "+dose.first.doseDescription);
         holder.itemImportantView.setText((dose.first.important)?"Important": "Not important");
         holder.itemCommentView.setText(dose.first.comment);
-        holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                PopupMenu popup = new PopupMenu(ctx, holder.itemOptionsView);
-                popup.inflate(R.menu.menu_item);
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    //TODO: Hide 'Edit' option  programmatically.
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.delete_menu_item:
-                                //TODO: dh.showDeleteDialog(dose);
-                                break;
-                        }
-                        return false;
-                    }
-                });
-                popup.show();
-            }
-        });
+
     }
 
     @Override

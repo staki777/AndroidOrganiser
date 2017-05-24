@@ -13,13 +13,11 @@ import com.example.user.drugsorganiser.R;
 
 public class TermViewHolder extends RecyclerView.ViewHolder {
     TextView itemDateView;
-    TextView itemTimeView;
     TextView itemOptionsView;
 
     public TermViewHolder(View itemView, final Context appContext) {
         super(itemView);
         this.itemDateView = (TextView) itemView.findViewById(R.id.item_date);
-        this.itemTimeView = (TextView) itemView.findViewById(R.id.item_time);
         this.itemOptionsView = (TextView) itemView.findViewById(R.id.item_options);
     }
 }
