@@ -26,6 +26,15 @@ android:layout_height="wrap_content">
         android:inputType="text"
         android:textColor="@color/textColor"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorPrimary"/>
+
     <!--DRUG DOSE-->
     <TextView
         android:layout_width="match_parent"
@@ -67,6 +76,15 @@ android:layout_height="wrap_content">
         android:textColor="@color/textColor"
         android:visibility="invisible"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorPrimary"/>
+
     <!--DRUG DOSAGE TYPE-->
     <TextView
         android:layout_width="match_parent"
@@ -88,6 +106,15 @@ android:layout_height="wrap_content">
         android:layout_below="@+id/timetable_spinner"
         >
     </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorPrimary"/>
 
     <!--DRUG IMPORTANT OR NOT-->
     <android.support.v7.widget.AppCompatCheckBox

@@ -144,7 +144,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         int drugDosage = drugToEdit.dosesSeriesType;
         spDosageType.setSelection(drugDosage);
 
-      
+
         //fill
         if(editMode){
             getActivity().setTitle(getView().getResources().getString(R.string.edit_drug));
