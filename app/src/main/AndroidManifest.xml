@@ -19,7 +19,6 @@
 
         <activity
             android:name=".ViewModel.DrugsActivity.DrugsActivity"
-            android:label="@string/title_activity_drugs"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
