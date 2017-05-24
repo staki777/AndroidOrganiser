@@ -195,6 +195,7 @@ public class DrugsActivity extends AppCompatActivity {
     }
 
     public void replaceWithNew(int containerID, Fragment newInstance, Boolean addToBackStack){
+
         String tag = newInstance.getClass().getSimpleName();
         if(addToBackStack){
             getFragmentManager().beginTransaction().replace(containerID, newInstance, tag).addToBackStack(null).commit();
