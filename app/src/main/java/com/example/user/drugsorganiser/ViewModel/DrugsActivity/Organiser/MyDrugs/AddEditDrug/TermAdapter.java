@@ -16,10 +16,10 @@ import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.NonStandardDose;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
-import com.j256.ormlite.dao.Dao;
+
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -56,13 +56,12 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
     @Override
     public void onBindViewHolder(final TermViewHolder holder, final int position) {
         final NonStandardDose term = terms.get(position);
-        holder.itemDateView.setText(term.doseDate.toDate().toString());
-        holder.itemTimeView.setText(term.doseDate.toDateTime().toString());
+        holder.itemDateView.setText(DateTimeToString(term.doseDate));
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 PopupMenu popup = new PopupMenu(ctx, holder.itemOptionsView);
-                popup.inflate(R.menu.menu_item);
+                popup.inflate(R.menu.menu_only_remove_item);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -101,12 +100,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
     public void deleteItem(NonStandardDose term){
         int position = terms.indexOf(term);
 
-        try{
-            final Dao<NonStandardDose, Integer> dao = ((DrugsActivity)ctx).getHelper().getNonStandardDoseDao();
-            dao.delete(terms.get(position));
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        ((DrugsActivity)ctx).getEditedDrug().nonStandardDoses.remove(term);
         terms.remove(position);
         notifyItemRemoved(position);
         Toast.makeText(ctx, "Selected term\n"+ ctx.getString(R.string.delete_confirmation), Toast.LENGTH_SHORT).show();
@@ -114,15 +108,8 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
 
     public void addItem(NonStandardDose term){
         Log.i("TermAdapter", "AddItem begin");
-        try{
-            Drug editedDrug = ((DrugsActivity)ctx).getEditedDrug();
-            editedDrug.nonStandardDoses.add(term);
-            final Dao<Drug, Integer> dao = ((DrugsActivity)ctx).getHelper().getDrugDao();
-            dao.update(editedDrug);
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        Drug editedDrug = ((DrugsActivity)ctx).getEditedDrug();
+        editedDrug.nonStandardDoses.add(term);
         terms.add(term);
         notifyItemInserted(terms.indexOf(term));
         Log.i("TermAdapter", Arrays.toString(terms.toArray()));
@@ -132,5 +119,9 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
 
     private Collection<NonStandardDose> findCustomDosesByDrug(Drug drug) {
             return ((DrugsActivity)ctx).getEditedDrug().nonStandardDoses;
+    }
+
+    private String DateTimeToString(DateTime date){
+        return date.getDayOfMonth()+"-"+(date.getMonthOfYear()+1)+"-"+date.getYear()+" "+date.getHourOfDay()+":"+((date.getMinuteOfHour()<10)?"0":"")+date.getMinuteOfHour();
     }
 }

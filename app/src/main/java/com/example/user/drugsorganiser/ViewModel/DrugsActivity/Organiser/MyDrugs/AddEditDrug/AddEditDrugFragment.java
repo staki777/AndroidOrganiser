@@ -67,6 +67,12 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
     @Override
     public void onStart(){
         super.onStart();
+        if(drugToEdit != null){
+            ((DrugsActivity) getActivity()).setEditedDrug(drugToEdit);
+        }
+        else{
+            ((DrugsActivity) getActivity()).setEditedDrug(new Drug());
+        }
 
         doseTypes = new DoseTypes(getView());
         dosageTypes = new DosageTypes(getView());
@@ -120,17 +126,18 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
                 String selected=spDosageType.getSelectedItem().toString();
                 Log.i("AddEditDrugFragment", "|"+selected+"|");
                 if(position == 0){
-
+                    ((DrugsActivity)getActivity()).getEditedDrug().dosesSeriesType = 0;
                     ((DrugsActivity)getActivity()).removeIfExists(RegularDosageFragment.class.getSimpleName());
                     ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new RegularDosageFragment());
                 }
                 else if(position == 1){
-
+                    ((DrugsActivity)getActivity()).getEditedDrug().dosesSeriesType = 1;
+                    ((DrugsActivity)getActivity()).removeIfExists(ConstantIntervalDosageFragment.class.getSimpleName());
                     ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new ConstantIntervalDosageFragment());
                 }
                 else {
+                    ((DrugsActivity)getActivity()).getEditedDrug().dosesSeriesType = 2;
                     ((DrugsActivity)getActivity()).removeIfExists(CustomDosageFragment.class.getSimpleName());
-
                     ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new CustomDosageFragment());
                 }
 
@@ -145,7 +152,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
 
         //fill
         if(editMode){
-            ((DrugsActivity) getActivity()).setEditedDrug(drugToEdit);
+            spDosageType.setSelection(((DrugsActivity)getActivity()).getEditedDrug().dosesSeriesType);
             getActivity().setTitle(getView().getResources().getString(R.string.edit_drug));
             etName.setText(drugToEdit.name);
             dosePicker.setValue(drugToEdit.doseQuantity);
@@ -186,12 +193,14 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
                 drugToEdit.important=chbxImportant.isChecked();
                 drugToEdit.comment=etComment.getText().toString();
                 drugAdapter.editItem(drugToEdit);
+                ((DrugsActivity)getActivity()).setEditedDrug(null);
             }
 
             ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
 
         }
         else if(v == btnNegative){
+            ((DrugsActivity)getActivity()).setEditedDrug(null);
             ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
         }
     }

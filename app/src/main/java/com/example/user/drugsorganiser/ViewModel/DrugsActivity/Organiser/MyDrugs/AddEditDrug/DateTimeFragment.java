@@ -39,7 +39,9 @@ public class DateTimeFragment extends Fragment implements View.OnClickListener {
         super.onStart();
         getActivity().setTitle("Adding new term");
         datePicker = (DatePicker) getView().findViewById(R.id.datePicker);
+
         timePicker = (TimePicker) getView().findViewById(R.id.timePicker);
+
         positiveBtn = (Button) getView().findViewById(R.id.positive_button);
         negativeBtn = (Button) getView().findViewById(R.id.negative_button);
         positiveBtn.setOnClickListener(this);
