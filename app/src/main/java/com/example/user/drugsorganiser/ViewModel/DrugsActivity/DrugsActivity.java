@@ -160,21 +160,9 @@ public class DrugsActivity extends AppCompatActivity {
         Log.i("AlarmActivity", message);
         smsManager.sendTextMessage(user.contactNumber, null, message, null, null);
 
-        Intent intent = new Intent(DrugsActivity.this, AlarmActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent notifIntent = PendingIntent.getActivity(DrugsActivity.this,1001, intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(DrugsActivity.this);
-        mBuilder.setSmallIcon(R.mipmap.ic_pillow);
-        mBuilder.setLargeIcon(BitmapFactory.decodeResource(DrugsActivity.this.getResources(), R.mipmap.ic_pillow));
-        mBuilder.setContentTitle(getString(R.string.app_name));
-        mBuilder.setContentText(String.format(getString(R.string.alert_notification),userName));
-        mBuilder.setContentIntent(notifIntent);
-        mBuilder.setAutoCancel(true);
-        mBuilder.setWhen(System.currentTimeMillis());
-
-        NotificationManager mNotificationManager = (NotificationManager) DrugsActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(3, mBuilder.build());
+        String comment = String.format(getString(R.string.alert_notification_comment), userName);
+        NotificationManagement.CreateNotification(getApplicationContext(), getString(R.string.app_name), comment, AlarmActivity.class, 2, 1001);
+        NotificationManagement.CancelNotification(DrugsActivity.this, 1);
     }
 
     // USER MANAGEMENT

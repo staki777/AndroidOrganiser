@@ -47,7 +47,9 @@
     <string name="edit_drug">Edit drug</string>
 
     <string name="alert_message" formatted="false">[DrugsOrganiser] \nUser %1s hasn\'t confirmed taking a dose of %2s.</string>
-    <string name="alert_notification" formatted="false">%1s, alert message was sent to your Contact Person</string>
+    <string name="alert_notification_comment" formatted="false">%1s, alert message was sent to your Contact Person</string>
+    <string name="alarm_notification_title" formatted="false">%1s, time for %2s</string>
+    <string name="alarm_notification_comment" formatted="false">Remember: %1s</string>
 
     <string name="positive_button">Done</string>
     <string name="negative_button">Cancel</string>

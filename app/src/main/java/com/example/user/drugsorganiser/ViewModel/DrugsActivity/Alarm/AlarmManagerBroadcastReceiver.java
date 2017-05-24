@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.NotificationManagement;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -71,28 +72,11 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//  | FLAG_ACTIVITY_CLEAR_TOP /Intent.FLAG_ACTIVITY_NEW_TASK/FLAG_ACTIVITY_BROUGHT_TO_FRONT
         context.startActivity(newIntent);
 
-        CreateNotification(context, drugName, description, user, DrugsActivity.class, 1);
+        String title = String.format(context.getString(R.string.alarm_notification_title), user, drugName);
+        String comment = String.format(context.getString(R.string.alarm_notification_comment), description);
+        NotificationManagement.CreateNotification(context, title, comment, DrugsActivity.class, 1, 1001 );
 
         wl.release();
-    }
-
-    private void CreateNotification (Context context, String drugName, String drugDescription, String user, Class <?> cls, int id) {
-        Intent intent = new Intent(context, cls);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent notifIntent = PendingIntent.getActivity(context,1001, intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.mipmap.ic_pillow);
-        mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_pillow));
-        mBuilder.setContentTitle(user + ", czas na " + drugName);
-        mBuilder.setContentText("Pamiętaj: " + drugDescription);
-        mBuilder.setContentIntent(notifIntent);
-        mBuilder.setAutoCancel(true);
-        mBuilder.setVibrate(new long[]{1000, 1000});
-        mBuilder.setWhen(System.currentTimeMillis());
-
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(id, mBuilder.build());
     }
 
     public void SetAlarm(Context context, String drugName, String description, String userName, long trigger, long interval) {
