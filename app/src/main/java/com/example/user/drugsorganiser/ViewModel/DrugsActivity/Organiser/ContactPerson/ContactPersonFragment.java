@@ -64,10 +64,10 @@ public class ContactPersonFragment extends Fragment {
 
     public void getPermissions() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) + ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE},CONTACT_PERSON_PERMISSIONS);
+                + ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS},CONTACT_PERSON_PERMISSIONS);
         }else {
-            Log.i("Permissions","Read Contacts and Call permissions granted");
+            Log.i("Permissions","Read Contacts, send SMS and Call permissions granted");
         }
     }
 
@@ -136,7 +136,6 @@ public class ContactPersonFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     @Override
