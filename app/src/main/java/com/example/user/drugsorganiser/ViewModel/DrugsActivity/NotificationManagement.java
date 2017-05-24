@@ -31,8 +31,8 @@ public final class NotificationManagement {
         PendingIntent notifIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-        mBuilder.setSmallIcon(R.mipmap.ic_pillow);
-        mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_pillow));
+        mBuilder.setSmallIcon(R.mipmap.logo);
+        mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.logo));
         mBuilder.setContentTitle(title);
         mBuilder.setContentText(comment);
         mBuilder.setContentIntent(notifIntent);
