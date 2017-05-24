@@ -75,7 +75,13 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(!(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true) && SaveSharedPreference.getUserID(getActivity()) != -1) {
+        String contactName = ((DrugsActivity)getActivity()).getUser().contactName;
+        boolean loggedInAndNotRecover = !(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true)
+                && SaveSharedPreference.getUserID(getActivity()) != -1;
+        if(loggedInAndNotRecover && (contactName==null || contactName.isEmpty())) {
+            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ContactPersonFragment());
+        }
+        else if(loggedInAndNotRecover) {
             ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
         }
         getPermissionToAlarm();
