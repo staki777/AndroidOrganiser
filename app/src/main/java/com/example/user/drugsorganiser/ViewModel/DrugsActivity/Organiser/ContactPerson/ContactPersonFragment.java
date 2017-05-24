@@ -136,6 +136,8 @@ public class ContactPersonFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (user.contactName == null || user.contactName.isEmpty())
+            Toast.makeText(getActivity(), getActivity().getString(R.string.lack_of_contact_person), Toast.LENGTH_SHORT).show();
     }
 
     @Override
