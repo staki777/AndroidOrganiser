@@ -1,13 +1,10 @@
 package com.example.user.drugsorganiser.Model;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by DV7 on 2017-05-19.
@@ -36,6 +33,10 @@ public class SpecificDose implements Serializable {
     public SpecificDose(Drug drug, DateTime doseDate) {
         this.drug = drug;
         this.doseDate = doseDate;
+    }
+
+    public int getDrugID(){
+        return  this.drug.drugId;
     }
 }
 

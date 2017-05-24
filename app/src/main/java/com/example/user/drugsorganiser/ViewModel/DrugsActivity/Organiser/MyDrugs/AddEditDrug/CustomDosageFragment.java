@@ -2,6 +2,8 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrug
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 public class CustomDosageFragment extends Fragment implements View.OnClickListener {
 
     private Button addNewTermBtn;
+    private RecyclerView recyclerView;
+
     public CustomDosageFragment() {
         // Required empty public constructor
     }
@@ -43,6 +47,10 @@ public class CustomDosageFragment extends Fragment implements View.OnClickListen
         super.onStart();
         addNewTermBtn = (Button) getView().findViewById(R.id.btnAddNewTerm);
         addNewTermBtn.setOnClickListener(this);
+        recyclerView = (RecyclerView) getView().findViewById(R.id.term_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        TermAdapter termAdapter = new TermAdapter( ((DrugsActivity)getActivity()).getEditedDrug() ,getActivity());
+        recyclerView.setAdapter(termAdapter);
     }
 
     @Override
@@ -50,7 +58,8 @@ public class CustomDosageFragment extends Fragment implements View.OnClickListen
         if(v == addNewTermBtn){
             Log.i("CustomDosageFragment", "addNetwTerm button clicked");
             ((DrugsActivity)getActivity()).removeIfExists(DateTimeFragment.class.getSimpleName());
-            ((DrugsActivity)getActivity()).replaceWithNew(R.id.toReplace, new DateTimeFragment(), true);
+            ((DrugsActivity)getActivity()).replaceWithNew(R.id.toReplace, new DateTimeFragment(), false);
         }
     }
+
 }

@@ -121,6 +121,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
                 Log.i("AddEditDrugFragment", "|"+selected+"|");
                 if(position == 0){
 
+                    ((DrugsActivity)getActivity()).removeIfExists(RegularDosageFragment.class.getSimpleName());
                     ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new RegularDosageFragment());
                 }
                 else if(position == 1){
@@ -128,6 +129,8 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
                     ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new ConstantIntervalDosageFragment());
                 }
                 else {
+                    ((DrugsActivity)getActivity()).removeIfExists(CustomDosageFragment.class.getSimpleName());
+
                     ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, new CustomDosageFragment());
                 }
 
@@ -139,8 +142,10 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
             }
 
         });
+
         //fill
         if(editMode){
+            ((DrugsActivity) getActivity()).setEditedDrug(drugToEdit);
             getActivity().setTitle(getView().getResources().getString(R.string.edit_drug));
             etName.setText(drugToEdit.name);
             dosePicker.setValue(drugToEdit.doseQuantity);
