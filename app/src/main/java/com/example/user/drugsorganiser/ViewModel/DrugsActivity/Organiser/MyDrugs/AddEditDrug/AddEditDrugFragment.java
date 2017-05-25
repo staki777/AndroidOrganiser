@@ -69,13 +69,11 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
     @Override
     public void onStart(){
         super.onStart();
-        if(drugToEdit != null){
-            ((DrugsActivity) getActivity()).setEditedDrug(drugToEdit);
-        }
-        else{
+
+        if(drugToEdit == null) {
             drugToEdit = new Drug();
-            ((DrugsActivity) getActivity()).setEditedDrug(drugToEdit);
         }
+        activity().setEditedDrug(drugToEdit);
 
         doseTypes = new DoseTypes(getView());
         dosageTypes = new DosageTypes(getView());
@@ -93,7 +91,6 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         dosePicker = (NumberPicker) getView().findViewById(R.id.dosePicker);
         dosePicker.setMinValue(1);
         dosePicker.setMaxValue(250);
-       // dosePicker.setValue(1); ??
 
         spDoseType = (Spinner) getView().findViewById(R.id.dose_type_spinner);
         ArrayAdapter<String> doseTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, doseTypes.getArr());
@@ -126,35 +123,31 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         spDosageType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String selected=spDosageType.getSelectedItem().toString();
-                Log.i("AddEditDrugFragment", "|"+selected+"|");
-                ((DrugsActivity)getActivity()).removeIfExists(dosageFragments[position].getClass().getSimpleName());
-                ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.dosage_type_to_replace, dosageFragments[position]);
-                drugToEdit.dosesSeriesType = position;
+                removeAllDosageTypeFragments();
+                activity().replaceWithNewOrExisting(R.id.dosage_type_to_replace, dosageFragments[position]);
+                activity().getEditedDrug().dosesSeriesType = position;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                //nothing
-            }
+               }
 
         });
 
-        //zaznaczenie trybu dawkowania odpowiadającego edytowanemu lekowi/trybu defaultowego
-        int drugDosage = drugToEdit.dosesSeriesType;
-        spDosageType.setSelection(drugDosage);
-
-
+        Log.i("AddEditDrugFragment", "DosageType of edited drug is: "+activity().getEditedDrug().dosesSeriesType);
+        removeAllDosageTypeFragments();
+        spDosageType.setSelection(activity().getEditedDrug().dosesSeriesType);
+        activity().replaceWithNewOrExisting(R.id.dosage_type_to_replace, dosageFragments[spDosageType.getSelectedItemPosition()]);
         //fill
         if(editMode){
             getActivity().setTitle(getView().getResources().getString(R.string.edit_drug));
-            etName.setText(drugToEdit.name);
-            dosePicker.setValue(drugToEdit.doseQuantity);
-            spDoseType.setSelection(doseTypes.getPosition(drugToEdit.doseDescription));
+            etName.setText(activity().getEditedDrug().name);
+            dosePicker.setValue(activity().getEditedDrug().doseQuantity);
+            spDoseType.setSelection(doseTypes.getPosition(activity().getEditedDrug().doseDescription));
             if(spDoseType.getSelectedItemPosition() == doseTypes.getPositionOfOther())
-                etOtherDoseType.setText(drugToEdit.doseDescription);
-            etComment.setText(drugToEdit.comment);
-            if(drugToEdit.important){
+                etOtherDoseType.setText(activity().getEditedDrug().doseDescription);
+            etComment.setText(activity().getEditedDrug().comment);
+            if(activity().getEditedDrug().important){
                 chbxImportant.toggle();
             }
         }
@@ -167,7 +160,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         if(v == btnPositive)
         {
-            DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+            DrugAdapter drugAdapter = new DrugAdapter(activity().getUser(), getActivity());
 
             if(etName.getText().toString().isEmpty() || (etOtherDoseType.getVisibility()==View.VISIBLE && etOtherDoseType.getText().toString().isEmpty()))
             {
@@ -176,26 +169,58 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
                 return;
             }
 
+            clearOtherDosages(activity().getEditedDrug());
+            activity().getEditedDrug().name = etName.getText().toString();
+            activity().getEditedDrug().important = chbxImportant.isChecked();
+            activity().getEditedDrug().doseDescription=(etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString();
+            activity().getEditedDrug().doseQuantity = dosePicker.getValue();
+            activity().getEditedDrug().comment = etComment.getText().toString();
+
+
             if(!editMode){ //dodajemy nowy lek
-                Drug drug=new Drug( ((DrugsActivity)getActivity()).getUser(), etName.getText().toString(), dosePicker.getValue(), (etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString(), 1, chbxImportant.isChecked(), etComment.getText().toString());
-                drugAdapter.addItem(drug);
+                activity().getEditedDrug().user = activity().getUser();
+                drugAdapter.addItem(activity().getEditedDrug());
             }
             else{ //edytujemy lek
-                drugToEdit.name=etName.getText().toString();
-                drugToEdit.doseQuantity = dosePicker.getValue();
-                drugToEdit.doseDescription=(etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString();
-                drugToEdit.important=chbxImportant.isChecked();
-                drugToEdit.comment=etComment.getText().toString();
-                drugAdapter.editItem(drugToEdit);
-                ((DrugsActivity)getActivity()).setEditedDrug(null);
+                drugAdapter.editItem(activity().getEditedDrug());
             }
-
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
+            activity().setEditedDrug(null);
+            activity().replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
 
         }
         else if(v == btnNegative){
-            ((DrugsActivity)getActivity()).setEditedDrug(null);
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
+            activity().setEditedDrug(null);
+            activity().replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
         }
     }
+
+    private DrugsActivity activity(){
+        return  (DrugsActivity) getActivity();
+    }
+
+    private void removeAllDosageTypeFragments(){
+        for(int i=0; i<dosageFragments.length; i++){
+            activity().removeIfExists(dosageFragments[i].getClass().getSimpleName());
+        }
+    }
+    private void clearOtherDosages(Drug d){
+        switch (spDosageType.getSelectedItemPosition()){
+            case 0:{
+                d.constantDoses.clear();
+                d.nonStandardDoses.clear();
+                break;
+            }
+            case 1:{
+                d.atIntervalsDoses.clear();
+                d.nonStandardDoses.clear();
+                break;
+            }
+            case 2:{
+                d.atIntervalsDoses.clear();
+                d.constantDoses.clear();
+                break;
+            }
+        }
+    }
+
 }
