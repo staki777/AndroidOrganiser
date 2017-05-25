@@ -66,6 +66,7 @@ public class Drug implements Serializable {
     public Collection<RegistryDose> registry;
 
     public Drug() {
+        dosesSeriesType = 0;
         nearestDoses = new ArrayList<SpecificDose>();
         registry = new ArrayList<RegistryDose>();
 

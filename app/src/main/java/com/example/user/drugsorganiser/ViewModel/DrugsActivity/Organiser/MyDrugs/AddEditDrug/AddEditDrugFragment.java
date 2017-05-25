@@ -91,6 +91,13 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         dosePicker = (NumberPicker) getView().findViewById(R.id.dosePicker);
         dosePicker.setMinValue(1);
         dosePicker.setMaxValue(250);
+        dosePicker.setValue(activity().getEditedDrug().doseQuantity);
+        dosePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                activity().getEditedDrug().doseQuantity = newVal;
+            }
+        });
 
         spDoseType = (Spinner) getView().findViewById(R.id.dose_type_spinner);
         ArrayAdapter<String> doseTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, doseTypes.getArr());
@@ -120,9 +127,16 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         spDosageType = (Spinner) getView().findViewById(R.id.dosage_type_spinner);
         ArrayAdapter<String> dosageTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, dosageTypes.getArr());
         spDosageType.setAdapter(dosageTypeAdapter);
+        Log.i("AddEditDrugFragment", "DosageType of edited drug is: "+activity().getEditedDrug().dosesSeriesType);
+        removeAllDosageTypeFragments();
+        spDosageType.setSelection(activity().getEditedDrug().dosesSeriesType);
+       // activity().replaceWithNewOrExisting(R.id.dosage_type_to_replace, dosageFragments[spDosageType.getSelectedItemPosition()]);
+
+
         spDosageType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Log.i("AddEditFragment", "OnItemSelected");
                 removeAllDosageTypeFragments();
                 activity().replaceWithNewOrExisting(R.id.dosage_type_to_replace, dosageFragments[position]);
                 activity().getEditedDrug().dosesSeriesType = position;
@@ -134,10 +148,6 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
 
         });
 
-        Log.i("AddEditDrugFragment", "DosageType of edited drug is: "+activity().getEditedDrug().dosesSeriesType);
-        removeAllDosageTypeFragments();
-        spDosageType.setSelection(activity().getEditedDrug().dosesSeriesType);
-        activity().replaceWithNewOrExisting(R.id.dosage_type_to_replace, dosageFragments[spDosageType.getSelectedItemPosition()]);
         //fill
         if(editMode){
             getActivity().setTitle(getView().getResources().getString(R.string.edit_drug));
