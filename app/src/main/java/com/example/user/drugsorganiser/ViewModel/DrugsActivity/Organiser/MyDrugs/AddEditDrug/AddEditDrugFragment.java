@@ -17,7 +17,6 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.user.drugsorganiser.Model.ConstantIntervalDose;
 import com.example.user.drugsorganiser.Model.DosageTypes;
 import com.example.user.drugsorganiser.Model.DoseTypes;
 import com.example.user.drugsorganiser.Model.Drug;
@@ -211,23 +210,25 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
         }
     }
     private void clearOtherDosages(Drug d){
-        switch (spDosageType.getSelectedItemPosition()){
-            case 0:{
-                d.regularDoses.clear();
-                d.customDoses.clear();
-                break;
-            }
-            case 1:{
-                d.constantIntervalDose = new ConstantIntervalDose();
-                d.customDoses.clear();
-                break;
-            }
-            case 2:{
-                d.constantIntervalDose = new ConstantIntervalDose();
-                d.regularDoses.clear();
-                break;
-            }
-        }
+//        switch (spDosageType.getSelectedItemPosition()){
+////{new RegularDosageFragment(), new ConstantIntervalDosageFragment(), new CustomDosageFragment()};
+//
+//            case 0:{
+//                d.constantIntervalDose = new ConstantIntervalDose();
+//                d.customDoses.clear();
+//                break;
+//            }
+//            case 1:{
+//                d.regularDoses.clear();
+//                d.customDoses.clear();
+//                break;
+//            }
+//            case 2:{
+//                d.constantIntervalDose = new ConstantIntervalDose();
+//                d.regularDoses.clear();
+//                break;
+//            }
+//        }
     }
 
 }

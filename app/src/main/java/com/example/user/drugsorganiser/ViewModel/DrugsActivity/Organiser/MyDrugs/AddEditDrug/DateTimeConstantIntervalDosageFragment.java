@@ -1,8 +1,10 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug;
 
+import android.util.Log;
 import android.view.View;
 
 import com.example.user.drugsorganiser.Model.Drug;
+import com.example.user.drugsorganiser.Shared.UniversalMethods;
 
 import org.joda.time.DateTime;
 
@@ -13,7 +15,9 @@ public class DateTimeConstantIntervalDosageFragment extends DateTimeBaseFragment
         if(v == positiveBtn){
             Drug editedDrug = activity().getEditedDrug();
             DateTime dt = new DateTime(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-            editedDrug.constantIntervalDose.firstDose = dt;
+            activity().getEditedDrug().constantIntervalDose.firstDose = dt;
+            activity().getEditedDrug().constantIntervalDose.drug = activity().getEditedDrug();
+            Log.i(LogTag(), "Date saved: "+ UniversalMethods.DateTimeToString(activity().getEditedDrug().constantIntervalDose.firstDose));
             activity().onBackPressed();
 
         }

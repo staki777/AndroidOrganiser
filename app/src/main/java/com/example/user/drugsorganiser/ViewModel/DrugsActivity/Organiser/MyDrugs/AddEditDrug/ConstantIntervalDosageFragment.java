@@ -2,6 +2,7 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrug
 
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,11 +29,13 @@ public class ConstantIntervalDosageFragment extends BaseDrugsActivityFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(LogTag(), "onCreateView");
         // Inflating layout
         View v = inflater.inflate(R.layout.fragment_constant_interval, container, false);
         // We obtain layout references
         startingDoseTermTv = (TextView) v.findViewById(R.id.item_date);
         if(activity().getEditedDrug().constantIntervalDose.firstDose == null){
+            Log.i(LogTag(), "Firstdose is null");
             activity().getEditedDrug().constantIntervalDose.firstDose = DateTime.now();
         }
         startingDoseTermTv.setText(UniversalMethods.DateTimeToString(activity().getEditedDrug().constantIntervalDose.firstDose));

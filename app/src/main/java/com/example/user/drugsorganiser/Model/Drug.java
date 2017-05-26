@@ -53,7 +53,7 @@ public class Drug implements Serializable {
     @ForeignCollectionField(eager = true)
     public Collection<RegularDose> regularDoses;
 
-    @DatabaseField(foreign = true)
+    @DatabaseField(columnName = "fsdff", foreign = true, foreignAutoRefresh = true)
     public ConstantIntervalDose constantIntervalDose;
 
     @ForeignCollectionField(eager = true)
