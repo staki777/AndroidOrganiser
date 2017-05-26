@@ -15,7 +15,7 @@ public class DateTimeCustomDosageFragment extends DateTimeBaseFragment implement
         if(v == positiveBtn){
             Drug editedDrug = activity().getEditedDrug();
             TermAdapter termAdapter = new TermAdapter(editedDrug, getActivity());
-            DateTime dt = new DateTime(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
+            DateTime dt = new DateTime(datePicker.getYear(), datePicker.getMonth()+1, datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
             termAdapter.addItem(new CustomDose(editedDrug, dt));
             activity().onBackPressed();
 

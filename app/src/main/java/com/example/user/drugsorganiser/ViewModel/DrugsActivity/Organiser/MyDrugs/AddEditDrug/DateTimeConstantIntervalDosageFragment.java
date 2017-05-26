@@ -3,6 +3,7 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrug
 import android.util.Log;
 import android.view.View;
 
+import com.example.user.drugsorganiser.Model.ConstantIntervalDose;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Shared.UniversalMethods;
 
@@ -13,10 +14,13 @@ public class DateTimeConstantIntervalDosageFragment extends DateTimeBaseFragment
     @Override
     public void onClick(View v) {
         if(v == positiveBtn){
+            DateTime dt = new DateTime(datePicker.getYear(), datePicker.getMonth()+1, datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
             Drug editedDrug = activity().getEditedDrug();
-            DateTime dt = new DateTime(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-            activity().getEditedDrug().constantIntervalDose.firstDose = dt;
-            activity().getEditedDrug().constantIntervalDose.drug = activity().getEditedDrug();
+            ConstantIntervalDose cid = editedDrug.constantIntervalDose;
+            cid.drug = editedDrug;
+            cid.firstDose = dt;
+            cid.lastAcceptedDose = dt;
+            editedDrug.constantIntervalDose = cid;
             Log.i(LogTag(), "Date saved: "+ UniversalMethods.DateTimeToString(activity().getEditedDrug().constantIntervalDose.firstDose));
             activity().onBackPressed();
 
