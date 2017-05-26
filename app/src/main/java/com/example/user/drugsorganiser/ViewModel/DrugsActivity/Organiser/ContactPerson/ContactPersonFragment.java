@@ -2,15 +2,12 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Contac
 
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.app.Fragment;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -24,14 +21,14 @@ import android.widget.Toast;
 
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 
 import static android.app.Activity.RESULT_OK;
 
-public class ContactPersonFragment extends Fragment {
+public class ContactPersonFragment extends BaseDrugsActivityFragment {
 
     private static final int CONTACT_PERSON_PERMISSIONS = 1;
     private static final int PICK_CONTACT = 2;
@@ -67,7 +64,7 @@ public class ContactPersonFragment extends Fragment {
                 + ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS},CONTACT_PERSON_PERMISSIONS);
         }else {
-            Log.i("Permissions","Read Contacts, send SMS and Call permissions granted");
+            Log.i(LogTag(),"Read Contacts, send SMS and Call permissions granted");
         }
     }
 
@@ -98,7 +95,7 @@ public class ContactPersonFragment extends Fragment {
     public void onStart() {
         super.onStart();
         getActivity().setTitle(getView().getResources().getString(R.string.contact_person));
-        user = ((DrugsActivity)getActivity()).getUser();
+        user = activity().getUser();
 
         nameTextView = (TextView) getView().findViewById(R.id.name_contact);
         phoneTextView = (TextView) getView().findViewById(R.id.phone_contact);
@@ -158,7 +155,7 @@ public class ContactPersonFragment extends Fragment {
             user.contactName = cursor.getString(nameColumnIndex);
 
             try{
-                final Dao<User, Integer> userDao = ((DrugsActivity)getActivity()).getHelper().getUserDao();
+                final Dao<User, Integer> userDao = activity().getHelper().getUserDao();
                 userDao.update(user);
             }catch (SQLException e){
                 e.printStackTrace();

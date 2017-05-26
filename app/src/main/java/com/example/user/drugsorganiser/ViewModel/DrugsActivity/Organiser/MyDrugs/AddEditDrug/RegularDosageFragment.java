@@ -1,31 +1,26 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 
 import java.lang.reflect.Field;
-import java.text.DateFormat;
 
 
-public class RegularDosageFragment extends Fragment {
+public class RegularDosageFragment extends BaseDrugsActivityFragment {
 
     private NumberPicker FewTimesPicker;
     private Spinner spFewTimesType;

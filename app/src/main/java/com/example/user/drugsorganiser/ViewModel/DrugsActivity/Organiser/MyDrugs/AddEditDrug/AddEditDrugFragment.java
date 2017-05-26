@@ -21,13 +21,13 @@ import com.example.user.drugsorganiser.Model.DosageTypes;
 import com.example.user.drugsorganiser.Model.DoseTypes;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DrugAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddEditDrugFragment extends Fragment implements View.OnClickListener {
+public class AddEditDrugFragment extends BaseDrugsActivityFragment implements View.OnClickListener {
 
     private DoseTypes doseTypes;
     private DosageTypes dosageTypes;
@@ -105,7 +105,7 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selected=spDoseType.getSelectedItem().toString();
-                Log.i("AddEditDrugFragment", "|"+selected+"|");
+                Log.i(LogTag(), "|"+selected+"|");
                 if(selected.equals(doseTypes.getOtherString())){
                     tvOtherDoseType.setVisibility(View.VISIBLE);
                     etOtherDoseType.setVisibility(View.VISIBLE);
@@ -126,14 +126,14 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         spDosageType = (Spinner) getView().findViewById(R.id.dosage_type_spinner);
         ArrayAdapter<String> dosageTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, dosageTypes.getArr());
         spDosageType.setAdapter(dosageTypeAdapter);
-        Log.i("AddEditDrugFragment", "DosageType of edited drug is: "+activity().getEditedDrug().dosesSeriesType);
+        Log.i(LogTag(), "DosageType of edited drug is: "+activity().getEditedDrug().dosesSeriesType);
         removeAllDosageTypeFragments();
         spDosageType.setSelection(activity().getEditedDrug().dosesSeriesType);
 
         spDosageType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Log.i("AddEditFragment", "OnItemSelected");
+                Log.i(LogTag(), "OnItemSelected");
                 removeAllDosageTypeFragments();
                 activity().replaceWithNewOrExisting(R.id.dosage_type_to_replace, dosageFragments[position]);
                 activity().getEditedDrug().dosesSeriesType = position;
@@ -198,10 +198,6 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
             removeAllDosageTypeFragments();
             activity().onBackPressed();
         }
-    }
-
-    private DrugsActivity activity(){
-        return  (DrugsActivity) getActivity();
     }
 
     private void removeAllDosageTypeFragments(){

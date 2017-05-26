@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DoseAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends BaseDrugsActivityFragment {
 
     private RecyclerView recyclerView;
 
@@ -33,29 +33,29 @@ public class ScheduleFragment extends Fragment {
 
     @Override
     public void onStart() {
-        Log.i("ScheduleFragment", "onStart");
+        Log.i(LogTag(), "onStart");
         super.onStart();
         getActivity().setTitle(getView().getResources().getString(R.string.schedule));
         recyclerView = (RecyclerView) getView().findViewById(R.id.doses_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
-        final DoseAdapter doseAdapter = new DoseAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+        final DoseAdapter doseAdapter = new DoseAdapter(activity().getUser(), getActivity());
         recyclerView.setAdapter(doseAdapter);
     }
 
     @Override
     public void onResume() {
-        Log.i("ScheduleFragment", "onResume");
+        Log.i(LogTag(), "onResume");
 
         super.onResume();
-        final DoseAdapter doseAdapter = new DoseAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+        final DoseAdapter doseAdapter = new DoseAdapter(activity().getUser(), getActivity());
         recyclerView.setAdapter(doseAdapter);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.i("!", "Schedule fragment on detach");
+        Log.i(LogTag(), "Schedule fragment on detach");
         getFragmentManager().saveFragmentInstanceState(this);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.SaveSharedPreference;
 import com.j256.ormlite.dao.Dao;
@@ -24,7 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class RegisterFragment extends Fragment implements View.OnClickListener {
+public class RegisterFragment extends BaseDrugsActivityFragment implements View.OnClickListener {
 
 
     private Button btnRegister;
@@ -38,8 +37,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        Log.i("RegisterFragment", "in onCreateView");
+        Log.i(LogTag(), "in onCreateView");
         return inflater.inflate(R.layout.fragment_register, container, false);
     }
 
@@ -68,7 +66,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onDetach() {
         super.onDetach();
-
     }
 
 
@@ -78,8 +75,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         {
                 if(etLogin.getText().toString().trim().isEmpty() ||
                         etMail.getText().toString().trim().isEmpty() ||
-                        etPassword.getText().toString().trim().isEmpty())
-                {
+                        etPassword.getText().toString().trim().isEmpty()){
                     Toast.makeText(getActivity(), getActivity().getString(R.string.fields_must_be_filled), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -92,7 +88,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     user.drugs = new ArrayList<>();
 
                     try {
-                        final Dao<User, Integer> userDao = ((DrugsActivity)getActivity()).getHelper().getUserDao();
+                        final Dao<User, Integer> userDao = activity().getHelper().getUserDao();
                         PreparedQuery<User> q=userDao.queryBuilder().where().eq(User.LOGIN_COLUMN, user.login).prepare();
                         if(!userDao.query(q).isEmpty()){
                             Toast.makeText(getActivity(), getActivity().getString(R.string.login_exists_warning), Toast.LENGTH_SHORT).show();
@@ -108,13 +104,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         userDao.create(user);
                         Toast.makeText(getActivity(), getActivity().getString(R.string.account_created), Toast.LENGTH_SHORT).show();
 
-                        Log.i("RegisterFragment", "Setting user..");
-                        ((DrugsActivity)getActivity()).setUser(user);
+                        Log.i(LogTag(), "Setting user..");
+                        activity().setUser(user);
                         SaveSharedPreference.setUserID(getActivity(), user.userId);
 
-                        ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, new OrganiserFragment());
-                        ((DrugsActivity)getActivity()).removeIfExists(LoginFragment.class.getSimpleName());
-                        ((DrugsActivity)getActivity()).removeIfExists(RegisterFragment.class.getSimpleName());
+                        activity().replaceWithNewOrExisting(R.id.main_to_replace, new OrganiserFragment());
+                        activity().removeIfExists(LoginFragment.class.getSimpleName());
+                        activity().removeIfExists(RegisterFragment.class.getSimpleName());
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

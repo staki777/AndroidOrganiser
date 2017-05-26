@@ -5,7 +5,6 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,9 +20,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson.ContactPersonFragment;
@@ -36,7 +35,7 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.SaveSharedPrefere
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrganiserFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
+public class OrganiserFragment extends BaseDrugsActivityFragment implements NavigationView.OnNavigationItemSelectedListener {
 
     final public static String ACCEPTED = "isDoseAccepted";
     private static final int ALARM_PERM = 1;
@@ -48,8 +47,8 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        Log.i("OrganiserFragment", "onCreateVIew");
+
+        Log.i(LogTag(), "onCreateVIew");
         View v = inflater.inflate(R.layout.fragment_organiser, container, false);
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -69,7 +68,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     @Override
     public void onStart() {
         super.onStart();
-        Log.i("OrganiserFragment", "onStart");
+        Log.i(LogTag(), "onStart");
     }
 
     @Override
@@ -79,10 +78,10 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
         boolean loggedInAndNotRecover = !(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true)
                 && SaveSharedPreference.getUserID(getActivity()) != -1;
         if(loggedInAndNotRecover && (contactName==null || contactName.isEmpty())) {
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ContactPersonFragment());
+            activity().replaceWithNewOrExisting(R.id.toReplace, new ContactPersonFragment());
         }
         else if(loggedInAndNotRecover) {
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
+            activity().replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
         }
         getPermissionToAlarm();
     }
@@ -92,7 +91,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WAKE_LOCK},ALARM_PERM);
         }else {
-            Log.i("Permissions","Alarm permission granted");
+            Log.i(LogTag(),"Alarm permission granted");
         }
     }
 
@@ -101,33 +100,33 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
 
         int id = item.getItemId();
 
-        ((DrugsActivity)getActivity()).refreshUserDrugs();
+        activity().refreshUserDrugs();
 
         if (id == R.id.nav_my_drugs) {
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
+            activity().replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
 
         }
         else if (id == R.id.schedule) {
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
+            activity().replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
 
         }
         else if (id == R.id.last_doses) {
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new RegistryFragment());
+            activity().replaceWithNewOrExisting(R.id.toReplace, new RegistryFragment());
         }
         else if (id == R.id.contact_person) {
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.toReplace, new ContactPersonFragment());
+            activity().replaceWithNewOrExisting(R.id.toReplace, new ContactPersonFragment());
 
         }
         else if (id == R.id.nav_logout) {
             SaveSharedPreference.clearPreferences(getActivity());
-            ((DrugsActivity)getActivity()).setUser(null);
-            Log.i("OrganiserFragment", "user set to null");
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.main_to_replace, new LoginRegisterFragment());
-            ((DrugsActivity)getActivity()).removeIfExists(MyDrugsFragment.class.getSimpleName());
-            ((DrugsActivity)getActivity()).removeIfExists(ScheduleFragment.class.getSimpleName());
-            ((DrugsActivity)getActivity()).removeIfExists(RegistryFragment.class.getSimpleName());
-            ((DrugsActivity)getActivity()).removeIfExists(ContactPersonFragment.class.getSimpleName());
-            ((DrugsActivity)getActivity()).removeIfExists(AddEditDrugFragment.class.getSimpleName());
+            activity().setUser(null);
+            Log.i(LogTag(), "user set to null");
+            activity().replaceWithNewOrExisting(R.id.main_to_replace, new LoginRegisterFragment());
+            activity().removeIfExists(MyDrugsFragment.class.getSimpleName());
+            activity().removeIfExists(ScheduleFragment.class.getSimpleName());
+            activity().removeIfExists(RegistryFragment.class.getSimpleName());
+            activity().removeIfExists(ContactPersonFragment.class.getSimpleName());
+            activity().removeIfExists(AddEditDrugFragment.class.getSimpleName());
         }
 
         DrawerLayout drawer = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
@@ -152,7 +151,7 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            ((DrugsActivity)getActivity()).onetimeTimer(getActivity().getCurrentFocus(), "Lek1", "2 łyżeczki, po posiłku", System.currentTimeMillis()+2000); //for tests
+            activity().onetimeTimer(getActivity().getCurrentFocus(), "Lek1", "2 łyżeczki, po posiłku", System.currentTimeMillis()+2000); //for tests
             return true;
         }
 
@@ -161,8 +160,8 @@ public class OrganiserFragment extends Fragment implements NavigationView.OnNavi
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("OrganiserFragment", "OnResume");
-        ((DrugsActivity)getActivity()).refreshUserDrugs();
+        Log.i(LogTag(), "OnResume");
+        activity().refreshUserDrugs();
     }
 
     @Override

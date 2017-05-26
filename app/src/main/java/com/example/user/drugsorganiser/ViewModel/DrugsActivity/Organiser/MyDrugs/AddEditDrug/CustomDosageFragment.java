@@ -1,6 +1,5 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 
 
-public class CustomDosageFragment extends Fragment implements View.OnClickListener {
+public class CustomDosageFragment extends BaseDrugsActivityFragment implements View.OnClickListener {
 
     private Button addNewTermBtn;
     private RecyclerView recyclerView;
@@ -46,16 +45,16 @@ public class CustomDosageFragment extends Fragment implements View.OnClickListen
         addNewTermBtn.setOnClickListener(this);
         recyclerView = (RecyclerView) getView().findViewById(R.id.term_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        TermAdapter termAdapter = new TermAdapter( ((DrugsActivity)getActivity()).getEditedDrug() ,getActivity());
+        TermAdapter termAdapter = new TermAdapter( activity().getEditedDrug() ,getActivity());
         recyclerView.setAdapter(termAdapter);
     }
 
     @Override
     public void onClick(View v) {
         if(v == addNewTermBtn){
-            Log.i("CustomDosageFragment", "addNetwTerm button clicked");
-            ((DrugsActivity)getActivity()).removeIfExists(DateTimeFragment.class.getSimpleName());
-            ((DrugsActivity)getActivity()).replaceWithNew(R.id.toReplace, new DateTimeFragment(), false);
+            Log.i(LogTag(), "addNetwTerm button clicked");
+            activity().removeIfExists(DateTimeCustomDosageFragment.class.getSimpleName());
+            activity().replaceWithNew(R.id.toReplace, new DateTimeCustomDosageFragment(), false);
         }
     }
 

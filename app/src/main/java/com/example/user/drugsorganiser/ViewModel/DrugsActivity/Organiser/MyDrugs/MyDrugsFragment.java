@@ -12,14 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DrugAdapter;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyDrugsFragment extends Fragment {
+public class MyDrugsFragment extends BaseDrugsActivityFragment {
 
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
@@ -32,13 +32,13 @@ public class MyDrugsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.i("MyDrugsFragment", "onStart!");
+        Log.i(LogTag(), "onStart!");
         getActivity().setTitle(getView().getResources().getString(R.string.my_drugs));
-        ((DrugsActivity)getActivity()).refreshUserDrugs();
+        activity().refreshUserDrugs();
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.drug_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        DrugAdapter drugAdapter = new DrugAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+        DrugAdapter drugAdapter = new DrugAdapter(activity().getUser(), getActivity());
         recyclerView.setAdapter(drugAdapter);
 
         fab = (FloatingActionButton) getView().findViewById(R.id.fab);
@@ -49,8 +49,8 @@ public class MyDrugsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("MyDrugsFragment", "onResume");
-        ((DrugsActivity)getActivity()).refreshUserDrugs();
+        Log.i(LogTag(), "onResume");
+        activity().refreshUserDrugs();
     }
 
     @Override
@@ -65,8 +65,8 @@ public class MyDrugsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((DrugsActivity)getActivity()).removeIfExists(AddEditDrugFragment.class.getSimpleName());
-                ((DrugsActivity)getActivity()).replaceWithNew(R.id.toReplace, new AddEditDrugFragment(), true);
+                activity().removeIfExists(AddEditDrugFragment.class.getSimpleName());
+                activity().replaceWithNew(R.id.toReplace, new AddEditDrugFragment(), true);
             }
         });
     }

@@ -1,6 +1,5 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,20 +8,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import com.example.user.drugsorganiser.Model.Drug;
-import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 
-import org.joda.time.DateTime;
+public abstract class DateTimeBaseFragment extends BaseDrugsActivityFragment implements View.OnClickListener {
 
-public class DateTimeFragment extends Fragment implements View.OnClickListener {
+    protected DatePicker datePicker;
+    protected TimePicker timePicker;
+    protected Button positiveBtn, negativeBtn;
 
-    private DatePicker datePicker;
-    private TimePicker timePicker;
-    private Button positiveBtn, negativeBtn;
-
-    public DateTimeFragment() {
+    public DateTimeBaseFragment() {
         // Required empty public constructor
     }
 
@@ -55,17 +50,6 @@ public class DateTimeFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public void onClick(View v) {
-        if(v == positiveBtn){
-            Drug editedDrug = ((DrugsActivity)getActivity()).getEditedDrug();
-            TermAdapter termAdapter = new TermAdapter(editedDrug, getActivity());
-            DateTime dt = new DateTime(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-            termAdapter.addItem(new CustomDose(editedDrug, dt));
-            ((DrugsActivity) getActivity()).replaceWithNewOrExisting(R.id.toReplace, new AddEditDrugFragment());
+    public abstract void onClick(View v);
 
-        }
-        else if(v == negativeBtn){
-            ((DrugsActivity) getActivity()).replaceWithNewOrExisting(R.id.toReplace, new AddEditDrugFragment());
-        }
-    }
 }

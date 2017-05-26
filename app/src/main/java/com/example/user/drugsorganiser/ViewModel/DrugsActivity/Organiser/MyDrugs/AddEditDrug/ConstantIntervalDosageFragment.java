@@ -1,17 +1,15 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug;
 
-import android.app.Fragment;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 
 
-public class ConstantIntervalDosageFragment extends Fragment {
+public class ConstantIntervalDosageFragment extends BaseDrugsActivityFragment {
 
     public ConstantIntervalDosageFragment() {
         // Required empty public constructor
@@ -32,8 +30,6 @@ public class ConstantIntervalDosageFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Button reset=(Button)findViewById(R.id.reset);
 
     }
 }

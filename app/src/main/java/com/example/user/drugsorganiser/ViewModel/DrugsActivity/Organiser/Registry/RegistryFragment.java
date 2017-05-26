@@ -10,13 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.RegistryAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegistryFragment extends Fragment {
+public class RegistryFragment extends BaseDrugsActivityFragment {
 
     private RecyclerView recyclerView;
 
@@ -37,7 +37,7 @@ public class RegistryFragment extends Fragment {
         recyclerView = (RecyclerView) getView().findViewById(R.id.doses_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
-        final RegistryAdapter registryAdapter = new RegistryAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+        final RegistryAdapter registryAdapter = new RegistryAdapter(activity().getUser(), getActivity());
         recyclerView.setAdapter(registryAdapter);
     }
 
@@ -45,7 +45,7 @@ public class RegistryFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        final RegistryAdapter registryAdapter = new RegistryAdapter(((DrugsActivity)getActivity()).getUser(), getActivity());
+        final RegistryAdapter registryAdapter = new RegistryAdapter(activity().getUser(), getActivity());
         recyclerView.setAdapter(registryAdapter);
 
     }

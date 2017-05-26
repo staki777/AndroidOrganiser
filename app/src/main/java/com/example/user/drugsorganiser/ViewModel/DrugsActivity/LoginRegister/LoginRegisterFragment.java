@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginRegisterFragment extends Fragment implements View.OnClickListener  {
+public class LoginRegisterFragment extends BaseDrugsActivityFragment implements View.OnClickListener  {
 
     private Button btnLogin, btnRegister;
     private boolean btnLoginEnabled, btnRegisterEnabled;
@@ -31,7 +31,7 @@ public class LoginRegisterFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.i("LoginRegisterFragment", "onCreateView");
+        Log.i(LogTag(), "onCreateView");
         View v = inflater.inflate(R.layout.fragment_login_register, container, false);
 
         btnLogin= (Button) v.findViewById(R.id.btnLoginTab);
@@ -48,7 +48,7 @@ public class LoginRegisterFragment extends Fragment implements View.OnClickListe
     @Override
     public void onStart() {
         super.onStart();
-        Log.i("LoginRegisterFragment", "onStart");
+        Log.i(LogTag(), "onStart");
         btnLogin.setEnabled(btnLoginEnabled);
         btnRegister.setEnabled(btnRegisterEnabled);
     }
@@ -78,12 +78,12 @@ public class LoginRegisterFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == btnLogin){
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.login_register_fragment, new LoginFragment());
+            activity().replaceWithNewOrExisting(R.id.login_register_fragment, new LoginFragment());
             btnLogin.setEnabled(false);
             btnRegister.setEnabled(true);
         }
         else if(v == btnRegister){
-            ((DrugsActivity)getActivity()).replaceWithNewOrExisting(R.id.login_register_fragment, new RegisterFragment());
+            activity().replaceWithNewOrExisting(R.id.login_register_fragment, new RegisterFragment());
             btnLogin.setEnabled(true);
             btnRegister.setEnabled(false);
         }
