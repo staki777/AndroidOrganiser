@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.user.drugsorganiser.Model.Drug;
-import com.example.user.drugsorganiser.Model.NonStandardDose;
+import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 
@@ -31,7 +31,7 @@ import java.util.List;
  */
 
 public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implements Serializable {
-    private List<NonStandardDose> terms;
+    private List<CustomDose> customDoses;
     private Context ctx;
     private Drug drug;
 
@@ -40,10 +40,9 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
         this.drug = drug;
         this.ctx = ctx;
 
-
-        this.terms = new ArrayList<>();
-        terms.addAll(findCustomDosesByDrug(drug));
-        Log.i("TermAdapter", terms.size()+" DosesFound");
+        this.customDoses = new ArrayList<>();
+        customDoses.addAll(findCustomDosesByDrug(drug));
+        Log.i("TermAdapter", customDoses.size()+" DosesFound");
     }
 
     @Override
@@ -55,7 +54,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
 
     @Override
     public void onBindViewHolder(final TermViewHolder holder, final int position) {
-        final NonStandardDose term = terms.get(position);
+        final CustomDose term = customDoses.get(position);
         holder.itemDateView.setText(DateTimeToString(term.doseDate));
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,30 +93,30 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
 
     @Override
     public int getItemCount() {
-        return (terms != null) ? terms.size() : 0;
+        return (customDoses != null) ? customDoses.size() : 0;
     }
 
-    public void deleteItem(NonStandardDose term){
-        int position = terms.indexOf(term);
+    public void deleteItem(CustomDose term){
+        int position = customDoses.indexOf(term);
 
-        ((DrugsActivity)ctx).getEditedDrug().nonStandardDoses.remove(term);
-        terms.remove(position);
+        ((DrugsActivity)ctx).getEditedDrug().customDoses.remove(term);
+        customDoses.remove(position);
         notifyItemRemoved(position);
         Toast.makeText(ctx, "Selected term\n"+ ctx.getString(R.string.delete_confirmation), Toast.LENGTH_SHORT).show();
     }
 
-    public void addItem(NonStandardDose term){
+    public void addItem(CustomDose term){
         Log.i("TermAdapter", "AddItem begin");
         Drug editedDrug = ((DrugsActivity)ctx).getEditedDrug();
-        editedDrug.nonStandardDoses.add(term);
-        terms.add(term);
-        notifyItemInserted(terms.indexOf(term));
-        Log.i("TermAdapter", Arrays.toString(terms.toArray()));
+        editedDrug.customDoses.add(term);
+        customDoses.add(term);
+        notifyItemInserted(customDoses.indexOf(term));
+        Log.i("TermAdapter", Arrays.toString(customDoses.toArray()));
         Toast.makeText(ctx, "New term successfully added!", Toast.LENGTH_SHORT).show();
     }
 
-    private Collection<NonStandardDose> findCustomDosesByDrug(Drug drug) {
-            return ((DrugsActivity)ctx).getEditedDrug().nonStandardDoses;
+    private Collection<CustomDose> findCustomDosesByDrug(Drug drug) {
+            return ((DrugsActivity)ctx).getEditedDrug().customDoses;
     }
 
     private String DateTimeToString(DateTime date){

@@ -3,13 +3,12 @@ package com.example.user.drugsorganiser.Model;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by DV7 on 2017-05-19.
  */
 
-public class ConstantDose implements Serializable {
+public class RegularDose implements Serializable {
 
     private static final long serialVersionUID = -222864131214757024L;
     public static final String ID_FIELD = "dose_id";
@@ -46,9 +45,9 @@ public class ConstantDose implements Serializable {
     @DatabaseField(columnName = MONTH_COLUMN)
     public int month;
 
-    public ConstantDose() {}
+    public RegularDose() {}
 
-    public ConstantDose(Drug drug, String interval, int minute, int hour, int weekDay, int monthDay, int month) {
+    public RegularDose(Drug drug, String interval, int minute, int hour, int weekDay, int monthDay, int month) {
         this.drug = drug;
         this.interval = interval;
         this.minute = minute;

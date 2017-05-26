@@ -212,18 +212,18 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
     private void clearOtherDosages(Drug d){
         switch (spDosageType.getSelectedItemPosition()){
             case 0:{
-                d.constantDoses.clear();
-                d.nonStandardDoses.clear();
+                d.regularDoses.clear();
+                d.customDoses.clear();
                 break;
             }
             case 1:{
-                d.atIntervalsDoses.clear();
-                d.nonStandardDoses.clear();
+                d.constantIntervalDoses.clear();
+                d.customDoses.clear();
                 break;
             }
             case 2:{
-                d.atIntervalsDoses.clear();
-                d.constantDoses.clear();
+                d.constantIntervalDoses.clear();
+                d.regularDoses.clear();
                 break;
             }
         }

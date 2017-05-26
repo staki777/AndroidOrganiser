@@ -10,7 +10,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.example.user.drugsorganiser.Model.Drug;
-import com.example.user.drugsorganiser.Model.NonStandardDose;
+import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 
@@ -39,9 +39,7 @@ public class DateTimeFragment extends Fragment implements View.OnClickListener {
         super.onStart();
         getActivity().setTitle("Adding new term");
         datePicker = (DatePicker) getView().findViewById(R.id.datePicker);
-
         timePicker = (TimePicker) getView().findViewById(R.id.timePicker);
-
         positiveBtn = (Button) getView().findViewById(R.id.positive_button);
         negativeBtn = (Button) getView().findViewById(R.id.negative_button);
         positiveBtn.setOnClickListener(this);
@@ -62,7 +60,7 @@ public class DateTimeFragment extends Fragment implements View.OnClickListener {
             Drug editedDrug = ((DrugsActivity)getActivity()).getEditedDrug();
             TermAdapter termAdapter = new TermAdapter(editedDrug, getActivity());
             DateTime dt = new DateTime(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-            termAdapter.addItem(new NonStandardDose(editedDrug, dt));
+            termAdapter.addItem(new CustomDose(editedDrug, dt));
             ((DrugsActivity) getActivity()).replaceWithNewOrExisting(R.id.toReplace, new AddEditDrugFragment());
 
         }

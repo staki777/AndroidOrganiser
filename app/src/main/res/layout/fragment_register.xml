@@ -9,6 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
         android:text="@string/login_prompt" />
 
     <EditText
@@ -22,6 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
         android:text="@string/password_prompt" />
 
     <EditText
@@ -34,6 +36,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
         android:text="@string/mail_prompt" />
 
     <EditText

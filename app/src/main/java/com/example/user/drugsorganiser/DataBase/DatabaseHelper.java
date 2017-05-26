@@ -2,18 +2,16 @@ package com.example.user.drugsorganiser.DataBase;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.user.drugsorganiser.Model.AtIntervalsDose;
-import com.example.user.drugsorganiser.Model.ConstantDose;
+import com.example.user.drugsorganiser.Model.ConstantIntervalDose;
+import com.example.user.drugsorganiser.Model.RegularDose;
 import com.example.user.drugsorganiser.Model.Drug;
-import com.example.user.drugsorganiser.Model.NonStandardDose;
+import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.RegistryDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.SaveSharedPreference;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -30,14 +28,14 @@ import java.sql.SQLException;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "drugorganiser.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     private Dao<User, Integer> userDao;
     private Dao<Drug, Integer> drugDao;
     private Dao<RegistryDose, Integer> registryDao;
-    private Dao<ConstantDose, Integer> constantDoseDao;
-    private Dao<AtIntervalsDose, Integer> atIntervalsDoseDao;
-    private Dao<NonStandardDose, Integer> nonStandardDoseDao;
+    private Dao<RegularDose, Integer> regularDoseDao;
+    private Dao<ConstantIntervalDose, Integer> constantIntervalDoseDao;
+    private Dao<CustomDose, Integer> customDoseDao;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -51,9 +49,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, User.class);
             TableUtils.createTable(connectionSource, Drug.class);
             TableUtils.createTable(connectionSource, RegistryDose.class);
-            TableUtils.createTable(connectionSource, ConstantDose.class);
-            TableUtils.createTable(connectionSource, AtIntervalsDose.class);
-            TableUtils.createTable(connectionSource, NonStandardDose.class);
+            TableUtils.createTable(connectionSource, RegularDose.class);
+            TableUtils.createTable(connectionSource, ConstantIntervalDose.class);
+            TableUtils.createTable(connectionSource, CustomDose.class);
 
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create database", e);
@@ -71,9 +69,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, User.class, true);
             TableUtils.dropTable(connectionSource, Drug.class, true);
             TableUtils.dropTable(connectionSource, RegistryDose.class, true);
-            TableUtils.dropTable(connectionSource, ConstantDose.class, true);
-            TableUtils.dropTable(connectionSource, AtIntervalsDose.class, true);
-            TableUtils.dropTable(connectionSource, NonStandardDose.class, true);
+            TableUtils.dropTable(connectionSource, RegularDose.class, true);
+            TableUtils.dropTable(connectionSource, ConstantIntervalDose.class, true);
+            TableUtils.dropTable(connectionSource, CustomDose.class, true);
             onCreate(sqliteDatabase, connectionSource);
 
         } catch (SQLException e) {
@@ -106,22 +104,22 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return registryDao;
     }
 
-    public Dao<NonStandardDose, Integer> getNonStandardDoseDao() throws SQLException {
-        if (nonStandardDoseDao == null)
-            nonStandardDoseDao = getDao(NonStandardDose.class);
-        return nonStandardDoseDao;
+    public Dao<CustomDose, Integer> getCustomDoseDao() throws SQLException {
+        if (customDoseDao == null)
+            customDoseDao = getDao(CustomDose.class);
+        return customDoseDao;
     }
 
-    public Dao<ConstantDose, Integer> getConstantDoseDao() throws SQLException {
-        if (constantDoseDao == null)
-            constantDoseDao = getDao(ConstantDose.class);
-        return constantDoseDao;
+    public Dao<RegularDose, Integer> getRegularDoseDao() throws SQLException {
+        if (regularDoseDao == null)
+            regularDoseDao = getDao(RegularDose.class);
+        return regularDoseDao;
     }
 
-    public Dao<AtIntervalsDose, Integer> getAtIntervalsDoseDao() throws SQLException {
-        if (atIntervalsDoseDao == null)
-            atIntervalsDoseDao = getDao(AtIntervalsDose.class);
-        return atIntervalsDoseDao;
+    public Dao<ConstantIntervalDose, Integer> getConstantIntervalDoseDao() throws SQLException {
+        if (constantIntervalDoseDao == null)
+            constantIntervalDoseDao = getDao(ConstantIntervalDose.class);
+        return constantIntervalDoseDao;
     }
 }
 

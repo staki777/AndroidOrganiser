@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -37,13 +38,15 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegisterFragment">
 
-
-            <TextView
+            <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/welcome"
-                android:textAlignment="center"
-                android:textSize="60dp" />
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+
+                android:paddingTop="@dimen/nav_header_vertical_spacing"
+                android:background="@android:color/transparent"
+                app:srcCompat= "@mipmap/logo" />
 
             <TableLayout
                 android:layout_width="match_parent"

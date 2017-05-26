@@ -26,9 +26,8 @@ public class CustomDosageFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflating layout
+
         View v = inflater.inflate(R.layout.fragment_custom_dosage, container, false);
-        // We obtain layout references
 
         return v;
 
@@ -37,8 +36,6 @@ public class CustomDosageFragment extends Fragment implements View.OnClickListen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Button reset=(Button)findViewById(R.id.reset);
 
     }
 

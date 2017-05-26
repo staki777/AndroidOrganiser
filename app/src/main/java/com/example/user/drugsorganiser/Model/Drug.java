@@ -51,13 +51,13 @@ public class Drug implements Serializable {
     public User user;
 
     @ForeignCollectionField(eager = true)
-    public Collection<ConstantDose> constantDoses;
+    public Collection<RegularDose> regularDoses;
 
     @ForeignCollectionField(eager = true)
-    public Collection<AtIntervalsDose> atIntervalsDoses;
+    public Collection<ConstantIntervalDose> constantIntervalDoses;
 
     @ForeignCollectionField(eager = true)
-    public Collection<NonStandardDose> nonStandardDoses;
+    public Collection<CustomDose> customDoses;
 
     @ForeignCollectionField(eager = true)
     public Collection<SpecificDose> nearestDoses;
@@ -70,9 +70,9 @@ public class Drug implements Serializable {
         nearestDoses = new ArrayList<SpecificDose>();
         registry = new ArrayList<RegistryDose>();
 
-        constantDoses = new ArrayList<>();
-        atIntervalsDoses = new ArrayList<>();
-        nonStandardDoses = new ArrayList<>();
+        regularDoses = new ArrayList<>();
+        constantIntervalDoses = new ArrayList<>();
+        customDoses = new ArrayList<>();
     } //required
 
     public Drug(User user, String name, int doseQuantity, String doseDescription, int dosesSeriesType, boolean important, String comment) {
@@ -87,9 +87,9 @@ public class Drug implements Serializable {
         nearestDoses = new ArrayList<SpecificDose>();
         registry = new ArrayList<RegistryDose>();
 
-        constantDoses = new ArrayList<>();
-        atIntervalsDoses = new ArrayList<>();
-        nonStandardDoses = new ArrayList<>();
+        regularDoses = new ArrayList<>();
+        constantIntervalDoses = new ArrayList<>();
+        customDoses = new ArrayList<>();
 
     }
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Created by DV7 on 2017-05-19.
  */
 
-public class AtIntervalsDose implements Serializable {
+public class ConstantIntervalDose implements Serializable {
 
     private static final long serialVersionUID = -222864131214757024L;
     public static final String ID_FIELD = "dose_id";
@@ -35,9 +35,9 @@ public class AtIntervalsDose implements Serializable {
     @DatabaseField(columnName = LAST_DOSE_COLUMN)
     public DateTime lastAcceptedDose;
 
-    public AtIntervalsDose() {}
+    public ConstantIntervalDose() {}
 
-    public AtIntervalsDose(Drug drug, int interval, DateTime firstDose, DateTime lastAcceptedDose) {
+    public ConstantIntervalDose(Drug drug, int interval, DateTime firstDose, DateTime lastAcceptedDose) {
         this.drug = drug;
         this.interval = interval;
         this.firstDose = firstDose;
