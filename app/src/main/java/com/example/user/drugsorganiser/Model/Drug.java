@@ -53,8 +53,8 @@ public class Drug implements Serializable {
     @ForeignCollectionField(eager = true)
     public Collection<RegularDose> regularDoses;
 
-    @ForeignCollectionField(eager = true)
-    public Collection<ConstantIntervalDose> constantIntervalDoses;
+    @DatabaseField(foreign = true)
+    public ConstantIntervalDose constantIntervalDose;
 
     @ForeignCollectionField(eager = true)
     public Collection<CustomDose> customDoses;
@@ -71,7 +71,7 @@ public class Drug implements Serializable {
         registry = new ArrayList<RegistryDose>();
 
         regularDoses = new ArrayList<>();
-        constantIntervalDoses = new ArrayList<>();
+        constantIntervalDose = new ConstantIntervalDose();
         customDoses = new ArrayList<>();
     } //required
 
@@ -88,7 +88,7 @@ public class Drug implements Serializable {
         registry = new ArrayList<RegistryDose>();
 
         regularDoses = new ArrayList<>();
-        constantIntervalDoses = new ArrayList<>();
+        constantIntervalDose = new ConstantIntervalDose();
         customDoses = new ArrayList<>();
 
     }

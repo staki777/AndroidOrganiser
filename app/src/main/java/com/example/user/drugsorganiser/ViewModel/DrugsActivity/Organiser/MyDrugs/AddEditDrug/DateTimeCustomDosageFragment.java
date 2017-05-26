@@ -4,7 +4,6 @@ import android.view.View;
 
 import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.Drug;
-import com.example.user.drugsorganiser.R;
 
 import org.joda.time.DateTime;
 
@@ -53,11 +52,13 @@ public class DateTimeCustomDosageFragment extends DateTimeBaseFragment implement
             TermAdapter termAdapter = new TermAdapter(editedDrug, getActivity());
             DateTime dt = new DateTime(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
             termAdapter.addItem(new CustomDose(editedDrug, dt));
-            activity().replaceWithNewOrExisting(R.id.toReplace, new AddEditDrugFragment());
+           // activity().replaceWithNewOrExisting(R.id.toReplace, new AddEditDrugFragment());
+            activity().onBackPressed();
 
         }
         else if(v == negativeBtn){
-            activity().replaceWithNewOrExisting(R.id.toReplace, new AddEditDrugFragment());
+           // activity().replaceWithNewOrExisting(R.id.toReplace, new AddEditDrugFragment());
+            activity().onBackPressed();
         }
     }
 }

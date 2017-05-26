@@ -32,20 +32,22 @@ public abstract class DateTimeBaseFragment extends BaseDrugsActivityFragment imp
     @Override
     public void onStart() {
         super.onStart();
-        getActivity().setTitle("Adding new term");
-        datePicker = (DatePicker) getView().findViewById(R.id.datePicker);
-        timePicker = (TimePicker) getView().findViewById(R.id.timePicker);
-        positiveBtn = (Button) getView().findViewById(R.id.positive_button);
-        negativeBtn = (Button) getView().findViewById(R.id.negative_button);
-        positiveBtn.setOnClickListener(this);
-        negativeBtn.setOnClickListener(this);
+
+
     }
 
         @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_date_time, container, false);
+        View v = inflater.inflate(R.layout.fragment_date_time, container, false);
+            datePicker = (DatePicker) v.findViewById(R.id.datePicker);
+            timePicker = (TimePicker) v.findViewById(R.id.timePicker);
+            positiveBtn = (Button) v.findViewById(R.id.positive_button);
+            negativeBtn = (Button) v.findViewById(R.id.negative_button);
+            positiveBtn.setOnClickListener(this);
+            negativeBtn.setOnClickListener(this);
+            getActivity().setTitle("Adding new term");
+        return v;
     }
 
 

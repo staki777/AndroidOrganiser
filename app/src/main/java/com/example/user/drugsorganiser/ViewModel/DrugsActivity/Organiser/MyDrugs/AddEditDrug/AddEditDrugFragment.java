@@ -17,6 +17,7 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.user.drugsorganiser.Model.ConstantIntervalDose;
 import com.example.user.drugsorganiser.Model.DosageTypes;
 import com.example.user.drugsorganiser.Model.DoseTypes;
 import com.example.user.drugsorganiser.Model.Drug;
@@ -107,10 +108,14 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
                 String selected=spDoseType.getSelectedItem().toString();
                 Log.i(LogTag(), "|"+selected+"|");
                 if(selected.equals(doseTypes.getOtherString())){
+                    tvOtherDoseType.setHeight(etName.getHeight());
+                    etOtherDoseType.setHeight(etName.getHeight());
                     tvOtherDoseType.setVisibility(View.VISIBLE);
                     etOtherDoseType.setVisibility(View.VISIBLE);
                 }
                 else {
+                    tvOtherDoseType.setHeight(0);
+                    etOtherDoseType.setHeight(0);
                     etOtherDoseType.setVisibility(View.INVISIBLE);
                     tvOtherDoseType.setVisibility(View.INVISIBLE);
                 }
@@ -213,12 +218,12 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
                 break;
             }
             case 1:{
-                d.constantIntervalDoses.clear();
+                d.constantIntervalDose = new ConstantIntervalDose();
                 d.customDoses.clear();
                 break;
             }
             case 2:{
-                d.constantIntervalDoses.clear();
+                d.constantIntervalDose = new ConstantIntervalDose();
                 d.regularDoses.clear();
                 break;
             }

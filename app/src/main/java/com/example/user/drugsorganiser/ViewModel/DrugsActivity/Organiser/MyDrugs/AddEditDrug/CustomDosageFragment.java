@@ -54,7 +54,7 @@ public class CustomDosageFragment extends BaseDrugsActivityFragment implements V
         if(v == addNewTermBtn){
             Log.i(LogTag(), "addNetwTerm button clicked");
             activity().removeIfExists(DateTimeCustomDosageFragment.class.getSimpleName());
-            activity().replaceWithNew(R.id.toReplace, new DateTimeCustomDosageFragment(), false);
+            activity().replaceWithNew(R.id.toReplace, new DateTimeCustomDosageFragment(), true);
         }
     }
 

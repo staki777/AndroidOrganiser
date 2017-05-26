@@ -21,19 +21,11 @@
             android:textColor="@color/colorPrimaryDark"
             android:textAppearance="?android:textAppearanceLarge" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:foreground="?android:attr/selectableItemBackground"
-            >
-            <TextView
-                android:id="@+id/item_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/item_options"

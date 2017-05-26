@@ -12,12 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.CustomDose;
+import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.Shared.UniversalMethods;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
-
-import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
     @Override
     public void onBindViewHolder(final TermViewHolder holder, final int position) {
         final CustomDose term = customDoses.get(position);
-        holder.itemDateView.setText(DateTimeToString(term.doseDate));
+        holder.itemDateView.setText(UniversalMethods.DateTimeToString(term.doseDate));
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -119,7 +118,4 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
             return ((DrugsActivity)ctx).getEditedDrug().customDoses;
     }
 
-    private String DateTimeToString(DateTime date){
-        return date.getDayOfMonth()+"-"+(date.getMonthOfYear()+1)+"-"+date.getYear()+" "+date.getHourOfDay()+":"+((date.getMinuteOfHour()<10)?"0":"")+date.getMinuteOfHour();
-    }
 }
