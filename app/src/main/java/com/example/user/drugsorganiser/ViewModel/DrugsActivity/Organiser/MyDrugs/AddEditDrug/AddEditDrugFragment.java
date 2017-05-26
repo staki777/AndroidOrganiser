@@ -17,13 +17,12 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.user.drugsorganiser.Model.DosageTypes;
 import com.example.user.drugsorganiser.Model.DoseTypes;
 import com.example.user.drugsorganiser.Model.Drug;
-import com.example.user.drugsorganiser.Model.DosageTypes;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DrugAdapter;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -130,8 +129,6 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
         Log.i("AddEditDrugFragment", "DosageType of edited drug is: "+activity().getEditedDrug().dosesSeriesType);
         removeAllDosageTypeFragments();
         spDosageType.setSelection(activity().getEditedDrug().dosesSeriesType);
-       // activity().replaceWithNewOrExisting(R.id.dosage_type_to_replace, dosageFragments[spDosageType.getSelectedItemPosition()]);
-
 
         spDosageType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -194,13 +191,12 @@ public class AddEditDrugFragment extends Fragment implements View.OnClickListene
             else{ //edytujemy lek
                 drugAdapter.editItem(activity().getEditedDrug());
             }
-            activity().setEditedDrug(null);
-            activity().replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
-
         }
-        else if(v == btnNegative){
+
+        if(v == btnNegative || v == btnPositive){
             activity().setEditedDrug(null);
-            activity().replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
+            removeAllDosageTypeFragments();
+            activity().onBackPressed();
         }
     }
 

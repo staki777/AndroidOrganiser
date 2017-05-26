@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.MyDrugsFragment">
+    tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drug_list"
