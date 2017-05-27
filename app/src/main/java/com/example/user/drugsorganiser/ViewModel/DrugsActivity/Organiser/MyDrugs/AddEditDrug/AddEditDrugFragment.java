@@ -99,7 +99,7 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
         });
 
         spDoseType = (Spinner) getView().findViewById(R.id.dose_type_spinner);
-        ArrayAdapter<String> doseTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, doseTypes.getArr());
+        ArrayAdapter<String> doseTypeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, doseTypes.getArr());
         spDoseType.setAdapter(doseTypeAdapter);
         spDoseType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -128,7 +128,7 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
         });
 
         spDosageType = (Spinner) getView().findViewById(R.id.dosage_type_spinner);
-        ArrayAdapter<String> dosageTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, dosageTypes.getArr());
+        ArrayAdapter<String> dosageTypeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, dosageTypes.getArr());
         spDosageType.setAdapter(dosageTypeAdapter);
         Log.i(LogTag(), "DosageType of edited drug is: "+activity().getEditedDrug().dosesSeriesType);
         removeAllDosageTypeFragments();

@@ -30,9 +30,9 @@
     <string name="delete_confirmation">Drug successfully deleted!</string>
     <string name="add_confirmation">Drug successfully added!</string>
     <string name="edit_confirmation">Drug successfully updated!</string>
-    <string name="drug_name">Drug name</string>
-    <string name="drug_dose">Dose</string>
-    <string name="drug_dosage">Type of dosage</string>
+    <string name="drug_name">Drug name:</string>
+    <string name="drug_dose">Dose:</string>
+    <string name="drug_dosage">Type of dosage:</string>
     <string name="drug_start">Start</string>
     <string name="drug_peroid">Duration</string>
     <string name="drug_interval">Interval between doses</string>

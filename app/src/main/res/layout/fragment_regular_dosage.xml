@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.MyDrugs.AddEditDrug.FewTimesFragment">
+    tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.RegularDosageFragment">
 
 
     <!--<TextView
@@ -31,27 +31,22 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/NormalTextStyle"
+            android:layout_gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:text="@string/FewTimesPer"
-            android:textColor="@color/textColor" />
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:text="@string/FewTimesPer"/>
 
         <Spinner
             android:id="@+id/FewTimes_type_spinner"
-            android:textColor="@color/textColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:layout_weight="6.40" />
+            style="@style/SpinnerStyle"
+            android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
+        style="@style/NormalTextStyle"
         android:text="@string/AddDate"
-        android:paddingLeft="5dp"
         android:id="@+id/add" />
 </LinearLayout>
 </FrameLayout>

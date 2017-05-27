@@ -34,7 +34,7 @@ public class RegularDosageFragment extends BaseDrugsActivityFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating layout
-        View v = inflater.inflate(R.layout.fragment_few_times, container, false);
+        View v = inflater.inflate(R.layout.fragment_regular_dosage, container, false);
         // We obtain layout references
 
         return v;
@@ -47,11 +47,10 @@ public class RegularDosageFragment extends BaseDrugsActivityFragment {
         FewTimesPicker = (NumberPicker) getView().findViewById(R.id.FewTimesPicker);
         FewTimesPicker.setMinValue(1);
         FewTimesPicker.setMaxValue(250);
-        FewTimesPicker.setValue(1);
 
         spFewTimesType = (Spinner) getView().findViewById(R.id.FewTimes_type_spinner);
 
-        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, getActivity().getResources().getStringArray(R.array.time_array));
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, getActivity().getResources().getStringArray(R.array.time_array));
         spFewTimesType.setAdapter(timeAdapter);
         spFewTimesType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

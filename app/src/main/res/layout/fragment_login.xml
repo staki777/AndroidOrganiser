@@ -6,9 +6,7 @@
     tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
+        style="@style/NormalTextStyle"
         android:text="@string/login_prompt" />
 
     <EditText
@@ -20,9 +18,7 @@
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
+        style="@style/NormalTextStyle"
         android:text="@string/password_prompt" />
 
     <EditText

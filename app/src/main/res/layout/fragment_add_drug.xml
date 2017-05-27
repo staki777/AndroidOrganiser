@@ -15,31 +15,17 @@ android:layout_height="wrap_content">
 
     <!--DRUG NAME-->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/drug_name"
-        android:textColor="@color/textColor"/>
+        style="@style/PrimaryHeaderStyle"
+        android:text="@string/drug_name" />
     <EditText
         android:id="@+id/edit_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:textColor="@color/textColor"/>
+        style="@style/NormalTextStyle"
+        android:inputType="text"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/colorPrimary"/>
 
     <!--DRUG DOSE-->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
+        style="@style/PrimaryHeaderStyle"
         android:text="@string/drug_dose"/>
 
     <LinearLayout
@@ -55,47 +41,31 @@ android:layout_height="wrap_content">
 
         <Spinner
             android:id="@+id/dose_type_spinner"
-            android:textColor="@color/textColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/SpinnerStyle"
+            android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
     <!--OPTIONAL: when other is selected^ -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/otherDoseTypePrompt"
         android:id="@+id/tw_other_dose_type"
-        android:textColor="@color/textColor"
+        style="@style/SecondaryHeaderStyle"
         android:visibility="invisible"/>
     <EditText
         android:id="@+id/edit_other_dose_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/NormalTextStyle"
         android:inputType="text"
-        android:textColor="@color/textColor"
         android:visibility="invisible"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/colorPrimary"/>
+    <include  layout="@layout/divider"/>
 
     <!--DRUG DOSAGE TYPE-->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
+        style="@style/PrimaryHeaderStyle"
         android:text="@string/drug_dosage"/>
     <Spinner
         android:id="@+id/dosage_type_spinner"
-        android:textColor="@color/textColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        style="@style/SpinnerStyle" />
 
 
     <!--EMPTY LAYOUT TO REPLACE-->
@@ -107,32 +77,20 @@ android:layout_height="wrap_content">
         >
     </FrameLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/colorPrimary"/>
+    <include  layout="@layout/divider"/>
 
     <!--DRUG IMPORTANT OR NOT-->
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/edit_important"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/NormalTextStyle"
         android:text="@string/drug_important"/>
 
     <!--DRUG COMMENT-->
     <TextView
-        android:layout_width="match_parent"
-        android:textColor="@color/textColor"
-        android:layout_height="wrap_content"
+        style="@style/PrimaryHeaderStyle"
         android:text="@string/drugCommentPrompt"/>
     <EditText
-        android:layout_width="match_parent"
-        android:textColor="@color/textColor"
-        android:layout_height="wrap_content"
+        style="@style/NormalTextStyle"
         android:id="@+id/editComment"/>
 
     <!--DONE/CANCEL BUTTONS-->
