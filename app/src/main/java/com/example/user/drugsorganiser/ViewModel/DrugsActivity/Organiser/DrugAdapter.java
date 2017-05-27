@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.user.drugsorganiser.Model.ConstantIntervalDose;
+import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.Drug;
+import com.example.user.drugsorganiser.Model.RegularDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
@@ -130,19 +133,51 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
         }catch (SQLException e){
             e.printStackTrace();
         }
+        createOrUpdateDrug(drug);
         drugs.add(drug);
         notifyItemInserted(drugs.indexOf(drug));
         Toast.makeText(ctx, drug.name+"\n"+ctx.getString(R.string.add_confirmation), Toast.LENGTH_SHORT).show();
     }
 
     public void editItem(Drug drug){
-        try{
-            final Dao<Drug, Integer> drugDao = ((DrugsActivity)ctx).getHelper().getDrugDao();
-            drugDao.update(drug);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        createOrUpdateDrug(drug);
         notifyItemChanged(drugs.indexOf(drug));
         Toast.makeText(ctx, drug.name+"\n"+ctx.getString(R.string.edit_confirmation), Toast.LENGTH_SHORT).show();
     }
+
+    private void createOrUpdateDrug(Drug drug){
+        try{
+            final Dao<Drug, Integer> drugDao = ((DrugsActivity)ctx).getHelper().getDrugDao();
+            if(drug.dosesSeriesType == 0){ //regular doses
+                for(RegularDose r : drug.regularDoses){
+                    ((DrugsActivity)ctx).getHelper().getRegularDoseDao().createOrUpdate(r);
+                }
+                ((DrugsActivity)ctx).getHelper().getCustomDoseDao().delete(drug.customDoses);
+                drug.customDoses.clear();
+                ((DrugsActivity)ctx).getHelper().getConstantIntervalDoseDao().delete(drug.constantIntervalDose);
+                drug.constantIntervalDose = new ConstantIntervalDose();
+            }
+            else if(drug.dosesSeriesType == 1){ //constant interval
+                ((DrugsActivity)ctx).getHelper().getCustomDoseDao().delete(drug.customDoses);
+                drug.customDoses.clear();
+                ((DrugsActivity)ctx).getHelper().getRegularDoseDao().delete(drug.regularDoses);
+                drug.regularDoses.clear();
+                ((DrugsActivity)ctx).getHelper().getConstantIntervalDoseDao().createOrUpdate(drug.constantIntervalDose);
+            }
+            else if(drug.dosesSeriesType == 3){ //custom doses
+                for(CustomDose c : drug.customDoses){
+                    ((DrugsActivity)ctx).getHelper().getCustomDoseDao().createOrUpdate(c);
+                }
+                ((DrugsActivity)ctx).getHelper().getRegularDoseDao().delete(drug.regularDoses);
+                drug.regularDoses.clear();
+                ((DrugsActivity)ctx).getHelper().getConstantIntervalDoseDao().delete(drug.constantIntervalDose);
+                drug.constantIntervalDose = new ConstantIntervalDose();
+            }
+            drugDao.update(drug);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }

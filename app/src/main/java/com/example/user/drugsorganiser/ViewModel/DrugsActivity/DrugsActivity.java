@@ -166,7 +166,8 @@ public class DrugsActivity extends AppCompatActivity {
         Log.i("DrugsActivity", "refreshUserDrugs");
         try{
             PreparedQuery<User> q= getHelper().getUserDao().queryBuilder().where().eq(User.ID_FIELD, user.userId).prepare();
-            user.drugs=getHelper().getUserDao().queryForFirst(q).drugs;
+           // user.drugs=getHelper().getUserDao().queryForFirst(q).drugs;
+            user = getHelper().getUserDao().queryForFirst(q);
         }
         catch (SQLException e){
             e.printStackTrace();

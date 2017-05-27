@@ -35,7 +35,9 @@ public class ConstantIntervalDose implements Serializable {
     @DatabaseField(columnName = LAST_DOSE_COLUMN)
     public DateTime lastAcceptedDose;
 
-    public ConstantIntervalDose() {}
+    public ConstantIntervalDose() {
+
+    }
 
     public ConstantIntervalDose(Drug drug, int interval, DateTime firstDose, DateTime lastAcceptedDose) {
         this.drug = drug;

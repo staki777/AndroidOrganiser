@@ -35,8 +35,5 @@ public class SpecificDose implements Serializable {
         this.doseDate = doseDate;
     }
 
-    public int getDrugID(){
-        return  this.drug.drugId;
-    }
 }
 

@@ -35,7 +35,6 @@ public class ConstantIntervalDosageFragment extends BaseDrugsActivityFragment {
         // We obtain layout references
         startingDoseTermTv = (TextView) v.findViewById(R.id.item_date);
         if(activity().getEditedDrug().constantIntervalDose.firstDose == null){
-            Log.i(LogTag(), "Firstdose is null");
             activity().getEditedDrug().constantIntervalDose.firstDose = DateTime.now();
         }
         startingDoseTermTv.setText(UniversalMethods.DateTimeToString(activity().getEditedDrug().constantIntervalDose.firstDose));

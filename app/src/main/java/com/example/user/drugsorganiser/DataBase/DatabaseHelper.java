@@ -10,6 +10,7 @@ import com.example.user.drugsorganiser.Model.RegularDose;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.RegistryDose;
+import com.example.user.drugsorganiser.Model.SpecificDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -28,7 +29,7 @@ import java.sql.SQLException;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "drugorganiser.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 10;
 
     private Dao<User, Integer> userDao;
     private Dao<Drug, Integer> drugDao;
@@ -36,6 +37,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<RegularDose, Integer> regularDoseDao;
     private Dao<ConstantIntervalDose, Integer> constantIntervalDoseDao;
     private Dao<CustomDose, Integer> customDoseDao;
+    private Dao<SpecificDose, Integer> specificDoseDao;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -52,6 +54,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, RegularDose.class);
             TableUtils.createTable(connectionSource, ConstantIntervalDose.class);
             TableUtils.createTable(connectionSource, CustomDose.class);
+            TableUtils.createTable(connectionSource, SpecificDose.class);
 
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create database", e);
@@ -72,6 +75,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, RegularDose.class, true);
             TableUtils.dropTable(connectionSource, ConstantIntervalDose.class, true);
             TableUtils.dropTable(connectionSource, CustomDose.class, true);
+            TableUtils.dropTable(connectionSource, SpecificDose.class, true);
             onCreate(sqliteDatabase, connectionSource);
 
         } catch (SQLException e) {
@@ -120,6 +124,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         if (constantIntervalDoseDao == null)
             constantIntervalDoseDao = getDao(ConstantIntervalDose.class);
         return constantIntervalDoseDao;
+    }
+    public Dao<SpecificDose, Integer> getCSpecificDoseDao() throws SQLException {
+        if (specificDoseDao == null)
+            specificDoseDao = getDao(SpecificDose.class);
+        return specificDoseDao;
     }
 }
 

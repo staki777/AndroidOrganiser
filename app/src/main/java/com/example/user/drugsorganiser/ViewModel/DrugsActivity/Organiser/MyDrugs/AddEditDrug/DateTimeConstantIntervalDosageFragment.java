@@ -17,10 +17,7 @@ public class DateTimeConstantIntervalDosageFragment extends DateTimeBaseFragment
             DateTime dt = new DateTime(datePicker.getYear(), datePicker.getMonth()+1, datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
             Drug editedDrug = activity().getEditedDrug();
             ConstantIntervalDose cid = editedDrug.constantIntervalDose;
-            cid.drug = editedDrug;
-            cid.firstDose = dt;
-            cid.lastAcceptedDose = dt;
-            editedDrug.constantIntervalDose = cid;
+            editedDrug.constantIntervalDose = new ConstantIntervalDose(editedDrug, cid.interval, dt, cid.lastAcceptedDose);
             Log.i(LogTag(), "Date saved: "+ UniversalMethods.DateTimeToString(activity().getEditedDrug().constantIntervalDose.firstDose));
             activity().onBackPressed();
 

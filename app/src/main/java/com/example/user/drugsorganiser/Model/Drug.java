@@ -25,6 +25,7 @@ public class Drug implements Serializable {
     public static final String COMMENT_COLUMN ="drug_comment";
     public static final String USER_COLUMN = "drug_user";
 
+
     @DatabaseField(generatedId = true, columnName = ID_FIELD)
     public int drugId;
 
@@ -53,7 +54,7 @@ public class Drug implements Serializable {
     @ForeignCollectionField(eager = true)
     public Collection<RegularDose> regularDoses;
 
-    @DatabaseField(columnName = "fsdff", foreign = true, foreignAutoRefresh = true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     public ConstantIntervalDose constantIntervalDose;
 
     @ForeignCollectionField(eager = true)
