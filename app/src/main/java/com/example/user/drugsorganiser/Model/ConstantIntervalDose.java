@@ -36,7 +36,7 @@ public class ConstantIntervalDose implements Serializable {
     public DateTime lastAcceptedDose;
 
     public ConstantIntervalDose() {
-
+        interval = 1;
     }
 
     public ConstantIntervalDose(Drug drug, int interval, DateTime firstDose, DateTime lastAcceptedDose) {

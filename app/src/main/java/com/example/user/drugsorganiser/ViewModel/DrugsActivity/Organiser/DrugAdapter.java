@@ -132,7 +132,9 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
             drugDao.createIfNotExists(drug);
         }catch (SQLException e){
             e.printStackTrace();
+            Log.i("DrugAdapter", "sql EXCEPTION: "+e.getMessage());
         }
+        Log.i("DrugAdapter", "sql createIfNotExistsExecutedProperly");
         createOrUpdateDrug(drug);
         drugs.add(drug);
         notifyItemInserted(drugs.indexOf(drug));
@@ -162,6 +164,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
                 drug.customDoses.clear();
                 ((DrugsActivity)ctx).getHelper().getRegularDoseDao().delete(drug.regularDoses);
                 drug.regularDoses.clear();
+                drug.constantIntervalDose.drug = drug;
                 ((DrugsActivity)ctx).getHelper().getConstantIntervalDoseDao().createOrUpdate(drug.constantIntervalDose);
             }
             else if(drug.dosesSeriesType == 3){ //custom doses
