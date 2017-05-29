@@ -1,7 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
     tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.RegularDosageFragment">
 
 
@@ -16,37 +19,41 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="5dp"
-        android:id="@+id/layout"
-        android:weightSum="1">
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:id="@+id/FewTimesPicker"
-            android:scaleY="1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:id="@+id/layout"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/textView"
+                style="@style/NormalTextStyle"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:text="@string/FewTimesPer"/>
+            <Spinner
+                android:id="@+id/FewTimes_type_spinner"
+                style="@style/SpinnerStyle"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/textView"
-            style="@style/NormalTextStyle"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_width="wrap_content"
-            android:text="@string/FewTimesPer"/>
+            style="@style/SecondaryHeaderStyle"
+            android:text="Terms:"/>
 
-        <Spinner
-            android:id="@+id/FewTimes_type_spinner"
-            style="@style/SpinnerStyle"
-            android:layout_gravity="center_vertical"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/term_list_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add a new term"
+            android:id="@+id/add"/>
+
     </LinearLayout>
-
-    <TextView
-        style="@style/NormalTextStyle"
-        android:text="@string/AddDate"
-        android:id="@+id/add" />
-</LinearLayout>
 </FrameLayout>

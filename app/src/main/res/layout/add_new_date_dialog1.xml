@@ -1,17 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.DateTimeCustomDosageFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:id="@+id/weekPicker"
-        android:layout_gravity="center"
-        android:scaleY="1"/>
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="2dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose day of week:"
+            android:textColor="@color/textColor"/>
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:id="@+id/weekPicker"
+            android:layout_gravity="center"
+            android:scaleY="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose time:"
+            android:textColor="@color/textColor"/>
 
-</LinearLayout>
+        <TimePicker
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleY="1"
+            android:id="@+id/timePicker1"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0, 1"
+            android:orientation="horizontal" >
+            <TableRow >
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/negative_button1"
+                    android:text="@string/negative_button"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/positive_button1"
+                    android:text="@string/positive_button"/>
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+</ScrollView>
