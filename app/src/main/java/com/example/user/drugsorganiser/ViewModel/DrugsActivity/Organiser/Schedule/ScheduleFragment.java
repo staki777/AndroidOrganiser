@@ -9,21 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DoseAdapter;
-
-import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ScheduleFragment extends BaseDrugsActivityFragment {
 
-    private Button refreshBtn;
     private RecyclerView recyclerView;
 
     public ScheduleFragment() {
@@ -34,15 +29,6 @@ public class ScheduleFragment extends BaseDrugsActivityFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
-        refreshBtn = (Button) v.findViewById(R.id.refreshBtn);
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(LogTag(), "In on click");
-                DosesManagement dm = new DosesManagement(activity());
-                Log.i(LogTag(), Arrays.toString(dm.findCustomDosesForNext24h(activity().getUser()).toArray()));
-            }
-        });
         return v;
     }
 

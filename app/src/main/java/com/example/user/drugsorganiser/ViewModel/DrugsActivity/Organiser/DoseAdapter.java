@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.Shared.DosesManagement;
@@ -18,6 +17,8 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,9 +45,22 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
 
     private void CalculateDoses() {
         DosesManagement dm = new DosesManagement((DrugsActivity) ctx);
-        List<CustomDose> customDoses = dm.findCustomDosesForNext24h(((DrugsActivity) ctx).getUser());
-        for (CustomDose cd : customDoses){
-            doses.add(new Pair<Drug, DateTime>(cd.drug, cd.doseDate));
+        List<Pair<Drug,DateTime>> customDoses = dm.findCustomDosesForNext24h(((DrugsActivity) ctx).getUser());
+        doses.addAll(customDoses);
+        List<Pair<Drug,DateTime>> constantIntervalDoses = dm.findConstantIntervalDosesForNext24h(((DrugsActivity) ctx).getUser());
+        doses.addAll(constantIntervalDoses);
+
+        //because doses.sort(...) requires higher API :(
+        Object[] dosesArr = doses.toArray();
+        Arrays.sort(dosesArr, new Comparator<Object>() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return  ((Pair<Drug, DateTime>)o1).second.compareTo(((Pair<Drug, DateTime>)o2).second);
+            }
+        });
+        doses.clear();
+        for(Object p : dosesArr){
+            doses.add((Pair<Drug, DateTime>)p);
         }
 
     }
