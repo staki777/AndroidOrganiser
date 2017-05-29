@@ -26,6 +26,7 @@ import com.j256.ormlite.dao.Dao;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -148,8 +149,10 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
     }
 
     private void createOrUpdateDrug(Drug drug){
+        Log.i("DrugAdapter", "In createOrUpdateDrug; dosesSeriesType="+drug.dosesSeriesType);
         try{
             final Dao<Drug, Integer> drugDao = ((DrugsActivity)ctx).getHelper().getDrugDao();
+
             if(drug.dosesSeriesType == 0){ //regular doses
                 for(RegularDose r : drug.regularDoses){
                     ((DrugsActivity)ctx).getHelper().getRegularDoseDao().createOrUpdate(r);
@@ -167,10 +170,12 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
                 drug.constantIntervalDose.drug = drug;
                 ((DrugsActivity)ctx).getHelper().getConstantIntervalDoseDao().createOrUpdate(drug.constantIntervalDose);
             }
-            else if(drug.dosesSeriesType == 3){ //custom doses
+            else if(drug.dosesSeriesType == 2){ //custom doses
+
                 for(CustomDose c : drug.customDoses){
                     ((DrugsActivity)ctx).getHelper().getCustomDoseDao().createOrUpdate(c);
                 }
+
                 ((DrugsActivity)ctx).getHelper().getRegularDoseDao().delete(drug.regularDoses);
                 drug.regularDoses.clear();
                 ((DrugsActivity)ctx).getHelper().getConstantIntervalDoseDao().delete(drug.constantIntervalDose);
@@ -181,6 +186,15 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
         }catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    private  boolean existsEntityWithSameID(Collection<CustomDose> collection, int ID){
+        for (CustomDose cd : collection){
+            if(cd.doseId == ID){
+                return true;
+            }
+        }
+        return  false;
     }
 
 }

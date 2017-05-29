@@ -8,16 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.Drug;
-import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.Shared.DosesManagement;
+import com.example.user.drugsorganiser.Shared.UniversalMethods;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+
+import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+//import java.util.Date;
 
 /**
  * Created by DV7 on 2017-04-26.
@@ -25,35 +29,26 @@ import java.util.List;
 
 public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
 
-    private User user;
-    private List<Drug> drugs;
     private Context ctx;
-    private List<Pair<Drug, Date>> doses;
+    private List<Pair<Drug, DateTime>> doses;
     private SimpleDateFormat dateFormat;
 
-    public DoseAdapter(User user, Context ctx) {
+    public DoseAdapter(Context ctx) {
         Log.i("DoseAdapter", "Constructor");
-        this.drugs = new ArrayList<>();
-        if(user != null){
-            drugs.addAll(user.drugs);
-        }
-
-        this.user=user;
         this.ctx = ctx;
 
         dateFormat = new SimpleDateFormat ("HH:mm (dd.MM)");
-        doses = new LinkedList<Pair<Drug, Date>>();
+        doses = new LinkedList<Pair<Drug, DateTime>>();
         CalculateDoses();
     }
 
     private void CalculateDoses() {
-        //TODO: Calculate which drug' doses for next 24 hours.
-       //mock
-        Calendar cal = Calendar.getInstance();
-        cal.set(2017,4,27,8,0);
-        if (drugs.size() == 0) return;
-        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date()));
-        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
+        DosesManagement dm = new DosesManagement((DrugsActivity) ctx);
+        List<CustomDose> customDoses = dm.findCustomDosesForNext24h(((DrugsActivity) ctx).getUser());
+        for (CustomDose cd : customDoses){
+            doses.add(new Pair<Drug, DateTime>(cd.drug, cd.doseDate));
+        }
+
     }
 
     @Override
@@ -65,8 +60,8 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
 
     @Override
     public void onBindViewHolder(final DrugViewHolder holder, final int position) {
-        final Pair<Drug,Date> dose = doses.get(position);
-        holder.itemNameView.setText(dose.first.name);
+        final Pair<Drug,DateTime> dose = doses.get(position);
+        holder.itemNameView.setText(UniversalMethods.DateTimeToString(dose.second)+" - "+dose.first.name);
         holder.itemDoseView.setText(dose.first.doseQuantity+" "+dose.first.doseDescription);
         holder.itemImportantView.setText((dose.first.important)?"Important": "Not important");
         holder.itemCommentView.setText(dose.first.comment);

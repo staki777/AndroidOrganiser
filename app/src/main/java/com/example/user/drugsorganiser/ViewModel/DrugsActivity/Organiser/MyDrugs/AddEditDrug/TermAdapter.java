@@ -97,8 +97,9 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
 
     public void deleteItem(CustomDose term){
         int position = customDoses.indexOf(term);
-
+        Log.i("TermAdapter", "Removing custom dose..");
         ((DrugsActivity)ctx).getEditedDrug().customDoses.remove(term);
+
         customDoses.remove(position);
         notifyItemRemoved(position);
         Toast.makeText(ctx, "Selected term\n"+ ctx.getString(R.string.delete_confirmation), Toast.LENGTH_SHORT).show();

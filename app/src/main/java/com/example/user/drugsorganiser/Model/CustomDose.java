@@ -27,4 +27,14 @@ public class CustomDose {
         this.drug = drug;
         this.doseDate = doseDate;
     }
+
+    @Override
+    public String toString() {
+        return "CustomDose:: doseID: "+doseId+", doseDate: "+doseDate.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.doseId == ((CustomDose)obj).doseId;
+    }
 }

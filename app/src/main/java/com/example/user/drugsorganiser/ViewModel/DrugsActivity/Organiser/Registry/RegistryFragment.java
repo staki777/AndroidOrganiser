@@ -40,7 +40,7 @@ public class RegistryFragment extends BaseDrugsActivityFragment {
             public void onClick(View v) {
                 Log.i(LogTag(), "In on click");
                 DosesManagement dm = new DosesManagement(activity());
-                Log.i(LogTag(), Arrays.toString(dm.allUsers().toArray()));
+                Log.i(LogTag(), Arrays.toString(dm.findCustomDosesForNext24h(activity().getUser()).toArray()));
             }
         });
         return v;

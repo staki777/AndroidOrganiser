@@ -66,6 +66,8 @@ public class Drug implements Serializable {
     @ForeignCollectionField(eager = true)
     public Collection<RegistryDose> registry;
 
+
+
     public Drug() {
         dosesSeriesType = 0;
         nearestDoses = new ArrayList<SpecificDose>();
@@ -94,5 +96,8 @@ public class Drug implements Serializable {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "Drug:: drugName: "+name;
+    }
 }
