@@ -4,71 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson.ContactPersonFragment"
-    >
+    android:layout_margin="20dp"
+    android:layout_gravity="center"
+    tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson.ContactPersonFragment">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="3dp"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:transitionName="fab_transition"
-        >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/phone_contact"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="?attr/colorPrimary"
-            android:textSize="22dp" />
-
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="15dp"
+            app:srcCompat="@drawable/ic_contact_phone_black_24dp"/>
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical">
-
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/name_contact"
-                android:inputType="textCapSentences"
-                android:textSize="22dp"
-                android:gravity="center"
-                android:layout_margin="10dp" />
+                android:layout_weight="1"
+                android:textColor="@color/textColor"
+                android:textSize="22dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/call_contact"
-                    android:text="@string/call_contact_person"
-                    android:background="?attr/colorAccent"
-                    android:layout_marginBottom="10dp"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/change_contact"
-                    android:text="@string/change_contact_person"
-                    android:background="?attr/colorAccent"/>
-
-
-            </LinearLayout>
-
+                android:id="@+id/phone_contact"
+                android:layout_weight="1"
+                android:textColor="@color/textColor"
+                android:textSize="22dp" />
         </LinearLayout>
+
 
     </LinearLayout>
 
+    <include layout="@layout/divider" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/call_contact"
+        android:text="@string/call_contact_person"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/change_contact"
+        android:text="@string/change_contact_person"/>
 </LinearLayout>

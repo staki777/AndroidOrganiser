@@ -34,7 +34,6 @@ public class ContactPersonFragment extends BaseDrugsActivityFragment {
     private static final int PICK_CONTACT = 2;
 
     private TextView nameTextView, phoneTextView;
-    private String name = "Contact person", number = "Phone number";
     private Button callButton, changeButton;
 
     private Intent callIntent;
@@ -133,8 +132,14 @@ public class ContactPersonFragment extends BaseDrugsActivityFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (user.contactName == null || user.contactName.isEmpty())
+        if (user.contactName == null || user.contactName.isEmpty()){
             Toast.makeText(getActivity(), getActivity().getString(R.string.lack_of_contact_person), Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+            nameTextView.setText(user.contactName);
+            phoneTextView.setText(user.contactNumber);
+        }
     }
 
     @Override
