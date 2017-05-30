@@ -51,6 +51,8 @@
     <string name="AddDate">Add date</string>
     <string name="chooseDate">Choose date:</string>
     <string name="chooseTime">Choose time:</string>
+    <string name="chooseDayOfMonth">Choose day of month:</string>
+    <string name="chooseDayOfWeek">Choose day of week:</string>
     <string name="add_new_drug">Add new drug</string>
     <string name="edit_drug">Edit drug</string>
     <string name="confirm">Confirm</string>

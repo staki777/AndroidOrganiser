@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose day of month:"
+            android:text="@string/chooseDayOfMonth"
             android:textColor="@color/textColor"/>
 
         <DatePicker
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose time:"
+            android:text="@string/chooseTime"
             android:textColor="@color/textColor"/>
 
         <TimePicker
