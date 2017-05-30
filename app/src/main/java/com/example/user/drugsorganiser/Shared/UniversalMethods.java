@@ -8,6 +8,6 @@ import org.joda.time.DateTime;
 
 public class UniversalMethods {
     public static String DateTimeToString(DateTime date){
-        return date.getDayOfMonth()+"."+(date.getMonthOfYear()<10?"0":"")+date.getMonthOfYear()+"."+date.getYear()+" "+date.getHourOfDay()+":"+((date.getMinuteOfHour()<10)?"0":"")+date.getMinuteOfHour();
+        return (date.getDayOfMonth()<10?"0":"")+date.getDayOfMonth()+"."+(date.getMonthOfYear()<10?"0":"")+date.getMonthOfYear()+"."+date.getYear()+" "+date.getHourOfDay()+":"+((date.getMinuteOfHour()<10)?"0":"")+date.getMinuteOfHour();
     }
 }
