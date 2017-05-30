@@ -100,7 +100,7 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
 
         int id = item.getItemId();
 
-        activity().refreshUserDrugs();
+        activity().refreshUserData();
 
         if (id == R.id.nav_my_drugs) {
             activity().replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
@@ -148,8 +148,7 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            activity().onetimeTimer(getActivity().getCurrentFocus(), "Lek1", "2 łyżeczki, po posiłku", System.currentTimeMillis()+10000); //for tests
-            activity().onetimeTimer(getActivity().getCurrentFocus(), "Lek2", "2 łyżeczki, po posiłku", System.currentTimeMillis()+20000); //for tests
+            activity().onetimeTimer(getActivity().getCurrentFocus(), "Lek2", "2 łyżeczki, po posiłku", System.currentTimeMillis()+2000); //for tests
 
             return true;
         }
@@ -160,7 +159,7 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
     public void onResume() {
         super.onResume();
         Log.i(LogTag(), "OnResume");
-        activity().refreshUserDrugs();
+        activity().refreshUserData();
     }
 
     @Override

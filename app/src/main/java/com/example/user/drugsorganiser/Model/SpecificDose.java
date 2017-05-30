@@ -19,6 +19,7 @@ public class SpecificDose implements Serializable {
     public static final String DRUG_COLUMN = "drug";
     public static final String DATE_COLUMN = "dose_date";
 
+
     @DatabaseField(generatedId = true, columnName = ID_FIELD)
     public int doseId;
 
@@ -27,6 +28,7 @@ public class SpecificDose implements Serializable {
 
     @DatabaseField(columnName = DATE_COLUMN)
     public DateTime doseDate;
+
 
     public SpecificDose() {}
 
@@ -38,6 +40,15 @@ public class SpecificDose implements Serializable {
     @Override
     public boolean equals(Object obj) {
         return this.drug.drugId  == ((SpecificDose)obj).drug.drugId && this.doseDate.equals(((SpecificDose)obj).doseDate);
+    }
+
+    @Override
+    public String toString() {
+        return "SpecificDose{" +
+                "doseId=" + doseId +
+                ", drug=" + drug +
+                ", doseDate=" + doseDate +
+                '}';
     }
 }
 

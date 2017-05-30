@@ -12,8 +12,10 @@ import android.view.View;
 
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.Drug;
+import com.example.user.drugsorganiser.Model.SpecificDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmManagerBroadcastReceiver;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
@@ -121,6 +123,11 @@ public class DrugsActivity extends AppCompatActivity {
 
     // ALARMS MANAGEMENT
 
+    public  void setAlarmForDose(SpecificDose specificDose){
+        Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" will be set.");
+        //TODO: implement it
+    }
+
     public void startRepeatingTimer(View view, String drugName, String description, long trigger, long interval) {
         if(alarm != null){
             alarm.SetAlarm(getApplicationContext(), drugName, description, user.login, trigger, interval);
@@ -162,17 +169,18 @@ public class DrugsActivity extends AppCompatActivity {
 
     // USER MANAGEMENT
 
-    public  void refreshUserDrugs(){
-        Log.i("DrugsActivity", "refreshUserDrugs");
+    public  void refreshUserData(){
+        Log.i("DrugsActivity", "refreshUserData");
         try{
             PreparedQuery<User> q= getHelper().getUserDao().queryBuilder().where().eq(User.ID_FIELD, user.userId).prepare();
-           // user.drugs=getHelper().getUserDao().queryForFirst(q).drugs;
             user = getHelper().getUserDao().queryForFirst(q);
         }
         catch (SQLException e){
             e.printStackTrace();
             e.toString();
         }
+        DosesManagement dm = new DosesManagement(this);
+        dm.updateUserAlarms(user);
     }
 
     private  User findUserByID(int userID){

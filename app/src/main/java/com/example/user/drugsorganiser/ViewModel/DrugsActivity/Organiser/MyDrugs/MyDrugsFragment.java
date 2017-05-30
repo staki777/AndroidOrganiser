@@ -34,7 +34,7 @@ public class MyDrugsFragment extends BaseDrugsActivityFragment {
         super.onStart();
         Log.i(LogTag(), "onStart!");
         getActivity().setTitle(getView().getResources().getString(R.string.my_drugs));
-        activity().refreshUserDrugs();
+        activity().refreshUserData();
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.drug_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
@@ -50,7 +50,7 @@ public class MyDrugsFragment extends BaseDrugsActivityFragment {
     public void onResume() {
         super.onResume();
         Log.i(LogTag(), "onResume");
-        activity().refreshUserDrugs();
+        activity().refreshUserData();
     }
 
     @Override

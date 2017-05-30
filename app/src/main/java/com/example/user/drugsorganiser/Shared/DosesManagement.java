@@ -7,8 +7,10 @@ import com.example.user.drugsorganiser.Model.ConstantIntervalDose;
 import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.RegularDose;
+import com.example.user.drugsorganiser.Model.SpecificDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
+import com.j256.ormlite.dao.Dao;
 
 import org.joda.time.DateTime;
 
@@ -148,5 +150,30 @@ public class DosesManagement {
         }
 
         return  doses;
+    }
+
+    public void updateUserAlarms(User u){
+        Log.i("DosesManagement", "Updating user alarms...");
+        try {
+            Dao<SpecificDose, Integer> specificDoseDao = ctx.getHelper().getCSpecificDoseDao();
+            Dao<Drug, Integer> drugDao = ctx.getHelper().getDrugDao();
+            Dao<User, Integer> userDao = ctx.getHelper().getUserDao();
+
+            List<Pair<Drug,DateTime>> doses = findAllDosesForNext24H(u);
+            for (Pair<Drug,DateTime> d : doses){
+                SpecificDose cd = new SpecificDose(d.first, d.second);
+                if(!d.first.nearestDoses.contains(cd)){
+                    specificDoseDao.create(cd);
+                    d.first.nearestDoses.add(cd);
+                    drugDao.update(d.first);
+                    ctx.setAlarmForDose(cd);
+                }
+                userDao.update(u);
+            }
+        }catch (Exception e){
+            Log.e("DosesManagement", e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 }
