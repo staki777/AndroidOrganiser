@@ -42,10 +42,19 @@
     <string name="delete_item_dialog_title">Delete drug</string>
     <string name="yes_button">Yes</string>
     <string name="no_button">No</string>
-    <string name="FewTimesPer">times per</string>
+    <string name="FewTimesPer">Few times per:</string>
+    <string name="chooseFrequency">Choose frequency:</string>
+    <string name="addANewTerm">ADD A NEW TERM</string>
+    <string name="terms">Terms:</string>
+    <string name="chooseInterval">Choose interval:</string>
+    <string name="startingDoseTerm">Starting dose term:</string>
     <string name="AddDate">Add date</string>
+    <string name="chooseDate">Choose date:</string>
+    <string name="chooseTime">Choose time:</string>
     <string name="add_new_drug">Add new drug</string>
     <string name="edit_drug">Edit drug</string>
+    <string name="confirm">Confirm</string>
+    <string name="resign">Resign</string>
 
     <string name="alert_message" formatted="false">[DrugsOrganiser] \nUser %1s hasn\'t confirmed taking a dose of %2s.</string>
     <string name="alert_notification_comment" formatted="false">%1s, alert message was sent to your Contact Person</string>
@@ -124,10 +133,6 @@
         <item>December</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <!--FRAGMENTS' TAGS-->
 
 
 </resources>

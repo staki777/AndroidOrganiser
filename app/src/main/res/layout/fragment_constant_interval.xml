@@ -8,13 +8,13 @@
 
     <TextView
         style="@style/SecondaryHeaderStyle"
-        android:text="Starting dose term:"
+        android:text="@string/startingDoseTerm"
         />
     <include
         layout="@layout/term_item"/>
     <TextView
         style="@style/SecondaryHeaderStyle"
-        android:text="Choose interval:"
+        android:text="@string/chooseInterval"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,11 +23,11 @@
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:id="@+id/intervalNumberPicker"></NumberPicker>
+            android:id="@+id/intervalNumberPicker"/>
         <Spinner
             style="@style/SpinnerStyle"
             android:layout_gravity="center_vertical"
-            android:id="@+id/intervalUnitSpinner"></Spinner>
+            android:id="@+id/intervalUnitSpinner"/>
     </LinearLayout>
 
 

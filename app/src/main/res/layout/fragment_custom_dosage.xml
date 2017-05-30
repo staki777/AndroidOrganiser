@@ -9,7 +9,7 @@
 
     <TextView
         style="@style/SecondaryHeaderStyle"
-        android:text="Terms:"/>
+        android:text="@string/terms"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/term_list"
@@ -19,7 +19,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add a new term"
+        android:text="@string/addANewTerm"
         android:id="@+id/btnAddNewTerm"/>
 
 

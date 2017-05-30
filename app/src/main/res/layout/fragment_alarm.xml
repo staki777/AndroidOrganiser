@@ -7,19 +7,30 @@
     <TextView
         android:id="@+id/statement"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/accept"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Zatwierdź przyjęcie dawki" />
+        android:orientation="horizontal"
+        android:stretchColumns="0, 1">
 
-    <Button
-        android:id="@+id/reject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Zrezygnuj z przyjęcia dawki" />
+        <TableRow>
+
+            <Button
+                android:id="@+id/reject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resign" />
+
+            <Button
+                android:id="@+id/accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm" />
+        </TableRow>
+
+
+    </TableLayout>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,16 +8,9 @@
     tools:context="com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.RegularDosageFragment">
 
 
-    <!--<TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
-        android:text="@string/drug_dose"/>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <TextView
+        style="@style/SecondaryHeaderStyle"
+        android:text="@string/chooseFrequency"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +23,6 @@
                 android:id="@+id/textView"
                 style="@style/NormalTextStyle"
                 android:layout_gravity="center_vertical"
-                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:layout_width="wrap_content"
                 android:text="@string/FewTimesPer"/>
@@ -42,7 +34,7 @@
 
         <TextView
             style="@style/SecondaryHeaderStyle"
-            android:text="Terms:"/>
+            android:text="@string/terms"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/term_list_regular"
@@ -52,8 +44,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add a new term"
+            android:text="@string/addANewTerm"
             android:id="@+id/add"/>
 
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>
