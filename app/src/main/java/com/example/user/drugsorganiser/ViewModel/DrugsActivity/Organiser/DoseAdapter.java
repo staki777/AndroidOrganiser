@@ -49,6 +49,8 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
         doses.addAll(customDoses);
         List<Pair<Drug,DateTime>> constantIntervalDoses = dm.findConstantIntervalDosesForNext24h(((DrugsActivity) ctx).getUser());
         doses.addAll(constantIntervalDoses);
+        List<Pair<Drug,DateTime>> regularDoses = dm.findRegularDosesForNext24h(((DrugsActivity) ctx).getUser());
+        doses.addAll(regularDoses);
 
         //because doses.sort(...) requires higher API :(
         Object[] dosesArr = doses.toArray();
