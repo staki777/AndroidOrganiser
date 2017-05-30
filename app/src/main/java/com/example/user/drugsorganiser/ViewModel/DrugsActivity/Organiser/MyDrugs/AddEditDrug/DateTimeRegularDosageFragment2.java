@@ -87,12 +87,10 @@ public class DateTimeRegularDosageFragment2 extends BaseDrugsActivityFragment im
         if(v == positiveBtn){
             Drug editedDrug = activity().getEditedDrug();
             TermAdapterRegular termAdapter = new TermAdapterRegular(editedDrug, getActivity());
-            if (termAdapter.getTyp() == "month" || termAdapter.getTyp() == null) {
+            if (termAdapter.getTyp() == null || termAdapter.getTyp().contentEquals("month")) {
                 termAdapter.addItem(new RegularDose(editedDrug, "month",tp.getCurrentMinute(),tp.getCurrentHour(),-1,dp.getDayOfMonth(),-1));
-                Log.i("RegularDosageFragment", Integer.toString(tp.getCurrentMinute()));
-                Log.i("RegularDosageFragment", Integer.toString(tp.getCurrentHour()));
-                Log.i("RegularDosageFragment", Integer.toString(dp.getDayOfMonth()));
-            } else {
+              } else {
+                Log.i("RegularDosageFragment", termAdapter.getTyp());
                 termAdapter.deleteAllItems();
                 termAdapter.addItem(new RegularDose(editedDrug, "month", tp.getCurrentMinute(), tp.getCurrentHour(), -1, dp.getDayOfMonth(), -1));
             }

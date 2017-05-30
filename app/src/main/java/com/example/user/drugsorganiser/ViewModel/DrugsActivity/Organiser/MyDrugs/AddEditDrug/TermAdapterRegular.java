@@ -65,15 +65,24 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
         if(term.minute<10)
             minute = "0" + Integer.toString(term.minute);
         else minute = Integer.toString(term.minute);
-        if(term.interval == "day")
+        if(term.interval=="day")
             holder.itemDateView.setText(Integer.toString(term.hour) +":"+ minute);
         else if(term.weekDay == -1)
             if(term.month == -1)
+                if(term.monthDay == -1)
+                    holder.itemDateView.setText(Integer.toString(term.hour) +":"+ minute);
+                else
                 holder.itemDateView.setText(Integer.toString(term.monthDay)+"  " +Integer.toString(term.hour) +":"+ minute);
             else  holder.itemDateView.setText( Integer.toString(term.monthDay) + "-"  + Integer.toString(term.month)+"  " +Integer.toString(term.hour) +":"+ minute );
         else
             holder.itemDateView.setText(daysOfWeek[term.weekDay-1] +"  " + Integer.toString(term.hour) +":"+ minute );
-        Log.i("TermAdapterRegular", term.interval);
+        Log.i("TermAdapterRegular", String.valueOf(term.interval.length()));
+        Log.i("TermAdapterRegular", String.valueOf(term.interval.charAt(0)));
+        Log.i("TermAdapterRegular", String.valueOf(term.interval.charAt(1)));
+        Log.i("TermAdapterRegular", String.valueOf(term.interval.charAt(2)));
+        Log.i("TermAdapterRegular", String.valueOf(type==type));
+        Log.i("TermAdapterRegular", String.valueOf(type==term.interval));
+        Log.i("TermAdapterRegular", String.valueOf(getTyp()));
         Log.i("TermAdapterRegular", holder.itemDateView.getText().toString());
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +144,6 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
         regularDoses.add(term);
         notifyItemInserted(regularDoses.indexOf(term));
         Log.i("TermAdapter", Arrays.toString(regularDoses.toArray()));
-
         Toast.makeText(ctx, "New term successfully added!", Toast.LENGTH_SHORT).show();
     }
 
@@ -143,7 +151,9 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
         return ((DrugsActivity)ctx).getEditedDrug().regularDoses;
     }
     public String getTyp() {
-        return type==null?null:type;
+        if(type == null)
+            return null;
+        else return type;
     }
 
 }
