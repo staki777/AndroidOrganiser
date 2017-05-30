@@ -39,8 +39,6 @@ public class ContactPersonFragment extends BaseDrugsActivityFragment {
     private Intent callIntent;
     private Intent pickIntent;
 
-    private User user;
-
     public ContactPersonFragment() {
         // Required empty public constructor
     }
@@ -67,34 +65,11 @@ public class ContactPersonFragment extends BaseDrugsActivityFragment {
         }
     }
 
-    // Callback with the request from calling requestPermissions(...)
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode,
-//                                           @NonNull String permissions[],
-//                                           @NonNull int[] grantResults) {
-//        switch(requestCode) {
-//            case CONTACT_PERSON_PERMISSION:
-//                if (grantResults.length > 0) {
-//                    boolean contacts = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-//                    boolean calls = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-//                    if (contacts && calls)
-//                        Log.i("PERM","Read Contacts and Call permissions granted");
-//                    else
-//                        Log.i("PERM","Read Contacts or Call permissions denied");
-//                }
-//                break;
-//            default:
-//                Log.i("PERM","Unexpected permission");
-//                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//                break;
-//            }
-//        }
-
     @Override
     public void onStart() {
         super.onStart();
+        Log.i(LogTag(), "OnStart");
         getActivity().setTitle(getView().getResources().getString(R.string.contact_person));
-        user = activity().getUser();
 
         nameTextView = (TextView) getView().findViewById(R.id.name_contact);
         phoneTextView = (TextView) getView().findViewById(R.id.phone_contact);
@@ -125,20 +100,20 @@ public class ContactPersonFragment extends BaseDrugsActivityFragment {
                 pickIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
                 startActivityForResult(pickIntent, PICK_CONTACT);
             }});
-        nameTextView.setText(user.contactName);
-        phoneTextView.setText(user.contactNumber);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (user.contactName == null || user.contactName.isEmpty()){
+        Log.i(LogTag(), "OnResume");
+        if (activity().getUser().contactName == null || activity().getUser().contactName.isEmpty()){
             Toast.makeText(getActivity(), getActivity().getString(R.string.lack_of_contact_person), Toast.LENGTH_SHORT).show();
 
         }
         else {
-            nameTextView.setText(user.contactName);
-            phoneTextView.setText(user.contactNumber);
+            nameTextView.setText(activity().getUser().contactName);
+            phoneTextView.setText(activity().getUser().contactNumber);
         }
     }
 
@@ -154,18 +129,17 @@ public class ContactPersonFragment extends BaseDrugsActivityFragment {
             cursor.moveToFirst();
 
             int numberColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-            user.contactNumber = cursor.getString(numberColumnIndex);
+            activity().getUser().contactNumber = cursor.getString(numberColumnIndex);
 
             int nameColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-            user.contactName = cursor.getString(nameColumnIndex);
+            activity().getUser().contactName = cursor.getString(nameColumnIndex);
 
             try{
                 final Dao<User, Integer> userDao = activity().getHelper().getUserDao();
-                userDao.update(user);
+                userDao.update(activity().getUser());
             }catch (SQLException e){
                 e.printStackTrace();
             }
-            onResume();
 
             cursor.close();
             Toast.makeText(getActivity(), "New contact person has been selected.", Toast.LENGTH_SHORT).show();
