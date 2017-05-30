@@ -14,7 +14,7 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -43,7 +43,7 @@ public class DosesManagement {
         return  users;
     }
 
-    public List<Pair<Drug,DateTime>> findCustomDosesForNext24h(User u){
+    private List<Pair<Drug,DateTime>> findCustomDosesForNext24h(User u){
         Log.i("DosesManagement", "Finding custom doses...");
         DateTime now = DateTime.now();
         DateTime tomorrow = now.plusDays(1);
@@ -65,7 +65,7 @@ public class DosesManagement {
         return  cds;
     }
 
-    public List<Pair<Drug,DateTime>> findConstantIntervalDosesForNext24h(User u){
+    private List<Pair<Drug,DateTime>> findConstantIntervalDosesForNext24h(User u){
         DateTime now = DateTime.now();
         DateTime tomorrow = now.plusDays(1);
         List<Pair<Drug, DateTime>> cids = new ArrayList<>();
@@ -89,7 +89,7 @@ public class DosesManagement {
         }
         return  cids;
     }
-    public List<Pair<Drug,DateTime>> findRegularDosesForNext24h(User u){
+    private List<Pair<Drug,DateTime>> findRegularDosesForNext24h(User u){
         DateTime now = DateTime.now();
         DateTime tomorrow = now.plusDays(1);
         List<Pair<Drug, DateTime>> rds = new ArrayList<>();
@@ -122,5 +122,31 @@ public class DosesManagement {
             }
         }
         return  rds;
+    }
+
+
+    public List<Pair<Drug,DateTime>> findAllDosesForNext24H(User u) {
+        List<Pair<Drug,DateTime>> doses = new ArrayList<>();
+        List<Pair<Drug,DateTime>> customDoses = findCustomDosesForNext24h(u);
+        doses.addAll(customDoses);
+        List<Pair<Drug,DateTime>> constantIntervalDoses = findConstantIntervalDosesForNext24h(u);
+        doses.addAll(constantIntervalDoses);
+        List<Pair<Drug,DateTime>> regularDoses = findRegularDosesForNext24h(u);
+        doses.addAll(regularDoses);
+
+        //because doses.sort(...) requires higher API :(
+        Object[] dosesArr = doses.toArray();
+        Arrays.sort(dosesArr, new Comparator<Object>() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return  ((Pair<Drug, DateTime>)o1).second.compareTo(((Pair<Drug, DateTime>)o2).second);
+            }
+        });
+        doses.clear();
+        for(Object p : dosesArr){
+            doses.add((Pair<Drug, DateTime>)p);
+        }
+
+        return  doses;
     }
 }

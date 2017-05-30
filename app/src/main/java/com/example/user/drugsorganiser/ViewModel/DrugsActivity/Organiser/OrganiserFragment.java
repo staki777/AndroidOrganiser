@@ -144,14 +144,13 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            activity().onetimeTimer(getActivity().getCurrentFocus(), "Lek1", "2 łyżeczki, po posiłku", System.currentTimeMillis()+2000); //for tests
+            activity().onetimeTimer(getActivity().getCurrentFocus(), "Lek1", "2 łyżeczki, po posiłku", System.currentTimeMillis()+10000); //for tests
+            activity().onetimeTimer(getActivity().getCurrentFocus(), "Lek2", "2 łyżeczki, po posiłku", System.currentTimeMillis()+20000); //for tests
+
             return true;
         }
 

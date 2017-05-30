@@ -35,5 +35,9 @@ public class SpecificDose implements Serializable {
         this.doseDate = doseDate;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.drug.drugId  == ((SpecificDose)obj).drug.drugId && this.doseDate.equals(((SpecificDose)obj).doseDate);
+    }
 }
 

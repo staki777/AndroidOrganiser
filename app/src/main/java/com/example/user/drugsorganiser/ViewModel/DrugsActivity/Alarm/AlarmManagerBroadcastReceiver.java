@@ -1,17 +1,14 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm;
 
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.example.user.drugsorganiser.R;
