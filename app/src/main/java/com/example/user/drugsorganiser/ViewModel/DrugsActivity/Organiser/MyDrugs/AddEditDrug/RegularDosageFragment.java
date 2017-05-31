@@ -29,14 +29,12 @@ public class RegularDosageFragment extends BaseDrugsActivityFragment implements 
 
     private Spinner spFewTimesType;
     public int typeofAddDate = 0;
-    private int hour, minute;
-    private String week;
-    private String[] daysOfWeek;
-    private int weekN;
-    private int day, month;
+    private int position = -1;
     private Button addNewTermBtn;
     private RecyclerView recyclerView;
     private String type;
+    private Boolean start;
+    private TermAdapterRegular termAdapter;
 
     public RegularDosageFragment() {
         // Required empty public constructor
@@ -45,12 +43,27 @@ public class RegularDosageFragment extends BaseDrugsActivityFragment implements 
     @Override
     public void onStart() {
         super.onStart();
+
         addNewTermBtn = (Button) getView().findViewById(R.id.add);
         addNewTermBtn.setOnClickListener(this);
         recyclerView = (RecyclerView) getView().findViewById(R.id.term_list_regular);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity().getApplicationContext()));
-        TermAdapterRegular termAdapter = new TermAdapterRegular(activity().getEditedDrug(), getActivity());
+        termAdapter = new TermAdapterRegular(activity().getEditedDrug(), getActivity());
         recyclerView.setAdapter(termAdapter);
+
+        if(termAdapter.getItemCount()>0) {
+            if(termAdapter.getTyp().contentEquals("day"))
+                position = 0;
+            else if(termAdapter.getTyp().contentEquals("week"))
+                position = 1;
+            else if(termAdapter.getTyp().contentEquals("month"))
+                position = 2;
+            else
+                position = 3;
+        }
+        start = true;
+        if(position!=-1)
+            spFewTimesType.setSelection(position);
     }
 
     @Override
@@ -81,13 +94,8 @@ public class RegularDosageFragment extends BaseDrugsActivityFragment implements 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflating layout
+
         View v = inflater.inflate(R.layout.fragment_regular_dosage, container, false);
-        // We obtain layout references
-
-        daysOfWeek = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday",
-                "Friday", "Saturday", "Sunday"};
-
         spFewTimesType = (Spinner) v.findViewById(R.id.FewTimes_type_spinner);
 
         ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(activity(), R.layout.spinner_item, activity().getResources().getStringArray(R.array.time_array));
@@ -95,27 +103,27 @@ public class RegularDosageFragment extends BaseDrugsActivityFragment implements 
         spFewTimesType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if(position!=typeofAddDate) {
+                    if(!(start)) {
+                        termAdapter.deleteAllItems();
+                        Log.i("RegularDosageFragment", "Deleted");
+                    }
+                }
                 typeofAddDate = position;
+                start=false;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 //nothing
             }
-
         });
-
         return v;
     }
-
-
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Button reset=(Button)findViewById(R.id.reset);
-
     }
 
 
