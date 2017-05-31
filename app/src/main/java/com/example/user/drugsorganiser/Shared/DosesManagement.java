@@ -128,6 +128,7 @@ public class DosesManagement {
 
 
     public List<Pair<Drug,DateTime>> findAllDosesForNext24H(User u) {
+
         List<Pair<Drug,DateTime>> doses = new ArrayList<>();
         List<Pair<Drug,DateTime>> customDoses = findCustomDosesForNext24h(u);
         doses.addAll(customDoses);
@@ -155,25 +156,74 @@ public class DosesManagement {
     public void updateUserAlarms(User u){
         Log.i("DosesManagement", "Updating user alarms...");
         try {
-            Dao<SpecificDose, Integer> specificDoseDao = ctx.getHelper().getCSpecificDoseDao();
+            Dao<SpecificDose, Integer> specificDoseDao = ctx.getHelper().getSpecificDoseDao();
             Dao<Drug, Integer> drugDao = ctx.getHelper().getDrugDao();
-            Dao<User, Integer> userDao = ctx.getHelper().getUserDao();
 
             List<Pair<Drug,DateTime>> doses = findAllDosesForNext24H(u);
             for (Pair<Drug,DateTime> d : doses){
                 SpecificDose cd = new SpecificDose(d.first, d.second);
                 if(!d.first.nearestDoses.contains(cd)){
                     specificDoseDao.create(cd);
-                    d.first.nearestDoses.add(cd);
-                    drugDao.update(d.first);
                     ctx.setAlarmForDose(cd);
+                    drugDao.update(d.first);
                 }
-                userDao.update(u);
             }
         }catch (Exception e){
             Log.e("DosesManagement", e.getMessage());
             e.printStackTrace();
         }
 
+    }
+
+    public void cancelAllAlarmsForDrug(User u, Drug d){
+        Log.i("DosesManagement", "Canceling user alarms for drug...");
+
+        try {
+            Dao<SpecificDose, Integer> specificDoseDao = ctx.getHelper().getSpecificDoseDao();
+            Dao<Drug, Integer> drugDao = ctx.getHelper().getDrugDao();
+            Dao<User, Integer> userDao = ctx.getHelper().getUserDao();
+
+            for(SpecificDose sd : d.nearestDoses){
+                ctx.cancelAlarmForDose(sd);
+            }
+            specificDoseDao.delete(d.nearestDoses);
+            drugDao.update(d);
+            userDao.update(u);
+
+        }catch (Exception e){
+            Log.e("DosesManagement", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void setAlarmsForDrug(User user, Drug drug){
+        Log.i("DosesManagement", "Updating user alarms for drug...");
+        try {
+            Dao<SpecificDose, Integer> specificDoseDao = ctx.getHelper().getSpecificDoseDao();
+//            Dao<Drug, Integer> drugDao = ctx.getHelper().getDrugDao();
+            Dao<User, Integer> userDao = ctx.getHelper().getUserDao();
+
+            List<Pair<Drug,DateTime>> doses = findAllDosesForNext24H(user);
+            for (Pair<Drug,DateTime> d : doses){
+                SpecificDose cd = new SpecificDose(d.first, d.second);
+                if(d.first.drugId == drug.drugId){
+                    Log.i("DosesManagement", "We found the drug to set alarms");
+                    specificDoseDao.create(cd);
+//                    d.first.nearestDoses.add(cd);
+//                    drugDao.update(d.first);
+                    ctx.setAlarmForDose(cd);
+                }
+             // userDao.update(user);
+            }
+        }catch (Exception e){
+            Log.e("DosesManagement", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void resetAlarmsForDrug(User user, Drug drug){
+        Log.i("DosesManagement", "Reseting alarms for drug: "+drug.toString());
+        cancelAllAlarmsForDrug(user, drug);
+        setAlarmsForDrug(user, drug);
     }
 }

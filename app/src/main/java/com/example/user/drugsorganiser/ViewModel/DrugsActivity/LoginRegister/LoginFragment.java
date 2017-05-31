@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
@@ -86,6 +87,9 @@ public class LoginFragment extends BaseDrugsActivityFragment implements View.OnC
                 SaveSharedPreference.setUserID(getActivity(), user.userId);
 
                 activity().replaceWithNewOrExisting(R.id.main_to_replace, new OrganiserFragment());
+                //updating alarms after log on
+                DosesManagement dm = new DosesManagement(activity());
+                dm.updateUserAlarms(activity().getUser());
                 activity().removeIfExists(LoginFragment.class.getSimpleName());
                 activity().removeIfExists(RegisterFragment.class.getSimpleName());
             } catch (SQLException e) {

@@ -15,7 +15,6 @@ import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.SpecificDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmManagerBroadcastReceiver;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
@@ -56,12 +55,14 @@ public class DrugsActivity extends AppCompatActivity {
             int userID = savedInstanceState.getInt("userID");
             Log.i("DrugsActivity", "userID from bundle is: "+userID);
             user = findUserByID(userID);
+
         }
         else if (SaveSharedPreference.getUserID(DrugsActivity.this) != -1) {
             Log.i("SAVE_SHARED_PREFERENCE","Getting user ID from sharedPreferences " + (SaveSharedPreference.getUserID(DrugsActivity.this)!=-1));
             int userID = SaveSharedPreference.getUserID(DrugsActivity.this);
             user = findUserByID(userID);
             replaceWithNewOrExisting(R.id.main_to_replace, new OrganiserFragment());
+
         }
         else {
             Log.i("DrugsActivity", "LoginRegisterFragment will be called");
@@ -89,7 +90,10 @@ public class DrugsActivity extends AppCompatActivity {
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
             } else {
+                Log.i("DrugsActivity", "Super.OnBackPressed");
                 super.onBackPressed();
+                Log.i("DrugsActivity", "After Super.OnBackPressed");
+
             }
         }
     }
@@ -125,6 +129,10 @@ public class DrugsActivity extends AppCompatActivity {
 
     public  void setAlarmForDose(SpecificDose specificDose){
         Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" will be set.");
+        //TODO: implement it
+    }
+    public void cancelAlarmForDose(SpecificDose specificDose){
+        Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" will be canceled.");
         //TODO: implement it
     }
 
@@ -179,8 +187,10 @@ public class DrugsActivity extends AppCompatActivity {
             e.printStackTrace();
             e.toString();
         }
-        DosesManagement dm = new DosesManagement(this);
-        dm.updateUserAlarms(user);
+//        DosesManagement dm2 = new DosesManagement(this);
+//        for(Drug d : getUser().drugs)
+//        dm2.cancelAllAlarmsForDrug(getUser(), d);
+//        dm2.updateUserAlarms(getUser());
     }
 
     private  User findUserByID(int userID){

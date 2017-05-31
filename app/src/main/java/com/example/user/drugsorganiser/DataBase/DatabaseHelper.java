@@ -125,7 +125,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             constantIntervalDoseDao = getDao(ConstantIntervalDose.class);
         return constantIntervalDoseDao;
     }
-    public Dao<SpecificDose, Integer> getCSpecificDoseDao() throws SQLException {
+    public Dao<SpecificDose, Integer> getSpecificDoseDao() throws SQLException {
         if (specificDoseDao == null)
             specificDoseDao = getDao(SpecificDose.class);
         return specificDoseDao;

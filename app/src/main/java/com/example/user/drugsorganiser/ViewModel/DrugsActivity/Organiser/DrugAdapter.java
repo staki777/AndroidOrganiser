@@ -19,6 +19,7 @@ import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.RegularDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
 import com.j256.ormlite.dao.Dao;
@@ -115,7 +116,9 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
 
     public void deleteItem(Drug drug){
         int position = drugs.indexOf(drug);
-
+        //cancelling all alarms connected with deleted drug
+        DosesManagement dm = new DosesManagement((DrugsActivity)ctx);
+        dm.cancelAllAlarmsForDrug(((DrugsActivity)ctx).getUser(), drug);
         try{
             final Dao<Drug, Integer> drugDao = ((DrugsActivity)ctx).getHelper().getDrugDao();
             drugDao.delete(drug);

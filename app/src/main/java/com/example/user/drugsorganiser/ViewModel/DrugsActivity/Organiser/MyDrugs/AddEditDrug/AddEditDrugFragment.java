@@ -21,6 +21,7 @@ import com.example.user.drugsorganiser.Model.DosageTypes;
 import com.example.user.drugsorganiser.Model.DoseTypes;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DrugAdapter;
 
@@ -180,7 +181,6 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
                 return;
             }
 
-            clearOtherDosages(activity().getEditedDrug());
             activity().getEditedDrug().name = etName.getText().toString();
             activity().getEditedDrug().important = chbxImportant.isChecked();
             activity().getEditedDrug().doseDescription=(etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString();
@@ -194,10 +194,18 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
             }
             else{ //edytujemy lek
                 drugAdapter.editItem(activity().getEditedDrug());
+
             }
         }
 
         if(v == btnNegative || v == btnPositive){
+            activity().refreshUserData();
+            Drug d = activity().getEditedDrug();
+            DosesManagement dm = new DosesManagement(activity());
+            dm.cancelAllAlarmsForDrug(activity().getUser(), d);
+            activity().refreshUserData();
+            dm.updateUserAlarms(activity().getUser());
+
             activity().setEditedDrug(null);
             removeAllDosageTypeFragments();
             activity().onBackPressed();
@@ -209,26 +217,6 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
             activity().removeIfExists(dosageFragments[i].getClass().getSimpleName());
         }
     }
-    private void clearOtherDosages(Drug d){
-//        switch (spDosageType.getSelectedItemPosition()){
-////{new RegularDosageFragment(), new ConstantIntervalDosageFragment(), new CustomDosageFragment()};
-//
-//            case 0:{
-//                d.constantIntervalDose = new ConstantIntervalDose();
-//                d.customDoses.clear();
-//                break;
-//            }
-//            case 1:{
-//                d.regularDoses.clear();
-//                d.customDoses.clear();
-//                break;
-//            }
-//            case 2:{
-//                d.constantIntervalDose = new ConstantIntervalDose();
-//                d.regularDoses.clear();
-//                break;
-//            }
-//        }
-    }
+
 
 }

@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
@@ -69,6 +70,8 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
     public void onStart() {
         super.onStart();
         Log.i(LogTag(), "onStart");
+        DosesManagement dm = new DosesManagement(activity());
+        dm.updateUserAlarms(activity().getUser());
     }
 
     @Override
@@ -84,6 +87,8 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
             activity().replaceWithNewOrExisting(R.id.toReplace, new ScheduleFragment());
         }
         getPermissionToAlarm();
+
+
     }
 
     public void getPermissionToAlarm() {
