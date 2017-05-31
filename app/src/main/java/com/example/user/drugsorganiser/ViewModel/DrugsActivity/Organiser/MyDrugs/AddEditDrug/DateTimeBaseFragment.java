@@ -11,6 +11,8 @@ import android.widget.TimePicker;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 
+import java.util.Locale;
+
 public abstract class DateTimeBaseFragment extends BaseDrugsActivityFragment implements View.OnClickListener {
 
     protected DatePicker datePicker;
@@ -26,7 +28,8 @@ public abstract class DateTimeBaseFragment extends BaseDrugsActivityFragment imp
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Locale locale = getResources().getConfiguration().locale;
+        Locale.setDefault(locale);
     }
 
     @Override

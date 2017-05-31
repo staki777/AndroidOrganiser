@@ -1,6 +1,7 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 
 /**
  * Created by Gosia on 29.05.2017.
@@ -27,6 +29,13 @@ public class DateTimeRegularDosageFragment3 extends BaseDrugsActivityFragment im
     Button positiveBtn,negativeBtn;
     public void DateTimeRegularDosageFragment1(){
 
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Locale locale = getResources().getConfiguration().locale;
+        Locale.setDefault(locale);
     }
 
     @Override

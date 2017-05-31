@@ -1,5 +1,6 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
@@ -23,6 +25,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 
 import java.sql.SQLException;
+import java.util.Locale;
 
 
 public class DrugsActivity extends AppCompatActivity {
@@ -46,6 +49,11 @@ public class DrugsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.i("DrugsActivity", "onCreate");
         setContentView(R.layout.activity_drugs);
+
+        if (android.os.Build.VERSION.SDK_INT >=17){
+            Log.i("DrugsActivity", "Locale will be set.");
+            setLocale();
+        }
 
         // odkomentować na pierwsze uruchomienie aplikacji po podbiciu wersji bazy danych
         // SaveSharedPreference.clearPreferences(getApplicationContext());
@@ -253,5 +261,13 @@ public class DrugsActivity extends AppCompatActivity {
 
     public void setEditedDrug(Drug editedDrug) {
         this.editedDrug = editedDrug;
+    }
+
+    @TargetApi(17)
+    private void setLocale(){
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        android.content.res.Configuration conf = getResources().getConfiguration();
+        conf.setLocale(new Locale("en_EN")); // API 17+ only.
+        getResources().updateConfiguration(conf, dm);
     }
 }
