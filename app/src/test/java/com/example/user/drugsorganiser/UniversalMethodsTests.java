@@ -60,4 +60,16 @@ public class UniversalMethodsTests {
         assertEquals((int)p3.first, 3); //4 months
         assertEquals((int)p3.second, 4);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void translateIntervalThrowsIfArgumentEqual0(){
+        //Act
+        UniversalMethods.translateInterval(0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void translateIntervalThrowsIfArgumentLessThan0(){
+        //Act
+        UniversalMethods.translateInterval(-7);
+    }
 }

@@ -19,6 +19,8 @@ public class UniversalMethods {
         return  pickerValue * multiplicators[spinnerPos];
     }
     public static Pair<Integer, Integer> translateInterval(int interval){
+        if(interval <= 0)
+            throw new IllegalArgumentException("Argument cannot be les or equal 0.");
         //Log.i("UniversalMethods", "Translating interval: "+interval);
         int[] multiplicators = {1, 60, 60*24, 60*24*30, 60*24*30*256};
 
