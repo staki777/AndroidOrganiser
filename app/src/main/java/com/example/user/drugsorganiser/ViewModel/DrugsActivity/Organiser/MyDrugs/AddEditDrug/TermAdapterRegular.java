@@ -59,12 +59,19 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
 
     @Override
     public void onBindViewHolder(final TermViewHolder holder, final int position) {
-        holder.itemDateView.setText("");
         final RegularDose term = regularDoses.get(position);
         String minute;
         if(term.minute<10)
             minute = "0" + Integer.toString(term.minute);
         else minute = Integer.toString(term.minute);
+        String monthD;
+        if (term.monthDay < 10)
+            monthD = "0" + Integer.toString(term.monthDay);
+        else monthD = Integer.toString(term.monthDay);
+        String mon;
+        if (term.month < 10)
+            mon = "0" + Integer.toString(term.month);
+        else mon = Integer.toString(term.month);
         if(term.interval=="day")
             holder.itemDateView.setText(Integer.toString(term.hour) +":"+ minute);
         else if(term.weekDay == -1)
@@ -72,18 +79,10 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
                 if(term.monthDay == -1)
                     holder.itemDateView.setText(Integer.toString(term.hour) +":"+ minute);
                 else
-                holder.itemDateView.setText(Integer.toString(term.monthDay)+"  " +Integer.toString(term.hour) +":"+ minute);
-            else  holder.itemDateView.setText( Integer.toString(term.monthDay) + "-"  + Integer.toString(term.month)+"  " +Integer.toString(term.hour) +":"+ minute );
+                holder.itemDateView.setText(monthD+"  " +Integer.toString(term.hour) +":"+ minute);
+            else  holder.itemDateView.setText( monthD + "-"  + mon +"  " +Integer.toString(term.hour) +":"+ minute );
         else
             holder.itemDateView.setText(daysOfWeek[term.weekDay-1] +"  " + Integer.toString(term.hour) +":"+ minute );
-        Log.i("TermAdapterRegular", String.valueOf(term.interval.length()));
-        Log.i("TermAdapterRegular", String.valueOf(term.interval.charAt(0)));
-        Log.i("TermAdapterRegular", String.valueOf(term.interval.charAt(1)));
-        Log.i("TermAdapterRegular", String.valueOf(term.interval.charAt(2)));
-        Log.i("TermAdapterRegular", String.valueOf(type==type));
-        Log.i("TermAdapterRegular", String.valueOf(type==term.interval));
-        Log.i("TermAdapterRegular", String.valueOf(getTyp()));
-        Log.i("TermAdapterRegular", holder.itemDateView.getText().toString());
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -134,6 +133,8 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
     }
     public  void deleteAllItems(){
         ((DrugsActivity)ctx).getEditedDrug().regularDoses.clear();
+        notifyDataSetChanged();
+        regularDoses.clear();
         notifyDataSetChanged();
     }
 
