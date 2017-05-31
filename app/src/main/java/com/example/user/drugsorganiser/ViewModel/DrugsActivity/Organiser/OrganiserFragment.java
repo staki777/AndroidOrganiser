@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson.ContactPersonFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
@@ -77,7 +76,13 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String contactName = ((DrugsActivity)getActivity()).getUser().contactName;
+        String contactName;
+
+        if(activity().getUser() == null){
+            contactName = savedInstanceState.getString("contactName");
+        }else {
+            contactName =  activity().getUser().contactName;
+        }
         boolean loggedInAndNotRecover = !(savedInstanceState !=null && savedInstanceState.getBoolean("recover")==true)
                 && SaveSharedPreference.getUserID(getActivity()) != -1;
         if(loggedInAndNotRecover && (contactName==null || contactName.isEmpty())) {
@@ -171,7 +176,7 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean("recover", true);
-
+        outState.putString("contactName", activity().getUser().contactName);
     }
 
 }

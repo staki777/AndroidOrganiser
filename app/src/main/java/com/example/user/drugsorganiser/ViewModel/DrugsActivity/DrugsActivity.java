@@ -195,10 +195,6 @@ public class DrugsActivity extends AppCompatActivity {
             e.printStackTrace();
             e.toString();
         }
-//        DosesManagement dm2 = new DosesManagement(this);
-//        for(Drug d : getUser().drugs)
-//        dm2.cancelAllAlarmsForDrug(getUser(), d);
-//        dm2.updateUserAlarms(getUser());
     }
 
     private  User findUserByID(int userID){
