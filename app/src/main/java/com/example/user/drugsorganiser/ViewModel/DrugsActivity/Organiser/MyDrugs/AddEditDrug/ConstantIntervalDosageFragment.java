@@ -1,6 +1,7 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug;
 
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,7 +75,7 @@ public class ConstantIntervalDosageFragment extends BaseDrugsActivityFragment {
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                activity().getEditedDrug().constantIntervalDose.interval = computeInterval();
+                activity().getEditedDrug().constantIntervalDose.interval = UniversalMethods.computeInterval(numberPicker.getValue(), unitSpinner.getSelectedItemPosition());
             }
         });
         unitSpinner = (Spinner) v.findViewById(R.id.intervalUnitSpinner);
@@ -83,7 +84,7 @@ public class ConstantIntervalDosageFragment extends BaseDrugsActivityFragment {
         unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                activity().getEditedDrug().constantIntervalDose.interval = computeInterval();
+                activity().getEditedDrug().constantIntervalDose.interval = UniversalMethods.computeInterval(numberPicker.getValue(), unitSpinner.getSelectedItemPosition());
             }
 
             @Override
@@ -92,8 +93,9 @@ public class ConstantIntervalDosageFragment extends BaseDrugsActivityFragment {
             }
 
         });
-        translateInterval(activity().getEditedDrug().constantIntervalDose.interval);
-
+        Pair<Integer, Integer> vals= UniversalMethods.translateInterval(activity().getEditedDrug().constantIntervalDose.interval);
+        unitSpinner.setSelection(vals.first);
+        numberPicker.setValue(vals.second);
         return v;
 
     }
@@ -104,25 +106,6 @@ public class ConstantIntervalDosageFragment extends BaseDrugsActivityFragment {
 
     }
 
-    private int computeInterval(){
-        int pickerValue = numberPicker.getValue();
-        int spinnerPos = unitSpinner.getSelectedItemPosition();
-        //minutes, hours, days, months, years
-        int[] multiplicators = {1, 60, 60*24, 60*24*30, 60*24*30*256};
-        return  pickerValue * multiplicators[spinnerPos];
-    }
-    private void translateInterval(int interval){
-        Log.i(LogTag(), "Translating interval: "+interval);
-        int[] multiplicators = {1, 60, 60*24, 60*24*30, 60*24*30*256};
 
-        for(int i = multiplicators.length-1; i>0; i--){
-            if(interval % multiplicators[i] == 0){
-                unitSpinner.setSelection(i);
-                numberPicker.setValue(interval / multiplicators[i]);
-                return;
-            }
-        }
-        unitSpinner.setSelection(0);
-        numberPicker.setValue(interval);
-    }
+
 }
