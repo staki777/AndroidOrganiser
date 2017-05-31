@@ -97,28 +97,63 @@ public class DosesManagement {
         List<Pair<Drug, DateTime>> rds = new ArrayList<>();
         for(Drug d : u.drugs) {
             for (RegularDose rd : d.regularDoses) {
-                Log.i("DosesManagement", rd.toString());
                 if (rd.interval.contentEquals("day")) {
                     DateTime date = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), rd.hour, rd.minute);
-                    rds.add(new Pair<Drug, DateTime>(rd.drug, date));
-                    Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                    if(date.isAfter(now)) {
+                        rds.add(new Pair<Drug, DateTime>(rd.drug, date));
+                        Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                    }
+                    else {
+                        date = new DateTime(tomorrow.getYear(), tomorrow.getMonthOfYear(), tomorrow.getDayOfMonth(), rd.hour, rd.minute);
+                        rds.add(new Pair<Drug, DateTime>(rd.drug, date));
+                        Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                    }
+
                 } else if (rd.interval.contentEquals("week")) {
                     if (now.getDayOfWeek() == rd.weekDay) {
                         DateTime date = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), rd.hour, rd.minute);
-                        rds.add(new Pair<Drug, DateTime>(rd.drug, date));
-                        Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                        if(date.isAfter(now)) {
+                            rds.add(new Pair<Drug, DateTime>(rd.drug, date));
+                            Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                        }
+                    }
+                    else if(tomorrow.getDayOfWeek() == rd.weekDay) {
+                        DateTime date = new DateTime(tomorrow.getYear(), tomorrow.getMonthOfYear(), tomorrow.getDayOfMonth(), rd.hour, rd.minute);
+                        if (date.isBefore(tomorrow)) {
+                            rds.add(new Pair<Drug, DateTime>(rd.drug, date));
+                            Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                        }
                     }
                 } else if (rd.interval.contentEquals("month")) {
                     if (now.getDayOfMonth() == rd.monthDay) {
                         DateTime date = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), rd.hour, rd.minute);
-                        rds.add(new Pair<Drug, DateTime>(rd.drug, date));
-                        Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                        if(date.isAfter(now)) {
+                            rds.add(new Pair<Drug, DateTime>(rd.drug, date));
+                            Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                        }
+                    }
+                    else if(tomorrow.getDayOfMonth() == rd.monthDay) {
+                        DateTime date = new DateTime(tomorrow.getYear(), tomorrow.getMonthOfYear(), tomorrow.getDayOfMonth(), rd.hour, rd.minute);
+                        if(date.isBefore(tomorrow)){
+                            rds.add(new Pair<Drug, DateTime>(rd.drug, date));
+                            Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                        }
                     }
                 } else if (rd.interval.contentEquals("year")) {
                     if (now.getMonthOfYear() == rd.month && now.getDayOfMonth() == rd.monthDay) {
                         DateTime date = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), rd.hour, rd.minute);
-                        rds.add(new Pair<Drug, DateTime>(rd.drug, date));
-                        Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                        if(date.isAfter(now)) {
+                            rds.add(new Pair<Drug, DateTime>(rd.drug, date));
+                            Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                        }
+
+                    }
+                    else if(now.getMonthOfYear() == rd.month && tomorrow.getDayOfMonth() == rd.monthDay) {
+                        DateTime date = new DateTime(tomorrow.getYear(), tomorrow.getMonthOfYear(), tomorrow.getDayOfMonth(), rd.hour, rd.minute);
+                        if (date.isBefore(tomorrow)) {
+                            rds.add(new Pair<Drug, DateTime>(rd.drug, date));
+                            Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
+                        }
                     }
                 }
             }
