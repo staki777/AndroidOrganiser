@@ -76,32 +76,32 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         wl.release();
     }
 
-    public void SetAlarm(Context context, String drugName, String description, String userName, long trigger, long interval) {
+    public void SetAlarm(Context context, String drugName, String description, String userName, long trigger, long interval, int requestCode) {
         AlarmManager alarmManager=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         intent.putExtra(ONE_TIME, Boolean.FALSE);
         intent.putExtra(DRUG, drugName);
         intent.putExtra(DESCRIPTION, description);
         intent.putExtra(USER, userName);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 1001, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pi = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, trigger, interval , pi); //AlarmManager.INTERVAL_DAY
     }
 
-    public void CancelAlarm(Context context) {
+    public void CancelAlarm(Context context, int requestCode) {
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-        PendingIntent sender = PendingIntent.getBroadcast(context, 1001, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent sender = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
     }
 
-    public void setOnetimeAlarm(Context context, String drugName, String description, String userName, long trigger){
+    public void setOnetimeAlarm(Context context, String drugName, String description, String userName, long trigger, int requestCode){
         AlarmManager alarmManager =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         intent.putExtra(ONE_TIME, Boolean.TRUE);
         intent.putExtra(DRUG, drugName);
         intent.putExtra(DESCRIPTION, description);
         intent.putExtra(USER, userName);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 1001, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pi = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pi);
     }
 }

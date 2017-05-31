@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 
+import static com.example.user.drugsorganiser.R.string.alarm_notification_comment;
+import static com.example.user.drugsorganiser.R.string.alarm_notification_title;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ACCEPTED;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DESCRIPTION;
@@ -23,7 +25,7 @@ import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActiv
 public class AlarmFragment extends Fragment implements View.OnClickListener {
 
     private Button btnAccept, btnReject;
-    private TextView tvStatement;
+    private TextView tvStatement1, tvStatement2;
 
     public AlarmFragment() { }
 
@@ -35,7 +37,8 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
 
         btnAccept = (Button) view.findViewById(R.id.accept);
         btnReject = (Button) view.findViewById(R.id.reject);
-        tvStatement = (TextView) view.findViewById(R.id.statement);
+        tvStatement1 = (TextView) view.findViewById(R.id.statement1);
+        tvStatement2 = (TextView) view.findViewById(R.id.statement2);
 
         btnAccept.setOnClickListener(this);
         btnReject.setOnClickListener(this);
@@ -57,8 +60,8 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         Bundle arguments = this.getArguments();
         if(arguments != null){
             Log.i("AlarmFragment","onStart, savedInstance");
-            tvStatement.setText(arguments.getString(USER)+", czas na " + arguments.getString(DRUG) +
-                    "\nPamiętaj: " + arguments.getString(DESCRIPTION));
+            tvStatement1.setText(String.format(getString(alarm_notification_title),arguments.getString(USER), arguments.getString(DRUG)));
+            tvStatement2.setText(String.format(getString(alarm_notification_comment),arguments.getString(DESCRIPTION)));
         }
     }
 

@@ -18,6 +18,7 @@ public class SpecificDose implements Serializable {
 
     public static final String DRUG_COLUMN = "drug";
     public static final String DATE_COLUMN = "dose_date";
+    public static final String ALARM_COLUMN = "alarm_id";
 
 
     @DatabaseField(generatedId = true, columnName = ID_FIELD)
@@ -29,12 +30,16 @@ public class SpecificDose implements Serializable {
     @DatabaseField(columnName = DATE_COLUMN)
     public DateTime doseDate;
 
+    @DatabaseField(columnName = ALARM_COLUMN)
+    public int alarmId;
+
 
     public SpecificDose() {}
 
     public SpecificDose(Drug drug, DateTime doseDate) {
         this.drug = drug;
         this.doseDate = doseDate;
+        this.alarmId = 0;
     }
 
     @Override

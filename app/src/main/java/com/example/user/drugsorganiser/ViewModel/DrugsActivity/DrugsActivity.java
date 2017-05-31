@@ -137,28 +137,31 @@ public class DrugsActivity extends AppCompatActivity {
 
     public  void setAlarmForDose(SpecificDose specificDose){
         Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" will be set.");
-        //TODO: implement it
+        String comment = specificDose.drug.doseQuantity + " " +specificDose.drug.doseDescription+"\n"+specificDose.drug.comment;
+        startOnetimeAlarm(getCurrentFocus(), specificDose.drug.name, comment, specificDose.doseDate.getMillis(), specificDose.alarmId);
     }
+
     public void cancelAlarmForDose(SpecificDose specificDose){
         Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" will be canceled.");
-        //TODO: implement it
+        cancelAlarm(getCurrentFocus(), specificDose.alarmId);
     }
 
-    public void startRepeatingTimer(View view, String drugName, String description, long trigger, long interval) {
+    private void startRepeatingAlarm(View view, String drugName, String description, long interval, long trigger, int requestCode) {
         if(alarm != null){
-            alarm.SetAlarm(getApplicationContext(), drugName, description, user.login, trigger, interval);
+            alarm.SetAlarm(getApplicationContext(), drugName, description, user.login, trigger, interval, requestCode);
         }
     }
 
-    public void cancelRepeatingTimer(View view){
+    public void cancelAlarm(View view, int requestCode){
         if(alarm != null){
-            alarm.CancelAlarm(getApplicationContext());
+            alarm.CancelAlarm(getApplicationContext(), requestCode);
         }
     }
 
-    public void onetimeTimer(View view, String drugName, String description, long trigger){
+    //zmienić na private po usunięcię ustawiania alarmu przez Settings
+    public void startOnetimeAlarm(View view, String drugName, String description, long trigger, int requestCode){
         if(alarm != null){
-            alarm.setOnetimeAlarm(getApplicationContext(), drugName, description, user.login, trigger);
+            alarm.setOnetimeAlarm(getApplicationContext(), drugName, description, user.login, trigger, requestCode);
         }
     }
 
