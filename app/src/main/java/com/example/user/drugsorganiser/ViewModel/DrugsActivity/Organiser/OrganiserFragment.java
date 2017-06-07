@@ -158,8 +158,7 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            //activity().startOnetimeAlarm(getActivity().getCurrentFocus(), "Lek2", "2 łyżeczki, po posiłku", System.currentTimeMillis()+2000, 1001); //for tests
-            activity().cancelAlarm(getActivity().getCurrentFocus(), 0);
+            //TODO: settings
             return true;
         }
 

@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
 import com.example.user.drugsorganiser.Model.Drug;
+import com.example.user.drugsorganiser.Model.RegistryDose;
 import com.example.user.drugsorganiser.Model.SpecificDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
@@ -22,6 +23,7 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmManage
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.OrganiserFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
 
 import java.sql.SQLException;
@@ -34,6 +36,7 @@ public class DrugsActivity extends AppCompatActivity {
     final public static String DRUG = "drugName";
     final public static String USER = "userName";
     final public static String ALARM = "alarm";
+    final public static String REQUEST_CODE = "requestCode";
     final public static String DESCRIPTION = "description";
     final public static String ACCEPTED = "isDoseAccepted";
 
@@ -78,10 +81,10 @@ public class DrugsActivity extends AppCompatActivity {
         }
 
         if (bundle != null && bundle.getBoolean(ALARM, Boolean.FALSE)) {
-            ReactOnLastAlarm(bundle);
+            reactOnLastAlarm(bundle);
         }
 
-        alarm = new AlarmManagerBroadcastReceiver();
+        alarm = new AlarmManagerBroadcastReceiver(this);
     }
 
     @Override
@@ -119,7 +122,7 @@ public class DrugsActivity extends AppCompatActivity {
         setIntent(intent);
         Log.i("DrugsActivity", "onNewIntent");
         if (getIntent().getBooleanExtra(ALARM, Boolean.FALSE)) {
-            ReactOnLastAlarm(getIntent().getExtras());
+            reactOnLastAlarm(getIntent().getExtras());
         }
     }
 
@@ -138,41 +141,106 @@ public class DrugsActivity extends AppCompatActivity {
     public  void setAlarmForDose(SpecificDose specificDose){
         Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" will be set.");
         String comment = specificDose.drug.doseQuantity + " " +specificDose.drug.doseDescription+"\n"+specificDose.drug.comment;
-        startOnetimeAlarm(getCurrentFocus(), specificDose.drug.name, comment, specificDose.doseDate.getMillis(), specificDose.alarmId);
+        specificDose.alarmId = startOnetimeAlarm(getCurrentFocus(), specificDose.drug.name, comment, specificDose.doseDate.getMillis());
+        if (specificDose.alarmId == -1) {
+            specificDose.alarmId = 0;
+        }
+        updateSpecificDose(specificDose);
+        Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" is set with code: "+specificDose.alarmId+".");
     }
 
     public void cancelAlarmForDose(SpecificDose specificDose){
         Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" will be canceled.");
         cancelAlarm(getCurrentFocus(), specificDose.alarmId);
+        Log.i("DrugsActivity","RequestCode " + specificDose.alarmId + " is " + (alarm.freeRequestCode(specificDose.alarmId) ? "free" : "not free"));
+        specificDose.alarmId = 0;
+        updateSpecificDose(specificDose);
     }
 
-    private void startRepeatingAlarm(View view, String drugName, String description, long interval, long trigger, int requestCode) {
-        if(alarm != null){
-            alarm.SetAlarm(getApplicationContext(), drugName, description, user.login, trigger, interval, requestCode);
+    private boolean updateSpecificDose(SpecificDose specificDose) {
+        try {
+            this.getHelper().getSpecificDoseDao().update(specificDose);
+            return true;
+        }
+        catch (Exception e){
+            Log.i(this.getClass().getSimpleName(), e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
-    public void cancelAlarm(View view, int requestCode){
+    private int startRepeatingAlarm(View view, String drugName, String description, long interval, long trigger) {
         if(alarm != null){
-            alarm.CancelAlarm(getApplicationContext(), requestCode);
+            return alarm.setAlarm(getApplicationContext(), drugName, description, user.login, trigger, interval);
+        } else {
+            return -1;
         }
     }
 
-    //zmienić na private po usunięcię ustawiania alarmu przez Settings
-    public void startOnetimeAlarm(View view, String drugName, String description, long trigger, int requestCode){
+    private void cancelAlarm(View view, int requestCode){
         if(alarm != null){
-            alarm.setOnetimeAlarm(getApplicationContext(), drugName, description, user.login, trigger, requestCode);
+            alarm.cancelAlarm(getApplicationContext(), requestCode);
         }
     }
 
-    private void ReactOnLastAlarm(Bundle bundle){
+    private int startOnetimeAlarm(View view, String drugName, String description, long trigger){
+        if(alarm != null) {
+            return alarm.setOnetimeAlarm(getApplicationContext(), drugName, description, user.login, trigger);
+        } else {
+            return -1;
+        }
+    }
+
+    private void reactOnLastAlarm(Bundle bundle){
         bundle.remove(ALARM);
         String userName = bundle.getString(USER,"");
         String drugName = bundle.getString(DRUG,"");
+        int requestCode = bundle.getInt(REQUEST_CODE, 0);
         boolean isDoseAccepted = bundle.getBoolean(ACCEPTED,false);
-        Log.i("AlarmActivity","Reacting on last alarm.");
+        Log.i("DrugsActivity","Reacting on last alarm with requestCode " + requestCode);
+
+        SpecificDose specificDose = findSpecificDose(userName, drugName ,requestCode);
+        removeDoseToRegistry(specificDose, isDoseAccepted);
+        if (alarm == null) {
+            alarm = new AlarmManagerBroadcastReceiver(this);
+        }
+        Log.i("DrugsActivity","RequestCode " + requestCode + " is " + (alarm.freeRequestCode(requestCode) ? "free" : "not free"));
         //TODO: React on information about dose (accepted/rejected).
-        //sendMessage(userName, drugName);
+        if (!isDoseAccepted) {
+            //sendMessage(userName, drugName);
+            Log.i("DrugsActivity","Dose wasn't accepted.");
+        }
+    }
+
+    private void removeDoseToRegistry(SpecificDose specificDose, boolean accepted) {
+        RegistryDose registryDose = new RegistryDose(specificDose.drug, specificDose.doseDate);
+        try {
+            final Dao<RegistryDose, Integer> registryDao = this.getHelper().getRegistryDao();
+            registryDao.create(registryDose);
+            final Dao<SpecificDose, Integer> specificDoseDao = this.getHelper().getSpecificDoseDao();
+            specificDoseDao.delete(specificDose);
+            Log.i("DrugsActivity","RegistryDose " + registryDose + " is created from " + specificDose + " .");
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private SpecificDose findSpecificDose(String userName, String drugName, int requestCode) {
+        SpecificDose specificDose = null;
+        try {
+            final Dao<User, Integer> userDao = getHelper().getUserDao();
+            PreparedQuery<User> q = userDao.queryBuilder().where().eq(User.LOGIN_COLUMN, userName).prepare();
+            User user = userDao.queryForFirst(q);
+            final Dao<Drug, Integer> drugDao = getHelper().getDrugDao();
+            PreparedQuery<Drug> q1 = drugDao.queryBuilder().where().eq(Drug.NAME_COLUMN, drugName).and().eq(Drug.USER_COLUMN, user).prepare();
+            Drug drug = drugDao.queryForFirst(q1);
+            final Dao<SpecificDose, Integer> specificDosesDao = getHelper().getSpecificDoseDao();
+            PreparedQuery<SpecificDose> q2 = specificDosesDao.queryBuilder().where().eq(SpecificDose.ALARM_COLUMN, requestCode).and().eq(SpecificDose.DRUG_COLUMN, drug).prepare();
+            specificDose = specificDosesDao.queryForFirst(q2);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return specificDose;
     }
 
     private void sendMessage(String userName, String drugsNames) {

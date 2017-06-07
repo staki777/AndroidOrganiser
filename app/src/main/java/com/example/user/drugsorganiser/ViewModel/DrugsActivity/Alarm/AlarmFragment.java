@@ -20,6 +20,7 @@ import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActiv
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DESCRIPTION;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DRUG;
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.REQUEST_CODE;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.USER;
 
 public class AlarmFragment extends Fragment implements View.OnClickListener {
@@ -81,6 +82,7 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         Bundle bundle = this.getArguments();
         Intent newIntent = new Intent(getActivity(), DrugsActivity.class);
         newIntent.putExtra(ACCEPTED,accepted);
+        newIntent.putExtra(REQUEST_CODE, bundle.getInt(REQUEST_CODE));
         newIntent.putExtra(USER, bundle.getString(USER));
         newIntent.putExtra(DRUG, bundle.getString(DRUG));
         newIntent.putExtra(ALARM, bundle.getBoolean(ALARM));

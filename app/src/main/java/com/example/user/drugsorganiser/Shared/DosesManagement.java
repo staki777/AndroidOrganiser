@@ -11,12 +11,15 @@ import com.example.user.drugsorganiser.Model.SpecificDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -216,12 +219,14 @@ public class DosesManagement {
         try {
             Dao<SpecificDose, Integer> specificDoseDao = ctx.getHelper().getSpecificDoseDao();
             Dao<Drug, Integer> drugDao = ctx.getHelper().getDrugDao();
+            PreparedQuery<Drug> q1 = drugDao.queryBuilder().where().eq(Drug.NAME_COLUMN, d.name).and().eq(Drug.USER_COLUMN, u).prepare();
+            Drug drug = drugDao.queryForFirst(q1);
             Dao<User, Integer> userDao = ctx.getHelper().getUserDao();
 
-            for(SpecificDose sd : d.nearestDoses){
+            for(SpecificDose sd : drug.nearestDoses){
                 ctx.cancelAlarmForDose(sd);
             }
-            specificDoseDao.delete(d.nearestDoses);
+            specificDoseDao.delete(drug.nearestDoses);
             drugDao.update(d);
             userDao.update(u);
 
@@ -260,5 +265,30 @@ public class DosesManagement {
         Log.i("DosesManagement", "Reseting alarms for drug: "+drug.toString());
         cancelAllAlarmsForDrug(user, drug);
         setAlarmsForDrug(user, drug);
+    }
+
+    public HashSet<Integer> findAllUsedRequestCodes() {
+        LinkedList<Integer> requestCodes = new LinkedList<>();
+        try{
+            List<SpecificDose> alarms = ctx.getHelper().getSpecificDoseDao().queryForAll();
+            for (Object o : alarms) {
+                if (((SpecificDose)o).alarmId != 0) {
+                    requestCodes.add(((SpecificDose)o).alarmId);
+                }
+            }
+        }
+        catch (Exception e){
+            Log.i(this.getClass().getSimpleName(), e.getMessage());
+            e.printStackTrace();
+        }
+
+        Object[] codes = requestCodes.toArray();
+        Arrays.sort(codes);
+        requestCodes.clear();
+        for(Object p : codes){
+            requestCodes.add((Integer)p);
+        }
+
+        return new HashSet<Integer>(requestCodes);
     }
 }

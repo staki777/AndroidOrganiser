@@ -56,7 +56,6 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
         holder.itemDoseView.setText(dose.first.doseQuantity+" "+dose.first.doseDescription);
         holder.itemImportantView.setText((dose.first.important)?"Important": "Not important");
         holder.itemCommentView.setText(dose.first.comment);
-
     }
 
     @Override
