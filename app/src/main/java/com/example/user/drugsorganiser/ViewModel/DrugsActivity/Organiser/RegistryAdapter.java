@@ -9,8 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.user.drugsorganiser.Model.Drug;
+import com.example.user.drugsorganiser.Model.RegistryDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.Shared.DosesManagement;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,43 +28,20 @@ import java.util.List;
 
 public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
 
-    private User user;
     private Context ctx;
-    private List<Pair<Drug, Date>> doses;
-    private SimpleDateFormat dateFormat;
+    private List<RegistryDose> doses;
 
-    public RegistryAdapter(User user, Context ctx) {
+    public RegistryAdapter(Context ctx) {
         Log.i("RegistryAdapter", "Constructor");
 
-        this.user=user;
         this.ctx = ctx;
-
-        dateFormat = new SimpleDateFormat ("HH:mm (dd.MM)");
         doses = new LinkedList<>();
-
-        //mock
-        List<Drug> drugs = new ArrayList<>();
-        if(user != null){
-            drugs.addAll(user.drugs);
-        }
-        Calendar cal = Calendar.getInstance();
-        cal.set(2017,4,25,8,0);
-        if (drugs.size() == 0) return;
-        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
-        cal.set(2017,4,25,20,0);
-        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
-        cal.set(2017,4,26,8,0);
-        doses.add(new Pair<Drug, Date>(drugs.get(0), new Date(cal.getTimeInMillis())));
+        prepareRegistryDoses();
     }
 
-    public void moveToRegistry(Pair<Drug,Date> dose)
-    {
-        //TODO: Dose's moving from DoseAdapter to RegistryAdapter.
-        doses.add(dose);
-    }
-
-    public void removeOlderThanWeek(){
-        //TODO:
+    private void prepareRegistryDoses() {
+        DosesManagement dm = new DosesManagement((DrugsActivity) ctx);
+        doses = dm.findAllRegistryDosesForUser(((DrugsActivity) ctx).getUser());
     }
 
     @Override
@@ -73,11 +53,10 @@ public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
 
     @Override
     public void onBindViewHolder(final DrugViewHolder holder, final int position) {
-        final Pair<Drug, Date> dose = doses.get(doses.size() - position - 1);
-        holder.itemNameView.setText(dose.first.name);
-        holder.itemDoseView.setText(dose.first.doseQuantity + " " + dose.first.doseDescription);
-        holder.itemCommentView.setText(dose.first.comment);
-        holder.itemImportantView.setText((dose.first.important) ? "Important" : "Not important");
+        final RegistryDose dose = doses.get(doses.size() - position - 1);
+        holder.itemNameView.setText(dose.drug);
+        holder.itemDoseView.setText(dose.dose);
+        holder.itemImportantView.setText((dose.accepted) ? "Accepted" : "Unaccepted");
     }
 
     @Override

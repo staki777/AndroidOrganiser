@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,19 +39,22 @@ public class RegistryFragment extends BaseDrugsActivityFragment {
         recyclerView = (RecyclerView) getView().findViewById(R.id.doses_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
-        final RegistryAdapter registryAdapter = new RegistryAdapter(activity().getUser(), getActivity());
+        final RegistryAdapter registryAdapter = new RegistryAdapter(getActivity());
         recyclerView.setAdapter(registryAdapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        final RegistryAdapter registryAdapter = new RegistryAdapter(activity().getUser(), getActivity());
+        final RegistryAdapter registryAdapter = new RegistryAdapter(getActivity());
         recyclerView.setAdapter(registryAdapter);
-
     }
 
-
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.i("RegistryFragment", "Registry fragment on detach");
+        getFragmentManager().saveFragmentInstanceState(this);
+    }
 
 }

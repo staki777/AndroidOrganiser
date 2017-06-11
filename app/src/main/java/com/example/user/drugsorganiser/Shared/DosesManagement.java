@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.user.drugsorganiser.Model.ConstantIntervalDose;
 import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.Drug;
+import com.example.user.drugsorganiser.Model.RegistryDose;
 import com.example.user.drugsorganiser.Model.RegularDose;
 import com.example.user.drugsorganiser.Model.SpecificDose;
 import com.example.user.drugsorganiser.Model.User;
@@ -290,5 +291,18 @@ public class DosesManagement {
         }
 
         return new HashSet<Integer>(requestCodes);
+    }
+
+    public List<RegistryDose> findAllRegistryDosesForUser(User user) {
+        List<RegistryDose> list = new ArrayList<>();
+        try {
+            final Dao<RegistryDose, Integer> registryDao = ctx.getHelper().getRegistryDao();
+            PreparedQuery<RegistryDose> q1 = registryDao.queryBuilder().where().eq(RegistryDose.USER_COLUMN, user).prepare();
+            list = registryDao.query(q1);
+            Log.i("RegistryDose", "" + list + " query " + q1);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

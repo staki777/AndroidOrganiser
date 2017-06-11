@@ -215,7 +215,6 @@ public class DrugsActivity extends AppCompatActivity {
         newIntent.putExtra(REQUEST_CODE, bundle.getInt(REQUEST_CODE));
         newIntent.putExtra(USER, bundle.getString(USER));
         newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //newIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(newIntent);
         Log.i("DrugsActivity", "bundle ALARM_ACTIVITY");
         if (bundle.getBoolean(ALARM, Boolean.FALSE)) {
@@ -249,7 +248,9 @@ public class DrugsActivity extends AppCompatActivity {
     }
 
     private void removeDoseToRegistry(SpecificDose specificDose, boolean accepted) {
-        RegistryDose registryDose = new RegistryDose(specificDose.drug, specificDose.doseDate);
+        String drug = UniversalMethods.DateTimeToString(specificDose.doseDate)+" - "+specificDose.drug.name;
+        String details = specificDose.drug.doseQuantity+" "+specificDose.drug.doseDescription;
+        RegistryDose registryDose = new RegistryDose(drug, specificDose.drug.user, details, accepted);
         try {
             final Dao<RegistryDose, Integer> registryDao = this.getHelper().getRegistryDao();
             registryDao.create(registryDose);
