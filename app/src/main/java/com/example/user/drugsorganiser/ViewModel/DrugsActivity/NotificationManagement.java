@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
 
 /**
@@ -18,7 +19,7 @@ public final class NotificationManagement {
 
     private NotificationManagement() {}
 
-    public static void CreateNotification(Context context, String title, String comment, Class <?> cls, int notificationId, int requestCode) {
+    public static void CreateNotification(Context context, String title, String comment, Class <?> cls, int notificationId, int requestCode, int type) {
         // id - If a notification with the same id has already been posted by your application and has not yet been canceled,
         //      it will be replaced by the updated information.
         // requestCode - If is not unique and class cls and requestCode have already been used for getting PendingIntent, it will be the same
@@ -27,6 +28,13 @@ public final class NotificationManagement {
         Log.i("NotificationManagement","Create");
 
         Intent intent = new Intent(context, cls);
+        if (type == 1) {
+            intent.putExtra(DrugsActivity.SMS, true);
+            intent.putExtra(DrugsActivity.ALARM_ACTIVITY, true);
+        } else if (type == 2) {
+            intent.putExtra(DrugsActivity.ALARM, true);
+            intent.putExtra(DrugsActivity.ALARM_ACTIVITY, true);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent notifIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

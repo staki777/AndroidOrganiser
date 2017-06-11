@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM;
+import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM_ACTIVITY;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DESCRIPTION;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DRUG;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.REQUEST_CODE;
@@ -79,18 +80,15 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         Intent ringtoneIntent = new Intent(context, RingtonePlayingService.class);
         ringtoneIntent.putExtra("ringtone-uri", alarmUri.toString());
         context.startService(ringtoneIntent);
-        Intent newIntent = new Intent(context, AlarmActivity.class);
+        Intent newIntent = new Intent(context, DrugsActivity.class);
         newIntent.putExtra(ALARM, Boolean.TRUE);
+        newIntent.putExtra(ALARM_ACTIVITY, Boolean.TRUE);
         newIntent.putExtra(DRUG, drugName);
         newIntent.putExtra(DESCRIPTION, description);
         newIntent.putExtra(REQUEST_CODE, requestCode);
         newIntent.putExtra(USER, user);
         newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//  | FLAG_ACTIVITY_CLEAR_TOP /Intent.FLAG_ACTIVITY_NEW_TASK/FLAG_ACTIVITY_BROUGHT_TO_FRONT
         context.startActivity(newIntent);
-
-        String title = String.format(context.getString(R.string.alarm_notification_title), user, drugName);
-        String comment = String.format(context.getString(R.string.alarm_notification_comment), description);
-        NotificationManagement.CreateNotification(context, title, comment, DrugsActivity.class, 1, 1001 );
 
         wl.release();
     }

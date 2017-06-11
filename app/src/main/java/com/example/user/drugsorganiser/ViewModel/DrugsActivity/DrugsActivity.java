@@ -36,6 +36,8 @@ public class DrugsActivity extends AppCompatActivity {
     final public static String DRUG = "drugName";
     final public static String USER = "userName";
     final public static String ALARM = "alarm";
+    final public static String ALARM_ACTIVITY = "alarmActivity";
+    final public static String SMS = "smsAlert";
     final public static String REQUEST_CODE = "requestCode";
     final public static String DESCRIPTION = "description";
     final public static String ACCEPTED = "isDoseAccepted";
@@ -80,8 +82,11 @@ public class DrugsActivity extends AppCompatActivity {
             replaceWithNewOrExisting(R.id.main_to_replace, new LoginRegisterFragment());
         }
 
-        if (bundle != null && bundle.getBoolean(ALARM, Boolean.FALSE)) {
+        if (bundle != null && bundle.getBoolean(ALARM_ACTIVITY, Boolean.FALSE)) {
+            startAlarmActivity(bundle);
+        } else if (bundle != null && bundle.getBoolean(ALARM, Boolean.FALSE)) {
             reactOnLastAlarm(bundle);
+            Log.i("DrugsActivity", "bundle ALARM");
         }
 
         alarm = new AlarmManagerBroadcastReceiver(this);
@@ -121,7 +126,10 @@ public class DrugsActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
         Log.i("DrugsActivity", "onNewIntent");
-        if (getIntent().getBooleanExtra(ALARM, Boolean.FALSE)) {
+        if (getIntent().getBooleanExtra(ALARM_ACTIVITY, Boolean.FALSE)) {
+            startAlarmActivity(getIntent().getExtras());
+        } else
+            if (getIntent().getBooleanExtra(ALARM, Boolean.FALSE)) {
             reactOnLastAlarm(getIntent().getExtras());
         }
     }
@@ -191,6 +199,28 @@ public class DrugsActivity extends AppCompatActivity {
         }
     }
 
+    private void startAlarmActivity(Bundle bundle) {
+        Intent newIntent = new Intent(this, AlarmActivity.class);
+        newIntent.putExtra(ALARM, bundle.getBoolean(ALARM, Boolean.FALSE));
+        newIntent.putExtra(SMS, bundle.getBoolean(SMS, Boolean.FALSE));
+        newIntent.putExtra(DRUG, bundle.getString(DRUG));
+        newIntent.putExtra(DESCRIPTION, bundle.getString(DESCRIPTION));
+        newIntent.putExtra(REQUEST_CODE, bundle.getInt(REQUEST_CODE));
+        newIntent.putExtra(USER, bundle.getString(USER));
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //newIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(newIntent);
+        Log.i("DrugsActivity", "bundle ALARM_ACTIVITY");
+        if (bundle.getBoolean(ALARM, Boolean.FALSE)) {
+            String title = String.format(getString(R.string.alarm_notification_title), bundle.getString(USER), bundle.getString(DRUG));
+            String comment = String.format(getString(R.string.alarm_notification_comment), bundle.getString(DESCRIPTION));
+            NotificationManagement.CreateNotification(this, title, comment, DrugsActivity.class, 2, 1001, 2);
+        } else if (bundle.getBoolean(SMS, Boolean.FALSE)) {
+            String comment = String.format(getString(R.string.alert_notification_comment), bundle.getString(USER));
+            NotificationManagement.CreateNotification(getApplicationContext(), getString(R.string.app_name), comment, DrugsActivity.class, 1, 1001, 1);
+        }
+    }
+
     private void reactOnLastAlarm(Bundle bundle){
         bundle.remove(ALARM);
         String userName = bundle.getString(USER,"");
@@ -210,6 +240,7 @@ public class DrugsActivity extends AppCompatActivity {
             //sendMessage(userName, drugName);
             Log.i("DrugsActivity","Dose wasn't accepted.");
         }
+        NotificationManagement.CancelNotification(this, 2);
     }
 
     private void removeDoseToRegistry(SpecificDose specificDose, boolean accepted) {
@@ -247,11 +278,10 @@ public class DrugsActivity extends AppCompatActivity {
         SmsManager smsManager = SmsManager.getDefault();
         String message = String.format(getString(R.string.alert_message), userName, drugsNames);
         Log.i("AlarmActivity", message);
-        smsManager.sendTextMessage(user.contactNumber, null, message, null, null);
+        //smsManager.sendTextMessage(user.contactNumber, null, message, null, null);
 
-        String comment = String.format(getString(R.string.alert_notification_comment), userName);
-        NotificationManagement.CreateNotification(getApplicationContext(), getString(R.string.app_name), comment, AlarmActivity.class, 2, 1001);
-        NotificationManagement.CancelNotification(DrugsActivity.this, 1);
+//        String comment = String.format(getString(R.string.alert_notification_comment), userName);
+//        NotificationManagement.CreateNotification(getApplicationContext(), getString(R.string.app_name), comment, AlarmActivity.class, 2, 1001, 1);
     }
 
     // USER MANAGEMENT

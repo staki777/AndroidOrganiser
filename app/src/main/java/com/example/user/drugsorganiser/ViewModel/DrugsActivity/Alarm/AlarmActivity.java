@@ -25,6 +25,9 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {}
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i("AlarmActivity","onDestroy");

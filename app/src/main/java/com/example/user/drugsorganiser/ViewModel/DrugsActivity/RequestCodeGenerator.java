@@ -17,9 +17,7 @@ public class RequestCodeGenerator {
     private final static int maxNotificationRequestCodes = 300;
 
     private int nextAlarmRequestCode;
-    private int nextNotificationRequestCode;
     private List<Integer> unusedAlarmRequestCodes;
-    private List<Integer> unusedNotificationRequestCodes;
 
     public RequestCodeGenerator(HashSet<Integer> usedRequestCodes) {
         setUnusedRequestCodes(usedRequestCodes);
@@ -29,36 +27,20 @@ public class RequestCodeGenerator {
         return unusedAlarmRequestCodes.size() > 0 ? unusedAlarmRequestCodes.remove(0) : nextAlarmRequestCode++;
     }
 
-    public int getNextNotificationRequestCode() {
-        return unusedNotificationRequestCodes.size() > 0 ? unusedNotificationRequestCodes.remove(0) : nextNotificationRequestCode++;
-    }
-
     public void notifyRequestCodeUnused(int requestCode) {
-        if (requestCode <= maxNotificationRequestCodes) {
-            addAndSort(unusedNotificationRequestCodes, requestCode);
-        } else {
+        if (requestCode > maxNotificationRequestCodes) {
             addAndSort(unusedAlarmRequestCodes, requestCode);
         }
-        Log.i("RequestCodeGenerator", "notify unused " + requestCode + " actual lists: notifs = " + unusedNotificationRequestCodes +
-                " alarms = " + unusedAlarmRequestCodes);
+        Log.i("RequestCodeGenerator", "notify unused " + requestCode + " actual lists: alarms = " + unusedAlarmRequestCodes);
     }
 
     public void setUnusedRequestCodes(HashSet<Integer> usedRequestCodes) {
         nextAlarmRequestCode = maxNotificationRequestCodes + 1;
-        nextNotificationRequestCode = 1;
         unusedAlarmRequestCodes = new LinkedList<>();
-        unusedNotificationRequestCodes = new LinkedList<>();
-        int lastUsedNotificationCode = 0;
         int lastUsedAlarmCode = maxNotificationRequestCodes;
         for (Object i : usedRequestCodes.toArray()) {
             int code = (Integer)i;
-            if (code <= maxNotificationRequestCodes) {
-                nextNotificationRequestCode = code + 1;
-                for (int j = lastUsedNotificationCode + 1; j < code; j++) {
-                    unusedNotificationRequestCodes.add(j);
-                }
-                lastUsedNotificationCode = code;
-            } else {
+            if (code > maxNotificationRequestCodes) {
                 nextAlarmRequestCode = code + 1;
                 for (int j = lastUsedAlarmCode + 1; j < code; j++) {
                     unusedAlarmRequestCodes.add(j);
