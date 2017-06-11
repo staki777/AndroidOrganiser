@@ -19,7 +19,7 @@ public final class NotificationManagement {
 
     private NotificationManagement() {}
 
-    public static void CreateNotification(Context context, String title, String comment, Class <?> cls, int notificationId, int requestCode, int type) {
+    public static void CreateNotification(Context context, String title, String comment, Class <?> cls, int notificationId, int requestCode, int type, String details) {
         // id - If a notification with the same id has already been posted by your application and has not yet been canceled,
         //      it will be replaced by the updated information.
         // requestCode - If is not unique and class cls and requestCode have already been used for getting PendingIntent, it will be the same
@@ -29,6 +29,8 @@ public final class NotificationManagement {
 
         Intent intent = new Intent(context, cls);
         if (type == 1) {
+            intent.putExtra(DrugsActivity.SMS_ALERT, comment);
+            intent.putExtra(DrugsActivity.DOSE_DETAILS, details);
             intent.putExtra(DrugsActivity.SMS, true);
             intent.putExtra(DrugsActivity.ALARM_ACTIVITY, true);
         } else if (type == 2) {

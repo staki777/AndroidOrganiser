@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -45,6 +46,10 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         btnReject.setOnClickListener(this);
 
         Log.i("AlarmFragment","onCreateView");
+
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
         return view;
     }
 

@@ -18,6 +18,7 @@ import com.example.user.drugsorganiser.Model.RegistryDose;
 import com.example.user.drugsorganiser.Model.SpecificDose;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
+import com.example.user.drugsorganiser.Shared.UniversalMethods;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmActivity;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Alarm.AlarmManagerBroadcastReceiver;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.LoginRegisterFragment;
@@ -25,6 +26,8 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Organis
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
+
+import org.joda.time.DateTime;
 
 import java.sql.SQLException;
 import java.util.Locale;
@@ -37,7 +40,9 @@ public class DrugsActivity extends AppCompatActivity {
     final public static String USER = "userName";
     final public static String ALARM = "alarm";
     final public static String ALARM_ACTIVITY = "alarmActivity";
-    final public static String SMS = "smsAlert";
+    final public static String SMS = "sms";
+    final public static String SMS_ALERT = "smsAlert";
+    final public static String DOSE_DETAILS = "details";
     final public static String REQUEST_CODE = "requestCode";
     final public static String DESCRIPTION = "description";
     final public static String ACCEPTED = "isDoseAccepted";
@@ -205,6 +210,8 @@ public class DrugsActivity extends AppCompatActivity {
         newIntent.putExtra(SMS, bundle.getBoolean(SMS, Boolean.FALSE));
         newIntent.putExtra(DRUG, bundle.getString(DRUG));
         newIntent.putExtra(DESCRIPTION, bundle.getString(DESCRIPTION));
+        newIntent.putExtra(SMS_ALERT, bundle.getString(SMS_ALERT));
+        newIntent.putExtra(DOSE_DETAILS, bundle.getString(DOSE_DETAILS));
         newIntent.putExtra(REQUEST_CODE, bundle.getInt(REQUEST_CODE));
         newIntent.putExtra(USER, bundle.getString(USER));
         newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -214,10 +221,7 @@ public class DrugsActivity extends AppCompatActivity {
         if (bundle.getBoolean(ALARM, Boolean.FALSE)) {
             String title = String.format(getString(R.string.alarm_notification_title), bundle.getString(USER), bundle.getString(DRUG));
             String comment = String.format(getString(R.string.alarm_notification_comment), bundle.getString(DESCRIPTION));
-            NotificationManagement.CreateNotification(this, title, comment, DrugsActivity.class, 2, 1001, 2);
-        } else if (bundle.getBoolean(SMS, Boolean.FALSE)) {
-            String comment = String.format(getString(R.string.alert_notification_comment), bundle.getString(USER));
-            NotificationManagement.CreateNotification(getApplicationContext(), getString(R.string.app_name), comment, DrugsActivity.class, 1, 1001, 1);
+            NotificationManagement.CreateNotification(this, title, comment, DrugsActivity.class, 2, 1001, 2, null);
         }
     }
 
@@ -225,6 +229,7 @@ public class DrugsActivity extends AppCompatActivity {
         bundle.remove(ALARM);
         String userName = bundle.getString(USER,"");
         String drugName = bundle.getString(DRUG,"");
+        String description = bundle.getString(DESCRIPTION,"");
         int requestCode = bundle.getInt(REQUEST_CODE, 0);
         boolean isDoseAccepted = bundle.getBoolean(ACCEPTED,false);
         Log.i("DrugsActivity","Reacting on last alarm with requestCode " + requestCode);
@@ -237,7 +242,7 @@ public class DrugsActivity extends AppCompatActivity {
         Log.i("DrugsActivity","RequestCode " + requestCode + " is " + (alarm.freeRequestCode(requestCode) ? "free" : "not free"));
         //TODO: React on information about dose (accepted/rejected).
         if (!isDoseAccepted) {
-            //sendMessage(userName, drugName);
+            sendMessage(userName, drugName, description);
             Log.i("DrugsActivity","Dose wasn't accepted.");
         }
         NotificationManagement.CancelNotification(this, 2);
@@ -274,14 +279,14 @@ public class DrugsActivity extends AppCompatActivity {
         return specificDose;
     }
 
-    private void sendMessage(String userName, String drugsNames) {
+    private void sendMessage(String userName, String drugName, String description) {
         SmsManager smsManager = SmsManager.getDefault();
-        String message = String.format(getString(R.string.alert_message), userName, drugsNames);
+        String message = String.format(getString(R.string.alert_message), userName, drugName);
         Log.i("AlarmActivity", message);
         //smsManager.sendTextMessage(user.contactNumber, null, message, null, null);
-
-//        String comment = String.format(getString(R.string.alert_notification_comment), userName);
-//        NotificationManagement.CreateNotification(getApplicationContext(), getString(R.string.app_name), comment, AlarmActivity.class, 2, 1001, 1);
+        String comment = String.format(getString(R.string.alert_notification_comment), userName);
+        String details = String.format(getString(R.string.sms_alert_details), drugName, description, UniversalMethods.DateTimeToString(new DateTime()));
+        NotificationManagement.CreateNotification(getApplicationContext(), getString(R.string.app_name), comment, DrugsActivity.class, 1, 1001, 1, details);
     }
 
     // USER MANAGEMENT

@@ -15,13 +15,18 @@ public class AlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drugs);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null && bundle.getBoolean(DrugsActivity.ALARM)) {
+        if (bundle != null && bundle.getBoolean(DrugsActivity.ALARM, false)) {
             AlarmFragment alarmFragment = new AlarmFragment();
             alarmFragment.setArguments(bundle);
             String tag = alarmFragment.getClass().getSimpleName();
             getFragmentManager().beginTransaction().replace(R.id.main_to_replace, alarmFragment, tag).disallowAddToBackStack().commit();
-            Log.i("AlarmActivity","onCreate");
+        } else if (bundle != null && bundle.getBoolean(DrugsActivity.SMS, false)) {
+            SMSAlertFragment smsAlertFragment = new SMSAlertFragment();
+            smsAlertFragment.setArguments(bundle);
+            String tag = smsAlertFragment.getClass().getSimpleName();
+            getFragmentManager().beginTransaction().replace(R.id.main_to_replace, smsAlertFragment, tag).disallowAddToBackStack().commit();
         }
+        Log.i("AlarmActivity","onCreate");
     }
 
     @Override

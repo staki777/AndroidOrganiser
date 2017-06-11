@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM_ACTIVITY;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DESCRIPTION;
