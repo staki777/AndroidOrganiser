@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary">
+
+    <!--<EditTextPreference android:title="@string/username"-->
+        <!--android:key="@string/usernameKey"-->
+        <!--android:summary="@string/username_prompt"></EditTextPreference>-->
+    <CheckBoxPreference android:title="@string/delete_confirmation_title"
+        android:defaultValue="false"
+        android:freezesText="false"
+        android:summary="@string/delete_confirmation_title_prompt"
+        android:key="@string/deleteConfirmationKey" />
+    <ListPreference android:title="@string/language"
+        android:summary="@string/language_prompt"
+        android:key="@string/languageKey"
+        android:entries="@array/listArray"
+        android:entryValues="@array/listValues" />
+<!-- android:defaultValue="pl"-->
+</PreferenceScreen>

@@ -373,4 +373,6 @@ public class DrugsActivity extends AppCompatActivity {
         conf.setLocale(new Locale("en_EN")); // API 17+ only.
         getResources().updateConfiguration(conf, dm);
     }
+
+
 }

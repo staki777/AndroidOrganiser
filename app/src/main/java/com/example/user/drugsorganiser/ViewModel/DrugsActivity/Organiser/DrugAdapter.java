@@ -3,7 +3,9 @@ package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -84,20 +86,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
 
                                 break;
                             case R.id.delete_menu_item:
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ctx);
-
-                                dialogBuilder.setTitle(ctx.getString(R.string.delete_item_dialog_title));
-                                dialogBuilder.setPositiveButton(ctx.getString(R.string.yes_button), new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        deleteItem(drug);
-                                    }
-                                });
-                                dialogBuilder.setNegativeButton(ctx.getString(R.string.no_button), new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        //pass
-                                    }
-                                });
-                                dialogBuilder.show();
+                                deleteItem(drug);
                                 break;
                         }
                         return false;
@@ -114,7 +103,31 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
         return (drugs != null) ? drugs.size() : 0;
     }
 
-    public void deleteItem(Drug drug){
+    public void deleteItem(final Drug drug){
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(ctx);
+        Boolean confirm = SP.getBoolean("deleteConfirmation", false);
+        if(!confirm){
+            removeDrug(drug);
+            return;
+        }
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ctx);
+
+        dialogBuilder.setTitle(ctx.getString(R.string.delete_item_dialog_title));
+        dialogBuilder.setPositiveButton(ctx.getString(R.string.yes_button), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                removeDrug(drug);
+            }
+        });
+        dialogBuilder.setNegativeButton(ctx.getString(R.string.no_button), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+        dialogBuilder.create().show();
+    }
+
+    private void removeDrug(Drug drug){
         int position = drugs.indexOf(drug);
         //cancelling all alarms connected with deleted drug
         DosesManagement dm = new DosesManagement((DrugsActivity)ctx);
@@ -129,6 +142,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
         notifyItemRemoved(position);
         Toast.makeText(ctx, drug.name+"\n"+ ctx.getString(R.string.delete_confirmation), Toast.LENGTH_SHORT).show();
     }
+
 
     public void addItem(Drug drug){
         try{

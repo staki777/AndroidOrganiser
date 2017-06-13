@@ -30,6 +30,7 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Registry.RegistryFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule.ScheduleFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Settings.SettingsFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.SaveSharedPreference;
 
 /**
@@ -158,7 +159,7 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            //TODO: settings
+            activity().replaceWithNewOrExisting(R.id.toReplace, new SettingsFragment());
             return true;
         }
 
