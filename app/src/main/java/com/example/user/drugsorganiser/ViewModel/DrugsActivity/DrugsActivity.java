@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
@@ -57,11 +58,11 @@ public class DrugsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.i("DrugsActivity", "onCreate");
         setContentView(R.layout.activity_drugs);
-
-        if (android.os.Build.VERSION.SDK_INT >=17){
-            Log.i("DrugsActivity", "Locale will be set.");
-            setLocale();
-        }
+        getLocale();
+//        if (android.os.Build.VERSION.SDK_INT >=17){
+//            Log.i("DrugsActivity", "Locale will be set.");
+//            setLocale();
+//        }
 
         // odkomentować na pierwsze uruchomienie aplikacji po podbiciu wersji bazy danych
         // SaveSharedPreference.clearPreferences(getApplicationContext());
@@ -365,11 +366,11 @@ public class DrugsActivity extends AppCompatActivity {
     }
 
     @TargetApi(17)
-    private void setLocale(){
-//        DisplayMetrics dm = getResources().getDisplayMetrics();
-//        android.content.res.Configuration conf = getResources().getConfiguration();
-//        conf.setLocale(new Locale("en_EN")); // API 17+ only.
-//        getResources().updateConfiguration(conf, dm);
+    private void getLocale(){
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        android.content.res.Configuration conf = getResources().getConfiguration();
+      //  Log.i("DrugsActivity", "Locale: "+conf.);
+
     }
 
 

@@ -156,8 +156,8 @@
     </string-array>
 
         <string-array name="listArray">
-            <item>Polski</item>
-            <item>English</item>
+            <item>polski</item>
+            <item>english</item>
         </string-array>
 
         <string-array name="listValues">

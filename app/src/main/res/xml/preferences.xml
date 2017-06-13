@@ -15,6 +15,7 @@
         android:summary="@string/delete_confirmation_title_prompt"
         android:key="@string/deleteConfirmationKey" />
     <ListPreference android:title="@string/language"
+
         android:summary="@string/language_prompt"
         android:key="@string/languageKey"
         android:entries="@array/listArray"

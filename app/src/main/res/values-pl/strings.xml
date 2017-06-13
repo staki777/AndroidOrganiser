@@ -80,29 +80,31 @@
     <string name="Polish">polski</string>
     <string name="english">angielski</string>
 
+
+
     <string-array name="dose_types_array">
-        <item>tablet(s)</item>
-        <item>ampoule(s)</item>
-        <item>inhalation(s)</item>
-        <item>ml(s)</item>
-        <item>spoon(s)</item>
-        <item>teaspoon(s)</item>
-        <item>spigot(s)</item>
-        <item>other</item>
+        <item>tabletki</item>
+        <item>ampułki</item>
+        <item>inhalacje</item>
+        <item>ml</item>
+        <item>łyżki</item>
+        <item>łyżeczki</item>
+        <item>czopki</item>
+        <item>inne</item>
     </string-array>
 
     <string-array name="dosage_array">
-        <item>Regular dosage</item>
-        <item>Constant interval</item>
-        <item>Custom dosage</item>
+        <item>Dawkowanie regularne</item>
+        <item>Stały interwał</item>
+        <item>Dawkowanie niestandardowe</item>
     </string-array>
 
     <string-array name="time_units_array">
-        <item>minute(s)</item>
-        <item>hour(s)</item>
-        <item>day(s)</item>
-        <item>month(s)</item>
-        <item>year(s)</item>
+        <item>minut</item>
+        <item>godzin</item>
+        <item>dni</item>
+        <item>miesięcy</item>
+        <item>lat</item>
     </string-array>
 
     <string-array name="time_array">
@@ -113,9 +115,9 @@
     </string-array>
 
     <string-array name="time_array2">
-        <item>hour(s)</item>
-        <item>day(s)</item>
-        <item>week(s)</item>
+        <item>godzin</item>
+        <item>dni</item>
+        <item>tygodni</item>
     </string-array>
 
     <string-array name="days_of_week">
@@ -140,12 +142,12 @@
         <item>Wrzesień</item>
         <item>Październik</item>
         <item>Listopad</item>
-        <item>Grudzieńd</item>
+        <item>Grudzień</item>
     </string-array>
 
         <string-array name="listArray">
-            <item>Polski</item>
-            <item>English</item>
+            <item>polski</item>
+            <item>english</item>
         </string-array>
 
         <string-array name="listValues">
