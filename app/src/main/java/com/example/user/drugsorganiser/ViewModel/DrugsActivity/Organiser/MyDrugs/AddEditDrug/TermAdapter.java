@@ -40,7 +40,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
         this.ctx = ctx;
 
         this.customDoses = new ArrayList<>();
-        customDoses.addAll(findCustomDosesByDrug(drug));
+        customDoses.addAll(findCustomDosesByDrug());
         Log.i("TermAdapter", customDoses.size()+" DosesFound");
     }
 
@@ -115,7 +115,9 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
         Toast.makeText(ctx, ctx.getString(R.string.term_added_confirmation), Toast.LENGTH_SHORT).show();
     }
 
-    private Collection<CustomDose> findCustomDosesByDrug(Drug drug) {
+    private Collection<CustomDose> findCustomDosesByDrug() {
+        if(((DrugsActivity)ctx).getEditedDrug()==null)
+            return  new ArrayList<>();
             return ((DrugsActivity)ctx).getEditedDrug().customDoses;
     }
 

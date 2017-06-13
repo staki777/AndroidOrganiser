@@ -40,7 +40,7 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
         this.ctx = ctx;
 
         this.regularDoses = new ArrayList<>();
-        regularDoses.addAll(findRegularDosesByDrug(drug));
+        regularDoses.addAll(findRegularDosesByDrug());
         if(regularDoses.size()>=1)
             type = regularDoses.get(0).interval;
         daysOfWeek = new String[] { "Monday" , "Tuesday", "Wednesday", "Thursday",
@@ -146,7 +146,9 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
         Toast.makeText(ctx, R.string.term_added_confirmation, Toast.LENGTH_SHORT).show();
     }
 
-    private Collection<RegularDose> findRegularDosesByDrug(Drug drug) {
+    private Collection<RegularDose> findRegularDosesByDrug() {
+        if(((DrugsActivity)ctx).getEditedDrug()==null)
+            return  new ArrayList<>();
         return ((DrugsActivity)ctx).getEditedDrug().regularDoses;
     }
     public String getType() {

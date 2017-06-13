@@ -159,6 +159,7 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            activity().removeIfExists(AddEditDrugFragment.class.getSimpleName());
             activity().replaceWithNewOrExisting(R.id.toReplace, new SettingsFragment());
             return true;
         }
