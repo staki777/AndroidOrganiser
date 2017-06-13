@@ -247,6 +247,8 @@ public class DrugsActivity extends AppCompatActivity {
     }
 
     private void removeDoseToRegistry(SpecificDose specificDose, boolean accepted) {
+        if(specificDose == null)
+            return;
         String drug = UniversalMethods.DateTimeToString(specificDose.doseDate)+" - "+specificDose.drug.name;
         String details = specificDose.drug.doseQuantity+" "+specificDose.drug.doseDescription;
         RegistryDose registryDose = new RegistryDose(drug, specificDose.drug.user, details, accepted);
