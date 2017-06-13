@@ -41,8 +41,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewViewHolder> {
             regularDoses.addAll(drug.regularDoses);
         else if(drug.dosesSeriesType==2)
             customDoses.addAll(drug.customDoses);
-        daysOfWeek = new String[] { "Monday" , "Tuesday", "Wednesday", "Thursday",
-                "Friday", "Saturday", "Sunday"};
+        daysOfWeek = ctx.getResources().getStringArray(R.array.days_of_week);;
     }
 
     @Override
@@ -69,7 +68,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewViewHolder> {
             if (term.month < 10)
                 mon = "0" + Integer.toString(term.month);
             else mon = Integer.toString(term.month);
-            if(term.interval=="day")
+            if(term.interval==daysOfWeek[0])
                 holder.itemDateView.setText(Integer.toString(term.hour) +":"+ minute);
             else if(term.weekDay == -1)
                 if(term.month == -1)

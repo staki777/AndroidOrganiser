@@ -38,8 +38,6 @@ public class MyListFragment extends BaseDrugsActivityFragment {
         super.onStart();
         list = (RecyclerView) getView().findViewById(R.id.term_list_prev);
         list.setLayoutManager(new LinearLayoutManager(activity().getApplicationContext()));
-        //DoseAdapter doseAdapter = new DoseAdapter(getActivity());
-        //Pair<Drug, DateTime> drug = doseAdapter.getDrug(pos);
         myDrug = activity().getEditedDrug();
         PreviewAdapter adapter = new PreviewAdapter(myDrug, getActivity());
         list.setAdapter(adapter);
