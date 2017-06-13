@@ -1,7 +1,7 @@
 package com.example.user.drugsorganiser.Model;
 
+import android.content.Context;
 import android.util.Log;
-import android.view.View;
 
 import com.example.user.drugsorganiser.R;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class DoseTypes {
     private List<String> list=new ArrayList<String>();
     private String[] arr;
-    public  DoseTypes(View ctx){
+    public  DoseTypes(Context ctx){
         arr = ctx.getResources().getStringArray(R.array.dose_types_array);
         for(String el : arr){
             list.add(el);
@@ -40,6 +40,9 @@ public class DoseTypes {
     }
     public String getOtherString(){
         return  list.get(list.size()-1);
+    }
+    public String itemAtIndex(int indNo){
+        return  arr[indNo];
     }
 
 }

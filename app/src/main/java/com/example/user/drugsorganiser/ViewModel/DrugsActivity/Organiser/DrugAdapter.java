@@ -64,7 +64,8 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
     public void onBindViewHolder(final DrugViewHolder holder, final int position) {
         final Drug drug = drugs.get(position);
         holder.itemNameView.setText(drug.name);
-        holder.itemDoseView.setText(drug.doseQuantity+" "+drug.doseDescription);
+        String doseTypeName = ((DrugsActivity)ctx).getDoseTypes().getPositionOfOther()==drug.doseType? drug.customDoseType : ((DrugsActivity)ctx).getDoseTypes().itemAtIndex(drug.doseType);
+        holder.itemDoseView.setText(drug.doseQuantity+" "+doseTypeName);
         holder.itemCommentView.setText(drug.comment);
         holder.itemImportantView.setText((drug.important)? ctx.getString(R.string.important): ctx.getString(R.string.not_important));
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {

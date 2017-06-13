@@ -75,7 +75,7 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
         }
         activity().setEditedDrug(drugToEdit);
 
-        doseTypes = new DoseTypes(getView());
+        doseTypes = new DoseTypes(activity());
         dosageTypes = new DosageTypes(getView());
         btnPositive = (Button) getView().findViewById(R.id.positive_button);
         btnNegative = (Button) getView().findViewById(R.id.negative_button);
@@ -155,9 +155,10 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
             getActivity().setTitle(getView().getResources().getString(R.string.edit_drug));
             etName.setText(activity().getEditedDrug().name);
             dosePicker.setValue(activity().getEditedDrug().doseQuantity);
-            spDoseType.setSelection(doseTypes.getPosition(activity().getEditedDrug().doseDescription));
+            spDoseType.setSelection(activity().getEditedDrug().doseType);
+
             if(spDoseType.getSelectedItemPosition() == doseTypes.getPositionOfOther())
-                etOtherDoseType.setText(activity().getEditedDrug().doseDescription);
+                etOtherDoseType.setText(activity().getEditedDrug().customDoseType);
             etComment.setText(activity().getEditedDrug().comment);
             if(activity().getEditedDrug().important){
                 chbxImportant.toggle();
@@ -183,7 +184,11 @@ public class AddEditDrugFragment extends BaseDrugsActivityFragment implements Vi
 
             activity().getEditedDrug().name = etName.getText().toString();
             activity().getEditedDrug().important = chbxImportant.isChecked();
-            activity().getEditedDrug().doseDescription=(etOtherDoseType.getVisibility()==View.VISIBLE) ? etOtherDoseType.getText().toString() : spDoseType.getSelectedItem().toString();
+            activity().getEditedDrug().doseType =(etOtherDoseType.getVisibility()==View.VISIBLE) ? (activity().getDoseTypes().getPositionOfOther()) : (spDoseType.getSelectedItemPosition());
+            if(etOtherDoseType.getVisibility()==View.VISIBLE)
+                activity().getEditedDrug().customDoseType = etOtherDoseType.getText().toString();
+            else
+                activity().getEditedDrug().customDoseType = "";
             activity().getEditedDrug().doseQuantity = dosePicker.getValue();
             activity().getEditedDrug().comment = etComment.getText().toString();
 

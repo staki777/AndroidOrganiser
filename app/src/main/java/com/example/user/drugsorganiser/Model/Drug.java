@@ -20,6 +20,7 @@ public class Drug implements Serializable {
     public static final String NAME_COLUMN = "drug_name";
     public static final String DOSE_QUANTITY_COLUMN ="drug_dose_quantity";
     public static final String DOSE_DESCRIPTION_COLUMN = "drug_dose_description";
+    public static final String CUSTOM_DOSE_DESCRIPTION_COLUMN = "drug_dose_custom_description";
     public static final String DOSES_SERIES_COLUMN = "doses_series_type";
     public static final String IMPORTANT_COLUMN = "drug_important";
     public static final String COMMENT_COLUMN ="drug_comment";
@@ -36,7 +37,10 @@ public class Drug implements Serializable {
     public int doseQuantity;
 
     @DatabaseField(columnName = DOSE_DESCRIPTION_COLUMN)
-    public String doseDescription;
+    public int doseType;
+
+    @DatabaseField(columnName = CUSTOM_DOSE_DESCRIPTION_COLUMN)
+    public String customDoseType;
 
     @DatabaseField(columnName = DOSES_SERIES_COLUMN)
     public int dosesSeriesType;
@@ -72,10 +76,11 @@ public class Drug implements Serializable {
         customDoses = new ArrayList<>();
     } //required
 
-    public Drug(User user, String name, int doseQuantity, String doseDescription, int dosesSeriesType, boolean important, String comment) {
+    public Drug(User user, String name, int doseQuantity, int doseType, String customDoseType, int dosesSeriesType, boolean important, String comment) {
         this.name = name;
         this.doseQuantity = doseQuantity;
-        this.doseDescription = doseDescription;
+        this.doseType = doseType;
+        this.customDoseType = customDoseType;
         this.dosesSeriesType = dosesSeriesType;
         this.important = important;
         this.comment = comment;

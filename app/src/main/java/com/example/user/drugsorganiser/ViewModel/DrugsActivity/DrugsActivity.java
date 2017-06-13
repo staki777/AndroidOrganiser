@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.user.drugsorganiser.DataBase.DatabaseHelper;
+import com.example.user.drugsorganiser.Model.DoseTypes;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.RegistryDose;
 import com.example.user.drugsorganiser.Model.SpecificDose;
@@ -50,6 +51,7 @@ public class DrugsActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper = null;
     private User user;
     private Drug editedDrug;
+    private DoseTypes doseTypes;
 
     // ACTIVITY MANAGEMENT
 
@@ -58,11 +60,7 @@ public class DrugsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.i("DrugsActivity", "onCreate");
         setContentView(R.layout.activity_drugs);
-        getLocale();
-//        if (android.os.Build.VERSION.SDK_INT >=17){
-//            Log.i("DrugsActivity", "Locale will be set.");
-//            setLocale();
-//        }
+        doseTypes = new DoseTypes(this);
 
         // odkomentować na pierwsze uruchomienie aplikacji po podbiciu wersji bazy danych
         // SaveSharedPreference.clearPreferences(getApplicationContext());
@@ -152,7 +150,7 @@ public class DrugsActivity extends AppCompatActivity {
 
     public  void setAlarmForDose(SpecificDose specificDose){
         Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" will be set.");
-        String comment = specificDose.drug.doseQuantity + " " +specificDose.drug.doseDescription+"\n"+specificDose.drug.comment;
+        String comment = specificDose.drug.doseQuantity + " " +specificDose.drug.doseType +"\n"+specificDose.drug.comment;
         specificDose.alarmId = startOnetimeAlarm(getCurrentFocus(), specificDose.drug.name, comment, specificDose.doseDate.getMillis());
         if (specificDose.alarmId == -1) {
             specificDose.alarmId = 0;
@@ -238,7 +236,6 @@ public class DrugsActivity extends AppCompatActivity {
             alarm = new AlarmManagerBroadcastReceiver(this);
         }
         Log.i("DrugsActivity","RequestCode " + requestCode + " is " + (alarm.freeRequestCode(requestCode) ? "free" : "not free"));
-        //TODO: React on information about dose (accepted/rejected).
         if (!isDoseAccepted) {
             sendMessage(userName, drugName, description);
             Log.i("DrugsActivity","Dose wasn't accepted.");
@@ -250,8 +247,7 @@ public class DrugsActivity extends AppCompatActivity {
         if(specificDose == null)
             return;
         String drug = UniversalMethods.DateTimeToString(specificDose.doseDate)+" - "+specificDose.drug.name;
-        String details = specificDose.drug.doseQuantity+" "+specificDose.drug.doseDescription;
-        RegistryDose registryDose = new RegistryDose(drug, specificDose.drug.user, details, accepted);
+        RegistryDose registryDose = new RegistryDose(drug, specificDose.drug.user, specificDose.drug.doseQuantity, specificDose.drug.doseType, specificDose.drug.customDoseType, accepted);
         try {
             final Dao<RegistryDose, Integer> registryDao = this.getHelper().getRegistryDao();
             registryDao.create(registryDose);
@@ -365,6 +361,12 @@ public class DrugsActivity extends AppCompatActivity {
 
     public void setEditedDrug(Drug editedDrug) {
         this.editedDrug = editedDrug;
+    }
+
+    public DoseTypes getDoseTypes(){
+        if(doseTypes == null)
+            doseTypes = new DoseTypes(this);
+        return doseTypes;
     }
 
     @TargetApi(17)

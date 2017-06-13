@@ -49,7 +49,7 @@ public class PreviewFragment extends BaseDrugsActivityFragment implements View.O
         myDrug = drugToView;
         name.setText(drugToView.name);
         dose_c.setText(String.valueOf(drugToView.doseQuantity));
-        dose_type.setText(drugToView.doseDescription);
+        dose_type.setText(drugToView.doseType);
         info.setText(drugToView.comment);
 
         if(drugToView.important == true)

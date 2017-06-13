@@ -48,7 +48,8 @@ public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
     public void onBindViewHolder(final DrugViewHolder holder, final int position) {
         final RegistryDose dose = doses.get(doses.size() - position - 1);
         holder.itemNameView.setText(dose.drug);
-        holder.itemDoseView.setText(dose.dose);
+        String doseDescription = dose.doseQuantity+" "+(((DrugsActivity)ctx).getDoseTypes().getPositionOfOther()==dose.doseType? dose.doseCustomType : ((DrugsActivity)ctx).getDoseTypes().itemAtIndex(dose.doseType));
+        holder.itemDoseView.setText(doseDescription);
         holder.itemImportantView.setText((dose.accepted) ? ctx.getString(R.string.accepted) : ctx.getString(R.string.unaccepted));
     }
 

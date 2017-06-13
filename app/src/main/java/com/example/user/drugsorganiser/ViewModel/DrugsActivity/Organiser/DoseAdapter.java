@@ -53,7 +53,8 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
     public void onBindViewHolder(final DrugViewHolder holder, final int position) {
         final Pair<Drug,DateTime> dose = doses.get(position);
         holder.itemNameView.setText(UniversalMethods.DateTimeToString(dose.second)+" - "+dose.first.name);
-        holder.itemDoseView.setText(dose.first.doseQuantity+" "+dose.first.doseDescription);
+        String doseTypeName = ((DrugsActivity)ctx).getDoseTypes().getPositionOfOther()==dose.first.doseType? dose.first.customDoseType : ((DrugsActivity)ctx).getDoseTypes().itemAtIndex(dose.first.doseType);
+        holder.itemDoseView.setText(dose.first.doseQuantity+" "+doseTypeName);
         holder.itemImportantView.setText((dose.first.important)? ctx.getString(R.string.important): ctx.getString(R.string.not_important));
         holder.itemCommentView.setText(dose.first.comment);
     }
