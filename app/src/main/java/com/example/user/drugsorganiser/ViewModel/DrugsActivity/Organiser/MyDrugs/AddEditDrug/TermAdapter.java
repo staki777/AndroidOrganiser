@@ -102,7 +102,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
 
         customDoses.remove(position);
         notifyItemRemoved(position);
-        Toast.makeText(ctx, "Selected term\n"+ ctx.getString(R.string.delete_confirmation), Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, ctx.getString(R.string.term_deleted_confirmation), Toast.LENGTH_SHORT).show();
     }
 
     public void addItem(CustomDose term){
@@ -112,7 +112,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermViewHolder>  implement
         customDoses.add(term);
         notifyItemInserted(customDoses.indexOf(term));
         Log.i("TermAdapter", Arrays.toString(customDoses.toArray()));
-        Toast.makeText(ctx, "New term successfully added!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, ctx.getString(R.string.term_added_confirmation), Toast.LENGTH_SHORT).show();
     }
 
     private Collection<CustomDose> findCustomDosesByDrug(Drug drug) {

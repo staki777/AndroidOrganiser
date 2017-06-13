@@ -66,7 +66,7 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugViewHolder>  implement
         holder.itemNameView.setText(drug.name);
         holder.itemDoseView.setText(drug.doseQuantity+" "+drug.doseDescription);
         holder.itemCommentView.setText(drug.comment);
-        holder.itemImportantView.setText((drug.important)?"Important": "Not important");
+        holder.itemImportantView.setText((drug.important)? ctx.getString(R.string.important): ctx.getString(R.string.not_important));
         holder.itemOptionsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {

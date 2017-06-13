@@ -26,6 +26,7 @@ public class PreviewFragment extends BaseDrugsActivityFragment implements View.O
     private LinearLayout ll;
     public Drug myDrug;
     public Drug drugToView;
+    private String[] dosageTypesArr;
 
     public PreviewFragment(){
 
@@ -35,7 +36,7 @@ public class PreviewFragment extends BaseDrugsActivityFragment implements View.O
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.drug_preview, container, false);
-
+        dosageTypesArr = v.getResources().getStringArray(R.array.dosage_array);
         name = (TextView) v.findViewById(R.id.tv_name);
         dose_c = (TextView) v.findViewById(R.id.tv_dosePicker);
         dose_type = (TextView) v.findViewById(R.id.tv_dose_type_spinner);
@@ -53,12 +54,7 @@ public class PreviewFragment extends BaseDrugsActivityFragment implements View.O
 
         if(drugToView.important == true)
             ll.setVisibility(View.VISIBLE);
-        if(drugToView.dosesSeriesType==0)
-            dosage_type.setText("Regular dosage");
-        if(drugToView.dosesSeriesType==2)
-            dosage_type.setText("Custom dosage");
-        if(drugToView.dosesSeriesType==1)
-            dosage_type.setText("Constant interval dosage");
+        dosage_type.setText(dosageTypesArr[drugToView.dosesSeriesType]);
         if(drugToView.dosesSeriesType == 0 || drugToView.dosesSeriesType == 2) {
             Log.i("PreviewFragment", "replace");
             activity().removeIfExists(MyListFragment.class.getSimpleName());

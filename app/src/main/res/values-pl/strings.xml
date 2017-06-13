@@ -41,7 +41,7 @@
     <string name="delete_item_dialog_title">Usuwanie leku</string>
     <string name="yes_button">Tak</string>
     <string name="no_button">Nie</string>
-    <string name="FewTimesPer">Kilka razy w:</string>
+    <string name="FewTimesPer">Kilka razy na:</string>
     <string name="chooseFrequency">Wybierz częstotliwość:</string>
     <string name="addANewTerm">DODAJ NOWY TERMIN</string>
     <string name="terms">Terminy:</string>
@@ -106,10 +106,10 @@
     </string-array>
 
     <string-array name="time_array">
-        <item>day</item>
-        <item>week</item>
-        <item>month</item>
-        <item>year</item>
+        <item>dzień</item>
+        <item>tydzień</item>
+        <item>miesiąc</item>
+        <item>rok</item>
     </string-array>
 
     <string-array name="time_array2">
@@ -119,28 +119,28 @@
     </string-array>
 
     <string-array name="days_of_week">
-        <item>Monday</item>
-        <item>Tuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
-        <item>Saturday</item>
-        <item>Sunday</item>
+        <item>Poniedziałek</item>
+        <item>Wtorek</item>
+        <item>Środa</item>
+        <item>Czwartek</item>
+        <item>Piątek</item>
+        <item>Sobota</item>
+        <item>Niedziela</item>
     </string-array>
 
     <string-array name="months">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
+        <item>Styczeń</item>
+        <item>Luty</item>
+        <item>Marzec</item>
+        <item>Kwiecień</item>
+        <item>Maj</item>
+        <item>Czerwiec</item>
+        <item>Lipiec</item>
+        <item>Sierpień</item>
+        <item>Wrzesień</item>
+        <item>Październik</item>
+        <item>Listopad</item>
+        <item>Grudzień</item>
     </string-array>
 
         <string-array name="listArray">
@@ -153,6 +153,13 @@
             <item>en</item>
         </string-array>
     <string name="drug_preview">Podgląd leku</string>
+    <string name="adding_new_term">Dodawanie nowego terminu</string>
+    <string name="accepted">Zaakceptowany</string>
+    <string name="important">Ważny</string>
+    <string name="not_important">Nieważny</string>
+    <string name="term_added_confirmation">Nowy termin został dodany pomyślnie!</string>
+    <string name="term_deleted_confirmation">Termin został pomyślnie usunięty!</string>
+    <string name="unaccepted">Niezaakceptowany</string>
 
 
 </resources>

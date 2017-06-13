@@ -1,21 +1,16 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.TimePicker;
 
-import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.RegularDose;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
-
-import org.joda.time.DateTime;
 
 /**
  * Created by Gosia on 29.05.2017.
@@ -37,7 +32,7 @@ public class DateTimeRegularDosageFragment0 extends BaseDrugsActivityFragment im
         positiveBtn.setOnClickListener(this);
         negativeBtn.setOnClickListener(this);
         tp = (TimePicker)v.findViewById(R.id.timePicker0);
-        getActivity().setTitle("Adding new term");
+        getActivity().setTitle(v.getResources().getString(R.string.adding_new_term));
         return v;
     }
 

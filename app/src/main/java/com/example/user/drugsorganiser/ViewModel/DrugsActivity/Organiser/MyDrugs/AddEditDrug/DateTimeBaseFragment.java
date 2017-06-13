@@ -49,7 +49,7 @@ public abstract class DateTimeBaseFragment extends BaseDrugsActivityFragment imp
             negativeBtn = (Button) v.findViewById(R.id.negative_button);
             positiveBtn.setOnClickListener(this);
             negativeBtn.setOnClickListener(this);
-            getActivity().setTitle("Adding new term");
+            getActivity().setTitle(v.getResources().getString(R.string.adding_new_term));
         return v;
     }
 

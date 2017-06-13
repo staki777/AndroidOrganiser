@@ -25,7 +25,6 @@ public  class SettingsFragment extends PreferenceFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getActivity().setTitle(getView().getResources().getString(R.string.action_settings));
         addPreferencesFromResource(R.xml.preferences);
         spChanged = new SharedPreferences.OnSharedPreferenceChangeListener() {
 
@@ -42,6 +41,7 @@ public  class SettingsFragment extends PreferenceFragment {
                         language = "pl_PL";
                     }
                     Resources res = getActivity().getApplicationContext().getResources();
+                    getActivity().setTitle(res.getString(R.string.action_settings));
                     DisplayMetrics dm = res.getDisplayMetrics();
                     android.content.res.Configuration conf = res.getConfiguration();
                     conf.setLocale(new Locale(language)); // API 17+ only.

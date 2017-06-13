@@ -73,6 +73,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="drug_preview">Drug preview</string>
+    <string name="adding_new_term">Adding new term</string>
+    <string name="term_deleted_confirmation">Term successfully deleted!</string>
+    <string name="term_added_confirmation">"New term successfully added!</string>
+    <string name="important">Important</string>
+    <string name="not_important">Not important</string>
+    <string name="accepted">Accepted</string>
+    <string name="unaccepted">Unaccepted</string>
+
     <!--SETTINGS-->
     <string name="action_settings">Settings</string>
     <string name="delete_confirmation_title">Drug delete confirmation</string>

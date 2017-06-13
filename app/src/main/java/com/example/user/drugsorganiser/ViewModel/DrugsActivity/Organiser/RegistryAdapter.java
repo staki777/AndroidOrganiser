@@ -1,24 +1,17 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser;
 
 import android.content.Context;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.RegistryDose;
-import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,7 +49,7 @@ public class RegistryAdapter extends RecyclerView.Adapter<DrugViewHolder> {
         final RegistryDose dose = doses.get(doses.size() - position - 1);
         holder.itemNameView.setText(dose.drug);
         holder.itemDoseView.setText(dose.dose);
-        holder.itemImportantView.setText((dose.accepted) ? "Accepted" : "Unaccepted");
+        holder.itemImportantView.setText((dose.accepted) ? ctx.getString(R.string.accepted) : ctx.getString(R.string.unaccepted));
     }
 
     @Override

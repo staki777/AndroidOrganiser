@@ -87,7 +87,7 @@ public class DateTimeRegularDosageFragment2 extends BaseDrugsActivityFragment im
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         };
-        getActivity().setTitle("Adding new term");
+        getActivity().setTitle(v.getResources().getString(R.string.adding_new_term));
         return v;
     }
 

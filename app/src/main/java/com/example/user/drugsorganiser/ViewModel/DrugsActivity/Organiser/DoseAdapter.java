@@ -54,7 +54,7 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
         final Pair<Drug,DateTime> dose = doses.get(position);
         holder.itemNameView.setText(UniversalMethods.DateTimeToString(dose.second)+" - "+dose.first.name);
         holder.itemDoseView.setText(dose.first.doseQuantity+" "+dose.first.doseDescription);
-        holder.itemImportantView.setText((dose.first.important)?"Important": "Not important");
+        holder.itemImportantView.setText((dose.first.important)? ctx.getString(R.string.important): ctx.getString(R.string.not_important));
         holder.itemCommentView.setText(dose.first.comment);
     }
 

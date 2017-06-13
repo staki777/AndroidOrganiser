@@ -12,11 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.user.drugsorganiser.Model.CustomDose;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.Model.RegularDose;
 import com.example.user.drugsorganiser.R;
-import com.example.user.drugsorganiser.Shared.UniversalMethods;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
 
 import java.io.Serializable;
@@ -129,7 +127,7 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
         ((DrugsActivity)ctx).getEditedDrug().regularDoses.remove(term);
         regularDoses.remove(position);
         notifyItemRemoved(position);
-        Toast.makeText(ctx, "Selected term\n"+ ctx.getString(R.string.delete_confirmation), Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, ctx.getString(R.string.term_deleted_confirmation), Toast.LENGTH_SHORT).show();
     }
     public  void deleteAllItems(){
         ((DrugsActivity)ctx).getEditedDrug().regularDoses.clear();
@@ -145,13 +143,13 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
         regularDoses.add(term);
         notifyItemInserted(regularDoses.indexOf(term));
         Log.i("TermAdapter", Arrays.toString(regularDoses.toArray()));
-        Toast.makeText(ctx, "New term successfully added!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, R.string.term_added_confirmation, Toast.LENGTH_SHORT).show();
     }
 
     private Collection<RegularDose> findRegularDosesByDrug(Drug drug) {
         return ((DrugsActivity)ctx).getEditedDrug().regularDoses;
     }
-    public String getTyp() {
+    public String getType() {
         if(type == null)
             return null;
         else return type;
