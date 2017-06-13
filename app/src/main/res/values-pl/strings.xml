@@ -83,13 +83,13 @@
 
 
     <string-array name="dose_types_array">
-        <item>tabletki</item>
-        <item>ampułki</item>
-        <item>inhalacje</item>
+        <item>tabletki(-ek)</item>
+        <item>ampułki(-ek)</item>
+        <item>inhalacje(-i)</item>
         <item>ml</item>
-        <item>łyżki</item>
-        <item>łyżeczki</item>
-        <item>czopki</item>
+        <item>łyżki(-ek)</item>
+        <item>łyżeczki(-ek)</item>
+        <item>czopki(-ów)</item>
         <item>inne</item>
     </string-array>
 
