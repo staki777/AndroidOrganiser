@@ -24,6 +24,8 @@ public  class SettingsFragment extends PreferenceFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActivity().setTitle(getView().getResources().getString(R.string.action_settings));
         addPreferencesFromResource(R.xml.preferences);
         spChanged = new SharedPreferences.OnSharedPreferenceChangeListener() {
 

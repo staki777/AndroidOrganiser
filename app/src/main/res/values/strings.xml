@@ -15,7 +15,7 @@
     <string name="account_created">Your account has been successfully created!</string>
     <string name="login_successfull">Login successfull!</string>
     <string name="title_activity_drugs">DrugsActivity</string>
-    <string name="current_user">CURRENT_USER</string>
+    <string name="current_user" translatable="false">CURRENT_USER</string>
     <string name="my_drugs">My drugs</string>
     <string name="schedule">Schedule</string>
     <string name="archive">Registry</string>
@@ -42,7 +42,7 @@
     <string name="delete_item_dialog_title">Delete drug</string>
     <string name="yes_button">Yes</string>
     <string name="no_button">No</string>
-    <string name="FewTimesPer">Few times per:</string>
+    <string name="FewTimesPer">A few times per:</string>
     <string name="chooseFrequency">Choose frequency:</string>
     <string name="addANewTerm">ADD A NEW TERM</string>
     <string name="terms">Terms:</string>
@@ -72,14 +72,15 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="drug_preview">Drug preview</string>
     <!--SETTINGS-->
     <string name="action_settings">Settings</string>
-    <string name="delete_confirmation_title">Delete confirmation</string>
-    <string name="delete_confirmation_title_prompt">This option if selected will display delete confirmation dialog while removing items.</string>
-    <string name="deleteConfirmationKey">deleteConfirmation</string>
+    <string name="delete_confirmation_title">Drug delete confirmation</string>
+    <string name="delete_confirmation_title_prompt">This option if selected will display delete confirmation dialog while removing drugs.</string>
+    <string name="deleteConfirmationKey" translatable="false">deleteConfirmation</string>
     <string name="language">Language</string>
     <string name="language_prompt">Select language.</string>
-    <string name="languageKey">language</string>
+    <string name="languageKey" translatable="false">language</string>
     <string name="Polish">Polish</string>
     <string name="english">English</string>
 

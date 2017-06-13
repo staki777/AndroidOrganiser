@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.example.user.drugsorganiser.Model.Drug;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Preview.IntervalPrevFragment;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Preview.MyListFragment;
 
 /**
  * Created by Gosia on 31.05.2017.
@@ -44,7 +42,7 @@ public class PreviewFragment extends BaseDrugsActivityFragment implements View.O
         dosage_type = (TextView) v.findViewById(R.id.tv_dosage_type_spinner);
         info = (TextView) v.findViewById(R.id.tv_editComment);
         ll = (LinearLayout) v.findViewById(R.id.linear_important);
-        getActivity().setTitle("Drug preview");
+        getActivity().setTitle(v.getResources().getString(R.string.drug_preview));
 
         drugToView = activity().getEditedDrug();
         myDrug = drugToView;
