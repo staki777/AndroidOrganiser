@@ -2,7 +2,7 @@
     <string name="app_name">Organizer lekarstw</string>
     <string name="welcome">Witaj!</string>
     <string name="register">Rejestracja</string>
-    <string name="login">Login</string>
+    <string name="login">Logowanie</string>
     <string name="login_prompt">Login:</string>
     <string name="password_prompt">Hasło:</string>
     <string name="otherDoseTypePrompt">Proszę podać własną jednostkę dawkowania:</string>
@@ -73,7 +73,7 @@
 
     <!--SETTINGS-->
     <string name="action_settings">Ustawienia</string>
-    <string name="delete_confirmation_title">Potwierdzenie usunięcia leku</string>
+    <string name="delete_confirmation_title">Potwierdzenie usunięcia</string>
     <string name="delete_confirmation_title_prompt">Po zaznaczeniu tej opcji, przy każdej próbie usunięcia leku zostanie wyświetlone okno potwierdzające.</string>
     <string name="language">Język</string>
     <string name="language_prompt">Wybierz język.</string>
