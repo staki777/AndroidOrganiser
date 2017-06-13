@@ -39,8 +39,7 @@ public class DateTimeRegularDosageFragment1 extends BaseDrugsActivityFragment im
         negativeBtn.setOnClickListener(this);
         tp = (TimePicker)v.findViewById(R.id.timePicker1);
         picker = (NumberPicker) v.findViewById(R.id.weekPicker);
-        daysOfWeek = new String[] { "Monday" , "Tuesday", "Wednesday", "Thursday",
-                "Friday", "Saturday", "Sunday"};
+        daysOfWeek = getResources().getStringArray(R.array.days_of_week);
         if (picker != null) {
             picker.setMinValue(1);
             picker.setMaxValue(7);
@@ -56,8 +55,8 @@ public class DateTimeRegularDosageFragment1 extends BaseDrugsActivityFragment im
         if(v == positiveBtn){
             Drug editedDrug = activity().getEditedDrug();
             TermAdapterRegular termAdapter = new TermAdapterRegular(editedDrug, getActivity());
-
-            termAdapter.addItem(new RegularDose(editedDrug, "week",tp.getCurrentMinute(),tp.getCurrentHour(),picker.getValue(),-1,-1));
+            String[] array = getResources().getStringArray(R.array.time_array);
+            termAdapter.addItem(new RegularDose(editedDrug, array[1],tp.getCurrentMinute(),tp.getCurrentHour(),picker.getValue(),-1,-1));
             activity().onBackPressed();
 
         }

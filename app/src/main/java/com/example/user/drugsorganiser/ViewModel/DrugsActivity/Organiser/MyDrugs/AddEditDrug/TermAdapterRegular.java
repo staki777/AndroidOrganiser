@@ -43,8 +43,7 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
         regularDoses.addAll(findRegularDosesByDrug());
         if(regularDoses.size()>=1)
             type = regularDoses.get(0).interval;
-        daysOfWeek = new String[] { "Monday" , "Tuesday", "Wednesday", "Thursday",
-                "Friday", "Saturday", "Sunday"};
+        daysOfWeek = ctx.getResources().getStringArray(R.array.days_of_week);
         Log.i("TermAdapterRegular", regularDoses.size()+" DosesFound");
     }
 
@@ -70,7 +69,7 @@ public class TermAdapterRegular extends RecyclerView.Adapter<TermViewHolder>  im
         if (term.month < 10)
             mon = "0" + Integer.toString(term.month);
         else mon = Integer.toString(term.month);
-        if(term.interval=="day")
+        if(term.interval==daysOfWeek[0])
             holder.itemDateView.setText(Integer.toString(term.hour) +":"+ minute);
         else if(term.weekDay == -1)
             if(term.month == -1)

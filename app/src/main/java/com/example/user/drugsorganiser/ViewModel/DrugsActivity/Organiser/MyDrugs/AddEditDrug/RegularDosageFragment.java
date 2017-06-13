@@ -41,13 +41,14 @@ public class RegularDosageFragment extends BaseDrugsActivityFragment implements 
         recyclerView.setLayoutManager(new LinearLayoutManager(activity().getApplicationContext()));
         termAdapter = new TermAdapterRegular(activity().getEditedDrug(), getActivity());
         recyclerView.setAdapter(termAdapter);
+        String[] array = getResources().getStringArray(R.array.time_array);
 
         if(termAdapter.getItemCount()>0) {
-            if(termAdapter.getType().contentEquals("day"))
+            if(termAdapter.getType().contentEquals(array[0]))
                 position = 0;
-            else if(termAdapter.getType().contentEquals("week"))
+            else if(termAdapter.getType().contentEquals(array[1]))
                 position = 1;
-            else if(termAdapter.getType().contentEquals("month"))
+            else if(termAdapter.getType().contentEquals(array[2]))
                 position = 2;
             else
                 position = 3;

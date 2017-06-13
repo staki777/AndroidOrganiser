@@ -37,7 +37,6 @@ public class IntervalPrevFragment extends BaseDrugsActivityFragment {
     public void onStart() {
         Log.i(LogTag(), "onStartIntervalPrevFragment");
         super.onStart();
-        String[] time_unit = {" minute(s)", " hour(s)", " day(s)", " month(s)", " year(s)"};
         TextView startDose = (TextView) getView().findViewById(R.id.item_date);
         TextView interval = (TextView) getView().findViewById(R.id.tv_intervalNumberPicker);
         TextView unit = (TextView) getView().findViewById(R.id.tv_intervalUnitSpinner);
@@ -49,7 +48,7 @@ public class IntervalPrevFragment extends BaseDrugsActivityFragment {
     }
 
     private String[] translateInterval(int interval) {
-        String[] time_unit = {" minute(s)", " hour(s)", " day(s)", " month(s)", " year(s)"};
+        String[] time_unit = getResources().getStringArray(R.array.time_units_array);;
         int[] multiplicators = {1, 60, 60 * 24, 60 * 24 * 30, 60 * 24 * 30 * 256};
         String[] result = new String[2];
         for (int i = multiplicators.length - 1; i > 0; i--) {
