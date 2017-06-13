@@ -1,0 +1,100 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment"
+    android:id="@+id/add_drug_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <!--DRUG NAME-->
+        <TextView
+            style="@style/PrimaryHeaderStyle"
+            android:text="@string/drug_name" />
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/NormalTextStyle" />
+        <include  layout="@layout/divider"/>
+        <!--DRUG DOSE-->
+        <TextView
+            style="@style/PrimaryHeaderStyle"
+            android:text="@string/drug_dose"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_dosePicker"
+                style="@style/NormalTextStyle" />
+
+            <TextView
+                android:paddingLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_dose_type_spinner"
+                android:layout_gravity="center_vertical"
+                style="@style/NormalTextStyle"/>
+        </LinearLayout>
+        <include  layout="@layout/divider"/>
+        <!--DRUG DOSAGE TYPE-->
+        <TextView
+            style="@style/PrimaryHeaderStyle"
+            android:text="@string/drug_dosage"/>
+        <TextView
+            android:id="@+id/tv_dosage_type_spinner"
+            style="@style/NormalTextStyle" />
+
+        <!--EMPTY LAYOUT TO REPLACE-->
+        <LinearLayout
+            android:id="@+id/dosage_type_to_replace_prev"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            >
+        </LinearLayout>
+
+        <include  layout="@layout/divider"/>
+        <!--DRUG IMPORTANT OR NOT-->
+        <LinearLayout
+            android:id="@+id/linear_important"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/tv_edit_important"
+                style="@style/NormalTextStyle"
+                android:text="@string/drug_important"/>
+        </LinearLayout>
+        <!--DRUG COMMENT-->
+
+        <TextView
+            style="@style/PrimaryHeaderStyle"
+            android:text="@string/drugCommentPrompt"/>
+        <TextView
+            style="@style/NormalTextStyle"
+            android:id="@+id/tv_editComment"/>
+
+        <!--DONE/CANCEL BUTTONS-->
+
+        <!-- <Button
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/exit_button"
+             android:layout_gravity="center"
+             android:text="@string/exit_button"/>-->
+
+    </LinearLayout>
+</ScrollView>

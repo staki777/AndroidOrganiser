@@ -1,0 +1,34 @@
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="match_parent"
+    android:shrinkColumns="1"
+    android:stretchColumns="2">
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/item_tick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:text="&#x2713;"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAppearance="?android:textAppearanceLarge" />
+        <TextView
+            android:id="@+id/item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </TableRow>
+
+
+
+
+</TableLayout>
+

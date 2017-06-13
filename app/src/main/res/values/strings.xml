@@ -47,6 +47,7 @@
     <string name="addANewTerm">ADD A NEW TERM</string>
     <string name="terms">Terms:</string>
     <string name="chooseInterval">Choose interval:</string>
+    <string name="Interval">Interval:</string>
     <string name="startingDoseTerm">Starting dose term:</string>
     <string name="AddDate">Add date</string>
     <string name="chooseDate">Choose date:</string>

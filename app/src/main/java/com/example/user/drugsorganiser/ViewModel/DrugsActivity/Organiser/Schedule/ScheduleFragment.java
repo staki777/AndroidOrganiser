@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.DoseAdapter;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Preview.PreviewFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Preview.RecycleItemClickListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +44,15 @@ public class ScheduleFragment extends BaseDrugsActivityFragment {
 
         final DoseAdapter doseAdapter = new DoseAdapter( getActivity());
         recyclerView.setAdapter(doseAdapter);
+        recyclerView.addOnItemTouchListener(
+                new RecycleItemClickListener(getActivity(), new RecycleItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        activity().setEditedDrug(doseAdapter.getDrug(position).first);
+                        activity().removeIfExists(PreviewFragment.class.getSimpleName());
+                        activity().replaceWithNew(R.id.toReplace, new PreviewFragment(), true);
+                    }
+                })
+        );
     }
 
     @Override

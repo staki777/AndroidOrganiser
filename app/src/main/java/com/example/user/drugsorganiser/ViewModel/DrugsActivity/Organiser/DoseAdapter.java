@@ -62,4 +62,8 @@ public class DoseAdapter extends RecyclerView.Adapter<DrugViewHolder> {
     public int getItemCount() {
         return (doses != null) ? doses.size() : 0;
     }
+
+    public Pair<Drug,DateTime> getDrug(int position)   {
+        return doses.get(position);
+    }
 }
