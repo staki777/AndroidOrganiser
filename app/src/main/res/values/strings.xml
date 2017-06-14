@@ -55,6 +55,7 @@
     <string name="chooseDayOfMonth">Choose day of month:</string>
     <string name="chooseDayOfWeek">Choose day of week:</string>
     <string name="add_new_drug">Add new drug</string>
+    <string name="add_info">no additional information provided</string>
     <string name="edit_drug">Edit drug</string>
     <string name="confirm">Confirm</string>
     <string name="resign">Resign</string>

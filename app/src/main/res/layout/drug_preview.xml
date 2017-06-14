@@ -15,14 +15,17 @@
 
         <!--DRUG NAME-->
         <TextView
+            android:paddingLeft="15dp"
             style="@style/PrimaryHeaderStyle"
             android:text="@string/drug_name" />
         <TextView
+            android:paddingLeft="20dp"
             android:id="@+id/tv_name"
             style="@style/NormalTextStyle" />
         <include  layout="@layout/divider"/>
         <!--DRUG DOSE-->
         <TextView
+            android:paddingLeft="15dp"
             style="@style/PrimaryHeaderStyle"
             android:text="@string/drug_dose"/>
 
@@ -30,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="5dp">
+            android:paddingLeft="20dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,14 +51,17 @@
         <include  layout="@layout/divider"/>
         <!--DRUG DOSAGE TYPE-->
         <TextView
+            android:paddingLeft="15dp"
             style="@style/PrimaryHeaderStyle"
             android:text="@string/drug_dosage"/>
         <TextView
+            android:paddingLeft="20dp"
             android:id="@+id/tv_dosage_type_spinner"
             style="@style/NormalTextStyle" />
 
         <!--EMPTY LAYOUT TO REPLACE-->
         <LinearLayout
+            android:paddingLeft="20dp"
             android:id="@+id/dosage_type_to_replace_prev"
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -74,6 +80,7 @@
             android:visibility="invisible">
 
             <TextView
+                android:paddingLeft="15dp"
                 android:id="@+id/tv_edit_important"
                 style="@style/NormalTextStyle"
                 android:text="@string/drug_important"/>
@@ -81,9 +88,11 @@
         <!--DRUG COMMENT-->
 
         <TextView
+            android:paddingLeft="15dp"
             style="@style/PrimaryHeaderStyle"
             android:text="@string/drugCommentPrompt"/>
         <TextView
+            android:paddingLeft="20dp"
             style="@style/NormalTextStyle"
             android:id="@+id/tv_editComment"/>
 
