@@ -1,8 +1,6 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Preview;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,9 +36,11 @@ public class RegularFrequencyFragment extends BaseDrugsActivityFragment {
 
     @Override
     public void onStart() {
-        Log.i(LogTag(), "RegularFrequencyFragment");
         super.onStart();
         myDrug = activity().getEditedDrug();
+        if(myDrug == null)
+            return;
+        Log.i(LogTag(), "RegularFrequencyFragment");
         String[] t_array = getResources().getStringArray(R.array.time_array);
         TextView freq = (TextView) getView().findViewById(R.id.tv_FewTimesPer_unit);
         ArrayList<RegularDose> list = new ArrayList<>();

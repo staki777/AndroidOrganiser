@@ -33,6 +33,7 @@ public class IntervalPrevFragment extends BaseDrugsActivityFragment {
     @Override
     public void onStart() {
         super.onStart();
+        myDrug = activity().getEditedDrug();
 
         if(myDrug == null) return;
         Log.i(LogTag(), "onStartIntervalPrevFragment");
@@ -40,7 +41,6 @@ public class IntervalPrevFragment extends BaseDrugsActivityFragment {
         TextView interval = (TextView) getView().findViewById(R.id.tv_intervalNumberPicker);
         TextView unit = (TextView) getView().findViewById(R.id.tv_intervalUnitSpinner);
 
-        myDrug = activity().getEditedDrug();
         startDose.setText(UniversalMethods.DateTimeToString(myDrug.constantIntervalDose.firstDose));
         interval.setText(translateInterval(myDrug.constantIntervalDose.interval)[0]);
         unit.setText(translateInterval(myDrug.constantIntervalDose.interval)[1]);

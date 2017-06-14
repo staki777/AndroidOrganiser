@@ -28,7 +28,7 @@ public class MyListFragment extends BaseDrugsActivityFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.list, container, false);
+        View v = inflater.inflate(R.layout.list_prev, container, false);
 
         return v;
     }

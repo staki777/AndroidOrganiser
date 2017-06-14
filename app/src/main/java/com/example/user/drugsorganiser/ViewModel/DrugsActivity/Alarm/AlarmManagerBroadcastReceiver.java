@@ -9,21 +9,16 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.widget.Toast;
 
-import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.Shared.DosesManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity;
-import com.example.user.drugsorganiser.ViewModel.DrugsActivity.NotificationManagement;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.RequestCodeGenerator;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedList;
 
-import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.ALARM_ACTIVITY;
 import static com.example.user.drugsorganiser.ViewModel.DrugsActivity.DrugsActivity.DESCRIPTION;
@@ -72,7 +67,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         }
         Format formatter = new SimpleDateFormat("HH:mm:ss a");
         msgStr.append(formatter.format(new Date()));
-        Toast.makeText(context, msgStr, Toast.LENGTH_LONG).show();
+       // Toast.makeText(context, msgStr, Toast.LENGTH_LONG).show();
 
         Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         if (alarmUri == null) {

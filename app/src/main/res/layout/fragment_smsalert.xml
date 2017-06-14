@@ -1,9 +1,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:background="@android:color/transparent"
+        app:srcCompat= "@mipmap/logo" />
 
     <TextView
         android:id="@+id/statementSMS1"
@@ -15,7 +26,7 @@
     <TextView
         android:id="@+id/statementSMS2"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         style="@style/NormalTextStyle"
         android:padding="10dp"/>
 

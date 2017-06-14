@@ -281,7 +281,7 @@ public class DrugsActivity extends AppCompatActivity {
     private void sendMessage(String userName, String drugName, String description) {
         SmsManager smsManager = SmsManager.getDefault();
         String message = String.format(getString(R.string.alert_message), userName, drugName);
-        Log.i("AlarmActivity", message);
+        Log.i("AlarmActivity", message + user.contactNumber);
         smsManager.sendTextMessage(user.contactNumber, null, message, null, null);
         String comment = String.format(getString(R.string.alert_notification_comment), userName);
         String details = String.format(getString(R.string.sms_alert_details), drugName, description, UniversalMethods.DateTimeToString(new DateTime()));
