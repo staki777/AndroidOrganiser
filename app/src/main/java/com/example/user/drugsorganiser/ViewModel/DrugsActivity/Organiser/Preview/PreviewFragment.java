@@ -55,7 +55,7 @@ public class PreviewFragment extends BaseDrugsActivityFragment implements View.O
         dose_type.setText(doseName);
         info.setText(drugToView.comment);
 
-        if(drugToView.important == true)
+        if(drugToView.important)
             ll.setVisibility(View.VISIBLE);
         if(drugToView.comment.length()<=0) {
             info.setText(getResources().getString(R.string.add_info));

@@ -162,6 +162,7 @@
     <string name="term_added_confirmation">Nowy termin został dodany pomyślnie!</string>
     <string name="term_deleted_confirmation">Termin został pomyślnie usunięty!</string>
     <string name="unaccepted">Niezaakceptowany</string>
+    <string name="add_info">Nie podano</string>
 
 
 </resources>
