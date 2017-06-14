@@ -57,7 +57,7 @@
                     <Button
                         android:id="@+id/btnLoginTab"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="35dp"
                         android:background="@color/colorAccent"
                         android:layout_column="0"
                         android:text="@string/login" />
@@ -67,7 +67,7 @@
                         android:id="@+id/btnRegisterTab"
                         android:background="@color/colorAccent"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="35dp"
                         android:layout_column="2"
                         android:text="@string/register" />
                 </TableRow>

@@ -45,7 +45,7 @@
             <TableRow >
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:background="@color/colorAccent"
                     android:id="@+id/negative_button2"
                     android:text="@string/negative_button"/>
@@ -53,7 +53,7 @@
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:background="@color/colorAccent"
                     android:id="@+id/positive_button2"
                     android:text="@string/positive_button"/>

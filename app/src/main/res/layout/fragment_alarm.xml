@@ -32,7 +32,7 @@
             <Button
                 android:id="@+id/reject"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:background="@color/colorAccent"
                 android:text="@string/resign" />
             <TextView android:layout_width="10dp" />
@@ -40,7 +40,7 @@
             <Button
                 android:id="@+id/accept"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:background="@color/colorAccent"
                 android:text="@string/confirm" />
         </TableRow>

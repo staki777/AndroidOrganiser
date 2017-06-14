@@ -15,7 +15,7 @@
     <TextView
         android:id="@+id/statementSMS2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         style="@style/NormalTextStyle"
         android:padding="10dp"/>
 
@@ -24,7 +24,7 @@
     <Button
         android:id="@+id/smsAlertOk"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="35dp"
         android:background="@color/colorAccent"
         android:text="OK" />
 
