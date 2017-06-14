@@ -5,6 +5,8 @@
     android:orientation="vertical"
     android:id="@+id/main_to_replace"
     android:fitsSystemWindows="true"
+    android:background="@color/colorBackground"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 </FrameLayout>
