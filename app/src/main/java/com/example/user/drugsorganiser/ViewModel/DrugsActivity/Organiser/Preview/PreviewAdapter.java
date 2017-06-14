@@ -30,7 +30,8 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewViewHolder> {
     private String[] daysOfWeek;
 
     public PreviewAdapter(Drug drug, Context ctx) {
-
+        if(drug == null)
+            return;
         Log.i("PreviewAdapter", "Constructor");
         this.drug = drug;
         this.ctx = ctx;

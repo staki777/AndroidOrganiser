@@ -28,6 +28,8 @@ import com.example.user.drugsorganiser.ViewModel.DrugsActivity.LoginRegister.Log
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.ContactPerson.ContactPersonFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Preview.IntervalPrevFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Preview.PreviewFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Registry.RegistryFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Schedule.ScheduleFragment;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Settings.SettingsFragment;
@@ -160,6 +162,14 @@ public class OrganiserFragment extends BaseDrugsActivityFragment implements Navi
 
         if (id == R.id.action_settings) {
             activity().removeIfExists(AddEditDrugFragment.class.getSimpleName());
+            activity().removeIfExists(MyDrugsFragment.class.getSimpleName());
+            activity().removeIfExists(ScheduleFragment.class.getSimpleName());
+            activity().removeIfExists(RegistryFragment.class.getSimpleName());
+            activity().removeIfExists(ContactPersonFragment.class.getSimpleName());
+            activity().removeIfExists(IntervalPrevFragment.class.getSimpleName());
+
+            activity().removeIfExists(PreviewFragment.class.getSimpleName());
+
             activity().replaceWithNewOrExisting(R.id.toReplace, new SettingsFragment());
             return true;
         }

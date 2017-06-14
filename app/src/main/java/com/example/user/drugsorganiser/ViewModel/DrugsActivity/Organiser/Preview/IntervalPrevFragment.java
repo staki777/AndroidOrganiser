@@ -1,9 +1,6 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.Preview;
 
-import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +32,10 @@ public class IntervalPrevFragment extends BaseDrugsActivityFragment {
 
     @Override
     public void onStart() {
-        Log.i(LogTag(), "onStartIntervalPrevFragment");
         super.onStart();
+
+        if(myDrug == null) return;
+        Log.i(LogTag(), "onStartIntervalPrevFragment");
         TextView startDose = (TextView) getView().findViewById(R.id.item_date);
         TextView interval = (TextView) getView().findViewById(R.id.tv_intervalNumberPicker);
         TextView unit = (TextView) getView().findViewById(R.id.tv_intervalUnitSpinner);
