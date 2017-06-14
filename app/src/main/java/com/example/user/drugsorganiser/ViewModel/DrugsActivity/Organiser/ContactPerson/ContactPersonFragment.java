@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.example.user.drugsorganiser.Model.User;
 import com.example.user.drugsorganiser.R;
 import com.example.user.drugsorganiser.ViewModel.DrugsActivity.BaseDrugsActivityFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.AddEditDrug.AddEditDrugFragment;
+import com.example.user.drugsorganiser.ViewModel.DrugsActivity.Organiser.MyDrugs.MyDrugsFragment;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
@@ -143,6 +145,7 @@ public class ContactPersonFragment extends BaseDrugsActivityFragment {
 
             cursor.close();
             Toast.makeText(getActivity(), "New contact person has been selected.", Toast.LENGTH_SHORT).show();
+            activity().replaceWithNewOrExisting(R.id.toReplace, new MyDrugsFragment());
         }
     }
 }
