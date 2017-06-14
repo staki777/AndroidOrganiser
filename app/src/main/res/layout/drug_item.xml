@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -11,19 +17,26 @@
 
     <TableRow>
 
-        <TextView
-            android:id="@+id/item_tick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:text="&#x2713;"
-            android:textColor="@color/colorPrimaryDark"
-            android:textAppearance="?android:textAppearanceLarge" />
+        <!--<TextView-->
+            <!--android:id="@+id/item_tick"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="left"-->
+            <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+            <!--android:text="&#x2713;"-->
+            <!--android:textColor="@color/colorPrimaryDark"-->
+            <!--android:textAppearance="?android:textAppearanceLarge" />-->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
+            app:srcCompat= "@mipmap/logo" />
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:foreground="?android:attr/selectableItemBackground"
             >
@@ -60,3 +73,5 @@
     </TableRow>
 
 </TableLayout>
+    <include layout="@layout/divider"/>
+</LinearLayout>
