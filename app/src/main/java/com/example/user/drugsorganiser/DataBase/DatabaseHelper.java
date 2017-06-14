@@ -29,7 +29,7 @@ import java.sql.SQLException;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "drugorganiser.db";
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 15;
 
     private Dao<User, Integer> userDao;
     private Dao<Drug, Integer> drugDao;
