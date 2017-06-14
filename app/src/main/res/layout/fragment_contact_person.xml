@@ -57,12 +57,14 @@
         android:layout_height="50dp"
         android:id="@+id/call_contact"
         android:text="@string/call_contact_person"
+        android:background="@color/colorAccent"
         android:layout_marginBottom="10dp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/change_contact"
+        android:background="@color/colorAccent"
         android:text="@string/change_contact_person"/>
 </LinearLayout>
 </ScrollView>

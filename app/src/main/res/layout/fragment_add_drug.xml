@@ -97,17 +97,22 @@ android:layout_height="wrap_content">
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="0, 1"
+        android:stretchColumns="0, 2"
         android:orientation="horizontal" >
         <TableRow >
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/negative_button"
+                android:background="@color/colorAccent"
+                android:backgroundTint="@color/colorBackground"
                 android:text="@string/negative_button"/>
+            <TextView android:layout_width="10dp" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorBackground"
+                android:background="@color/colorAccent"
                 android:id="@+id/positive_button"
                 android:text="@string/positive_button"/>
         </TableRow>

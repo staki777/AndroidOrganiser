@@ -2,6 +2,7 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -24,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:stretchColumns="0, 1">
+        android:stretchColumns="0, 2">
 
         <TableRow>
 
@@ -32,12 +33,15 @@
                 android:id="@+id/reject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
                 android:text="@string/resign" />
+            <TextView android:layout_width="10dp" />
 
             <Button
                 android:id="@+id/accept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
                 android:text="@string/confirm" />
         </TableRow>
 

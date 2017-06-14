@@ -3,7 +3,9 @@
     <color name="colorPrimary">#26a69a</color>
     <color name="colorPrimaryDark">#004d40</color>
     <color name="textColor">#424242</color>
-    <color name="colorAccent">#ffca28</color>
+    <!--<color name="colorAccent">#ffca28</color>-->
+    <color name="colorAccent">#26b69a</color>
+
     <color name="colorGray">#d3d3d3</color>
 
     <!--<color name="colorButtonIcon">#FFFFFF</color>-->
