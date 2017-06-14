@@ -28,7 +28,7 @@ public class RegularDose implements Serializable {
     public Drug drug;
 
     @DatabaseField(columnName = INTERVAL_COLUMN)
-    public String interval;
+    public int interval;
 
     @DatabaseField(columnName = MINUTE_COLUMN)
     public int minute; // minute of hour
@@ -47,7 +47,7 @@ public class RegularDose implements Serializable {
 
     public RegularDose() {}
 
-    public RegularDose(Drug drug, String interval, int minute, int hour, int weekDay, int monthDay, int month) {
+    public RegularDose(Drug drug, int interval, int minute, int hour, int weekDay, int monthDay, int month) {
         this.drug = drug;
         this.interval = interval;
         this.minute = minute;

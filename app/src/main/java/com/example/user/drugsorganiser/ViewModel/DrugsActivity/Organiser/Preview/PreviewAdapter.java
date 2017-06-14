@@ -68,7 +68,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewViewHolder> {
             if (term.month < 10)
                 mon = "0" + Integer.toString(term.month);
             else mon = Integer.toString(term.month);
-            if(term.interval==daysOfWeek[0])
+            if(term.interval==0)
                 holder.itemDateView.setText(Integer.toString(term.hour) +":"+ minute);
             else if(term.weekDay == -1)
                 if(term.month == -1)
