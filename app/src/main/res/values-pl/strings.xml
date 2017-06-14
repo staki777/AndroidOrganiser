@@ -42,6 +42,8 @@
     <string name="yes_button">Tak</string>
     <string name="no_button">Nie</string>
     <string name="FewTimesPer">Kilka razy na:</string>
+    <string name="FewTimesPer2">kilka razy na</string>
+    <string name="Frequency">Częstotliwość:</string>
     <string name="chooseFrequency">Wybierz częstotliwość:</string>
     <string name="addANewTerm">DODAJ NOWY TERMIN</string>
     <string name="terms">Terminy:</string>

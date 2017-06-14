@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/regular_freq_prev">
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/NormalTextStyle"
+            android:text="@string/Frequency"
+            />
+        <TextView
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/FewTimesPer2"
+            style="@style/NormalTextStyle" />
+        <TextView
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_FewTimesPer_unit"
+            style="@style/NormalTextStyle" />
+    </LinearLayout></LinearLayout>

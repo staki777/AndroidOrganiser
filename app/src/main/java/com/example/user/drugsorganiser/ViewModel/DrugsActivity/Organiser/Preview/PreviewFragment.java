@@ -61,6 +61,9 @@ public class PreviewFragment extends BaseDrugsActivityFragment implements View.O
             info.setText(getResources().getString(R.string.add_info));
             info.setTextColor(getResources().getColor(R.color.colorGray));
         }
+        if(drugToView.dosesSeriesType == 0){
+            activity().replaceWithNew(R.id.freq_prev, new RegularFrequencyFragment(),false);
+        }
         dosage_type.setText(dosageTypesArr[drugToView.dosesSeriesType]);
         if(drugToView.dosesSeriesType == 0 || drugToView.dosesSeriesType == 2) {
             Log.i("PreviewFragment", "replace");
