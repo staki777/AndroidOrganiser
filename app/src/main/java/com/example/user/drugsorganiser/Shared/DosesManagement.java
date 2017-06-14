@@ -101,7 +101,7 @@ public class DosesManagement {
         List<Pair<Drug, DateTime>> rds = new ArrayList<>();
         for(Drug d : u.drugs) {
             for (RegularDose rd : d.regularDoses) {
-                if (rd.interval.contentEquals("day")) {
+                if (rd.interval == 0) {
                     DateTime date = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), rd.hour, rd.minute);
                     if(date.isAfter(now)) {
                         rds.add(new Pair<Drug, DateTime>(rd.drug, date));
@@ -113,7 +113,7 @@ public class DosesManagement {
                         Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
                     }
 
-                } else if (rd.interval.contentEquals("week")) {
+                } else if (rd.interval == 1) {
                     if (now.getDayOfWeek() == rd.weekDay) {
                         DateTime date = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), rd.hour, rd.minute);
                         if(date.isAfter(now)) {
@@ -128,7 +128,7 @@ public class DosesManagement {
                             Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
                         }
                     }
-                } else if (rd.interval.contentEquals("month")) {
+                } else if (rd.interval == 2) {
                     if (now.getDayOfMonth() == rd.monthDay) {
                         DateTime date = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), rd.hour, rd.minute);
                         if(date.isAfter(now)) {
@@ -143,7 +143,7 @@ public class DosesManagement {
                             Log.i("DosesManagement", "Date added: " + UniversalMethods.DateTimeToString(date));
                         }
                     }
-                } else if (rd.interval.contentEquals("year")) {
+                } else if (rd.interval == 3) {
                     if (now.getMonthOfYear() == rd.month && now.getDayOfMonth() == rd.monthDay) {
                         DateTime date = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), rd.hour, rd.minute);
                         if(date.isAfter(now)) {

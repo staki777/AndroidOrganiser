@@ -55,8 +55,7 @@ public class DateTimeRegularDosageFragment1 extends BaseDrugsActivityFragment im
         if(v == positiveBtn){
             Drug editedDrug = activity().getEditedDrug();
             TermAdapterRegular termAdapter = new TermAdapterRegular(editedDrug, getActivity());
-            String[] array = getResources().getStringArray(R.array.time_array);
-            termAdapter.addItem(new RegularDose(editedDrug, array[1],tp.getCurrentMinute(),tp.getCurrentHour(),picker.getValue(),-1,-1));
+           termAdapter.addItem(new RegularDose(editedDrug, 1,tp.getCurrentMinute(),tp.getCurrentHour(),picker.getValue(),-1,-1));
             activity().onBackPressed();
 
         }

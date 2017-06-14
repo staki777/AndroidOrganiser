@@ -54,6 +54,7 @@
     <string name="chooseDayOfMonth">Wybierz dzień miesiąca:</string>
     <string name="chooseDayOfWeek">Wybierz dzień tygodnia:</string>
     <string name="add_new_drug">Dodaj nowy lek</string>
+    <string name="add_info">brak</string>
     <string name="edit_drug">Edycja leku</string>
     <string name="confirm">Potwierdź</string>
     <string name="resign">Zrezygnuj</string>
