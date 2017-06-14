@@ -100,11 +100,11 @@
     </string-array>
 
     <string-array name="time_units_array">
-        <item>minut</item>
-        <item>godzin</item>
+        <item>minut(-y)</item>
+        <item>godzin(-y)</item>
         <item>dni</item>
-        <item>miesięcy</item>
-        <item>lat</item>
+        <item>miesięcy(-ące)</item>
+        <item>lat(-a)</item>
     </string-array>
 
     <string-array name="time_array">

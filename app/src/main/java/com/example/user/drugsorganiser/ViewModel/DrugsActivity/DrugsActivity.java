@@ -1,6 +1,5 @@
 package com.example.user.drugsorganiser.ViewModel.DrugsActivity;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
@@ -150,7 +148,10 @@ public class DrugsActivity extends AppCompatActivity {
 
     public  void setAlarmForDose(SpecificDose specificDose){
         Log.i("DrugsActivity", "Alarm for dose: "+specificDose.toString()+" will be set.");
-        String comment = specificDose.drug.doseQuantity + " " +specificDose.drug.doseType +"\n"+specificDose.drug.comment;
+        String doseTypeName = doseTypes.itemAtIndex(specificDose.drug.doseType);
+        if(specificDose.drug.doseType == doseTypes.getPositionOfOther())
+            doseTypeName = specificDose.drug.customDoseType;
+        String comment = specificDose.drug.doseQuantity + " " + doseTypeName +"\n"+specificDose.drug.comment;
         specificDose.alarmId = startOnetimeAlarm(getCurrentFocus(), specificDose.drug.name, comment, specificDose.doseDate.getMillis());
         if (specificDose.alarmId == -1) {
             specificDose.alarmId = 0;
@@ -281,7 +282,7 @@ public class DrugsActivity extends AppCompatActivity {
         SmsManager smsManager = SmsManager.getDefault();
         String message = String.format(getString(R.string.alert_message), userName, drugName);
         Log.i("AlarmActivity", message);
-        //smsManager.sendTextMessage(user.contactNumber, null, message, null, null);
+        smsManager.sendTextMessage(user.contactNumber, null, message, null, null);
         String comment = String.format(getString(R.string.alert_notification_comment), userName);
         String details = String.format(getString(R.string.sms_alert_details), drugName, description, UniversalMethods.DateTimeToString(new DateTime()));
         NotificationManagement.CreateNotification(getApplicationContext(), getString(R.string.app_name), comment, DrugsActivity.class, 1, 1001, 1, details);
@@ -369,13 +370,7 @@ public class DrugsActivity extends AppCompatActivity {
         return doseTypes;
     }
 
-    @TargetApi(17)
-    private void getLocale(){
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        android.content.res.Configuration conf = getResources().getConfiguration();
-      //  Log.i("DrugsActivity", "Locale: "+conf.);
 
-    }
 
 
 }
