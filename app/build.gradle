@@ -36,5 +36,9 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'joda-time:joda-time:2.9.9'
     testCompile 'junit:junit:4.12'
-    androidTestCompile 'org.robolectric:robolectric:3.0'
+    // Espresso UI Testing
+//    androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
+// Optional if you need to detect intents.
+  //  androidTestCompile "com.android.support.test.espresso:espresso-intents:2.2.1"
+  //  androidTestCompile 'org.robolectric:robolectric:3.0'
 }

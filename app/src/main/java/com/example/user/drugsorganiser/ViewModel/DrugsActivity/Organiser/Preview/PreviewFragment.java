@@ -48,8 +48,11 @@ public class PreviewFragment extends BaseDrugsActivityFragment implements View.O
         drugToView = activity().getEditedDrug();
         myDrug = drugToView;
         name.setText(drugToView.name);
-        dose_c.setText(String.valueOf(drugToView.doseQuantity));
-        dose_type.setText(drugToView.doseType);
+        dose_c.setText(""+drugToView.doseQuantity);
+        String doseName = activity().getDoseTypes().itemAtIndex(drugToView.doseType);
+        if(drugToView.doseType == activity().getDoseTypes().getPositionOfOther())
+            doseName = drugToView.customDoseType;
+        dose_type.setText(doseName);
         info.setText(drugToView.comment);
 
         if(drugToView.important == true)
